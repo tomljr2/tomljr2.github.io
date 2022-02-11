@@ -26,7 +26,7 @@ en: &DEFAULT_EN
 
   about:
     title: "Undergrad"
-    text: "Florida State University - 2016-2018"
+    text: "Florida State University 2016-2018"
     body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde. **Markdown** supported."
     section: about
 
