@@ -22,7 +22,7 @@ en: &DEFAULT_EN
     - title: "Research"
       section: team
     - title: "Internships"
-      section: contact
+      section: portfolio
 en-US:
   <<: *DEFAULT_EN
 en-CA:
