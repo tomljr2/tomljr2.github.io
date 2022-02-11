@@ -14,7 +14,7 @@ en: &DEFAULT_EN
     - title: "Bio"
       section: team
     - title: "Undergrad"
-      section: portfolio
+      section: about
     - title: "Graduate"
       section: about
     - title: "Ph.D."
