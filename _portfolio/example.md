@@ -1,8 +1,8 @@
 ---
 caption: #what displays in the portfolio grid:
-  title: Example
-  subtitle: subtitle
-  thumbnail: https://place-hold.it/400x300
+  title: Compiler Internship
+  subtitle: Gothenburg, Sweden 2018
+  thumbnail: ../assets/img/justin.jpg
   
 #what displays when the item is clicked:
 title: Title
