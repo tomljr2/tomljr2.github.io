@@ -13,9 +13,9 @@ en: &DEFAULT_EN
   header:
     text: Justin Tomlinson
     button: Learn More
-    buttonlink: "#bio"
+    buttonlink: "#team"
     
-  bio:
+  team:
     title: "Bio"
     subtext: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde. **Markdown** supported.
     section: team
