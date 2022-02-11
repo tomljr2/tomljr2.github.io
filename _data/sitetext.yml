@@ -99,7 +99,7 @@ en: &DEFAULT_EN
     people:
       - name: "Justin Tomlinson"
         role: "Ph.D. Student / Software Engineer"
-        image: assets/img/team/me.jpg
+        image: assets/img/justin.jpg
 
   contact:
     title: "Contact Us"
