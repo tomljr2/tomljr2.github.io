@@ -31,7 +31,7 @@ en: &DEFAULT_EN
     section: about
 
   portfolio:
-    title: "Portfolio"
+    title: "Internships"
     text: "Lorem ipsum dolor sit amet consectetur."
     section: portfolio
     closebutton: "Close Project"
