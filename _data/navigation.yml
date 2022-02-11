@@ -12,7 +12,7 @@
 en: &DEFAULT_EN
   nav:
     - title: "Bio"
-      section: services
+      section: team
     - title: "Undergrad"
       section: portfolio
     - title: "Graduate"
