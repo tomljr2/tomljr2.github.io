@@ -13,7 +13,16 @@ en: &DEFAULT_EN
   header:
     text: Justin Tomlinson
     button: Learn More
-    buttonlink: "#services"
+    buttonlink: "#bio"
+    
+  bio:
+    title: "Bio"
+    subtext: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde. **Markdown** supported.
+    section: team
+    people:
+      - name: "Justin Tomlinson"
+        role: "Ph.D. Student / Software Engineer"
+        image: assets/img/justin.jpg
 
   services:
     title: "Services"
@@ -90,16 +99,6 @@ en: &DEFAULT_EN
       - title: "Creative Market"
         url: https://github.com/raviriley/agency-jekyll-theme
         logo: assets/img/clients/creative-market.jpg
-
-  team:
-    title: "Bio"
-    text: "Lorem ipsum dolor sit amet consectetur."
-    subtext: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde. **Markdown** supported.
-    section: team
-    people:
-      - name: "Justin Tomlinson"
-        role: "Ph.D. Student / Software Engineer"
-        image: assets/img/justin.jpg
 
   contact:
     title: "Contact Us"
