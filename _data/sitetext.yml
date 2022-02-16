@@ -55,7 +55,6 @@ en: &DEFAULT_EN
 
   portfolio:
     title: "Internships"
-    text: "Lorem ipsum dolor sit amet consectetur."
     section: portfolio
     closebutton: "Close Project"
 
