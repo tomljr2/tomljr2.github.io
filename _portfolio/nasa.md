@@ -6,7 +6,7 @@ caption: #what displays in the portfolio grid:
   
 #what displays when the item is clicked:
 title: NASA Internship
-subtitle: Fall 2020-Spring 2021
+subtitle: Fall 2020 - Spring 2021
 image: ../assets/img/nasa.png #main image, can be a link or a file in assets/img/portfolio
 alt: image alt text
 
