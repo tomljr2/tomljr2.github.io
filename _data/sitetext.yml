@@ -29,9 +29,9 @@ en: &DEFAULT_EN
     title: "Undergrad"
     text: "Florida State University 2016-2018<br/><br/>GPA - 3.76"
     body: "I completed my Bachelor's degree in Computer Science at Florida State University. During my time there, I learned the foundations of the area of Computer Science and excelled academically.<br/><br/>
-      - Graduated Magna Cum Laude
-      - President’s List **x1**
-      - Dean’s List **x3**
+      - Graduated Magna Cum Laude<br/>
+      - President’s List **x1**<br/>
+      - Dean’s List **x3**<br/>
     <br/><br/>I created the first implementation of an application used to help Tallahassee first responders and continued to work on the development for a brief period of time. Additionally, I was offered a role to perform compiler research in Sweden, in which I accepted and completed."
     section: about
 
