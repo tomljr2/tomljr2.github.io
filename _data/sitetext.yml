@@ -47,6 +47,11 @@ en: &DEFAULT_EN
     body: "As a Ph.D. student I am furthering my knowledge in the field of Computer Science and conducting research with the Florida Institute for Cybersecurity Research on attacks against mobile devices and networks."
     section: phd
 
+  research:
+    title: "Research"
+    body: ""
+    section: research
+
   portfolio:
     title: "Internships"
     text: "Lorem ipsum dolor sit amet consectetur."
