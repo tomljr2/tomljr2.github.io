@@ -11,6 +11,8 @@ image: ../assets/img/sweden.jpg #main image, can be a link or a file in assets/i
 alt: image alt text
 
 ---
+**Summer 2018**
+
 The beginning of this research started with implementing compiler optimizations in the Very Portable Optimizer (VPO) compiler, namely loop unrolling. Following that, I was tasked with performing peer programming to work on detecting global variable dependencies to overlap execution of functions and determine which compiler optimizations could be used.
 
   - Exposure to compilers and low-level programming
