@@ -49,8 +49,8 @@ en: &DEFAULT_EN
 
   research:
     title: "Research"
-    body: "**Header1**<br/><br/>blah1"
-    body2: "**Header2**<br/><br/>blah2"
+    body: "**Failures of Android Face Unlock**<br/>*2019-2020*<br/><br/>This work was an introduction into mobile security and Android biometrics for me. I looked into weaknesses of all of the biometric authentication methods that Android offered and found that facial recognition was the weakest of them all.<br/><br/>This work led to discoveries that Android's facial recognition could be broken by simply using a single picture of the phone's owner as well as suggestions as to fix this issue."
+    body2: "**Marlin: Detecting IMSI Catchers**<br/>*2021-Present*<br/><br/>This is the first research that I was exposed to as a Ph.D. student and it led to an entirely different realm of mobile security.<br/><br/>While this is still a work in progress, this work consists of looking at messages passed between cell phone towers and cell phones to detect an adversarial device known as an IMSI catcher that can track a phone using an identifier in a SIM card by pretending to be a real cell phone tower."
     section: research
 
   portfolio:
