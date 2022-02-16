@@ -41,6 +41,12 @@ en: &DEFAULT_EN
     body: "During my time at the University of Florida, I accumulated knowledge on more advanced Computer Science topics including Advanced Data Structures, Computer Networks, Computer and Network Security, and Machine Learning.<br/><br/>Additionally, I worked with the Florida Institute for Cybersecurity Research on the security of the Android Face Recognition biometric. This work directly resulted in my acceptance into the Ph.D. program."
     section: grad
 
+  phd:
+    title: "PHD"
+    text: "University of Florida 2021-Present"
+    body: "As a Ph.D. student I am furthering my knowledge in the field of Computer Science and conducting research with the Florida Institute for Cybersecurity Research on attacks against mobile devices and networks."
+    section: phd
+
   portfolio:
     title: "Internships"
     text: "Lorem ipsum dolor sit amet consectetur."
