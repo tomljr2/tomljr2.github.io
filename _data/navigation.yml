@@ -16,7 +16,7 @@ en: &DEFAULT_EN
     - title: "Undergrad"
       section: about
     - title: "Graduate"
-      section: about
+      section: grad
     - title: "Ph.D."
       section: timeline
     - title: "Research"
