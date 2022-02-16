@@ -49,7 +49,8 @@ en: &DEFAULT_EN
 
   research:
     title: "Research"
-    body: ""
+    body: "**Header1**<br/><br/>blah1"
+    body2: "**Header2**<br/><br/>blah2"
     section: research
 
   portfolio:
