@@ -17,7 +17,8 @@ en: &DEFAULT_EN
     
   team:
     title: "Bio"
-    subtext: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde. **Markdown** supported.
+    subtext: With a wide variety of experiences, I have many skills to have a solid foundation coming into any area. With my desire to learn, I am comfortable putting in any amount of effort to become familiar with a new talent that will be used to complete tasks assigned to me.<br/>I can work well with others and communicate to get the most of myself and my peers. I always push to be my best and strive for excellence with every problem that I encounter.
+
     section: team
     people:
       - name: "Justin Tomlinson"
