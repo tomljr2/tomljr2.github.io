@@ -18,7 +18,7 @@ The beginning of this research started with implementing compiler optimizations 
   - Exposure to compilers and low-level programming
   - Implementation of compiler optimization techniques
 
-*Technologies include*
+*Technologies include:*
 
   - VPO Compiler
   - C / C++
