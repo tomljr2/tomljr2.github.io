@@ -18,7 +18,7 @@ en: &DEFAULT_EN
     - title: "Graduate"
       section: grad
     - title: "Ph.D."
-      section: timeline
+      section: phd
     - title: "Research"
       section: team
     - title: "Internships"
