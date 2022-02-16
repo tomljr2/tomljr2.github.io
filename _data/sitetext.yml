@@ -36,13 +36,9 @@ en: &DEFAULT_EN
     section: about
 
   grad:
-    title: "Grad"
-    text: "Florida State University 2016-2018<br/><br/>GPA - 3.76"
-    body: "I completed my Bachelor's degree in Computer Science at Florida State University. During my time there, I learned the foundations of the area of Computer Science and excelled academically.<br/><br/>
-      - Graduated Magna Cum Laude<br/>
-      - President’s List **x1**<br/>
-      - Dean’s List **x3**
-    <br/><br/>I created the first implementation of an application used to help Tallahassee first responders and continued to work on the development for a brief period of time. Additionally, I was offered a role to perform compiler research in Sweden, in which I accepted and completed."
+    title: "Graduate"
+    text: "University of Florida 2018-2020<br/><br/>GPA - 3.64"
+    body: "During my time at the University of Florida, I accumulated knowledge on more advanced Computer Science topics including Advanced Data Structures, Computer Networks, Computer and Network Security, and Machine Learning.<br/><br/>Additionally, I worked with the Florida Institute for Cybersecurity Research on the security of the Android Face Recognition biometric. This work directly resulted in my acceptance into the Ph.D. program."
     section: grad
 
   portfolio:
