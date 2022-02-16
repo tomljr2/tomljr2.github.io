@@ -20,7 +20,7 @@ en: &DEFAULT_EN
     - title: "Ph.D."
       section: phd
     - title: "Research"
-      section: team
+      section: research
     - title: "Internships"
       section: portfolio
 en-US:
