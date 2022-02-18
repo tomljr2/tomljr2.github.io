@@ -10,7 +10,7 @@ background: grey
 
 This Privacy Policy describes how your personal information is collected, used, and shared when you visit this website.
 
-**PERSONAL INFORMATION WE COLLECT**
+**PERSONAL INFORMATION COLLECTED**
 
 {% if site.analytics.google %}
 
@@ -34,6 +34,6 @@ No data about you is collected and no cookies are in use.
 
 This privacy policy may be updated from time to time for personal, operational, legal, or regulatory reasons.
 
-**CONTACT US**
+**CONTACT**
 
 For more information about privacy practices or if you have questions, please contact me by email at <a href="mailto:{{ site.email }}">{{ site.email }}</a>.
