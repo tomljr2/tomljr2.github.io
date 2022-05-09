@@ -17,7 +17,7 @@ en: &DEFAULT_EN
     
   team:
     title: "Bio"
-    subtext: My name is Justin Tomlinson and I am a recently graduated Master's student who is currently enrolled with the University of Florida as a Ph.D. student. My passions in life are academics and computer science and I love being able to combine them into one role that I do everyday.<br/><br/>I have experience in many areas of Computer Science and I am familiar with various programming languages. If I am not familiar with a language or skill, I have the work ethic and the willingness to learn anything that poses a challenge to me.
+    subtext: My name is Justin Tomlinson and I am a software engineer at Liberty Mutual. My passions in life are academics and computer science and I love being able to combine them into one role that I do everyday.<br/><br/>I have experience in many areas of Computer Science and I am familiar with various programming languages. If I am not familiar with a language or skill, I have the work ethic and the willingness to learn anything that poses a challenge to me.
 
     section: team
     people:
@@ -42,15 +42,15 @@ en: &DEFAULT_EN
     section: grad
 
   phd:
-    title: "Ph.D."
-    text: "University of Florida 2021-Present"
-    body: "As a Ph.D. student I am furthering my knowledge in the field of Computer Science and conducting research with the Florida Institute for Cybersecurity Research on attacks against mobile devices and networks."
+    title: "Ph.D. Research"
+    text: "University of Florida 2021-2022"
+    body: "During my time as a Ph.D. student I was furthering my knowledge in the field of Computer Science and conducting research with the Florida Institute for Cybersecurity Research on attacks against mobile devices and networks. However, I decided to pursue new career opportunities and ultimately left the program."
     section: phd
 
   research:
     title: "Research"
     body: "[**Failures of Android Face Unlock**](https://github.com/tomljr2/How-To-Bypass-Android-Biometrics)<br/>*2019-2020*<br/><br/>This work was an introduction into mobile security and Android biometrics for me. I looked into weaknesses of all of the biometric authentication methods that Android offered and found that facial recognition was the weakest of them all.<br/><br/>This work led to discoveries that Android's facial recognition could be broken by simply using a single picture of the phone's owner as well as suggestions as to fix this issue."
-    body2: "**Marlin: Detecting IMSI Catchers**<br/>*2021-Present*<br/><br/>This is the first research that I was exposed to as a Ph.D. student and it led to an entirely different realm of mobile security.<br/><br/>While this is still a work in progress, this work consists of looking at messages passed between cell phone towers and cell phones to detect an adversarial device known as an IMSI catcher that can track a phone using an identifier in a SIM card by pretending to be a real cell phone tower."
+    body2: "**Marlin: Detecting IMSI Catchers**<br/>*2021-2022*<br/><br/>This is the first research that I was exposed to as a Ph.D. student and it led to an entirely different realm of mobile security.<br/><br/>While this is still a work in progress, this work consists of looking at messages passed between cell phone towers and cell phones to detect an adversarial device known as an IMSI catcher that can track a phone using an identifier in a SIM card by pretending to be a real cell phone tower."
     section: research
 
   portfolio:
