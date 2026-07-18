@@ -3,337 +3,794 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F2ECDC">
     <title>Justin Tomlinson | Principal Software Engineer</title>
+    <meta name="description" content="Justin Tomlinson is a Principal Software Engineer at Liberty Mutual Insurance, working on property claims systems and applied AI, with a background in cybersecurity research and NASA aerospace software.">
+    <meta property="og:title" content="Justin Tomlinson | Principal Software Engineer">
+    <meta property="og:description" content="Principal Software Engineer building claims automation and applied AI systems, with a background in cybersecurity research and NASA aerospace software.">
+    <meta property="og:type" content="website">
     <style>
-        :root {
-            --bg-page: #f0f4f8;
-            --text-dark: #0f172a;
-            --text-light: #475569;
-            --glass-white: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.7);
-            
-            --gradient-blue: linear-gradient(135deg, #0078d4 0%, #00bcf2 100%);
-            --gradient-orange: linear-gradient(135deg, #ff8c00 0%, #ff4343 100%);
-            --gradient-purple: linear-gradient(135deg, #8764b8 0%, #b4a0ff 100%);
-            --gradient-gold: linear-gradient(135deg, #ffb900 0%, #ff8c00 100%);
-            --gradient-teal: linear-gradient(135deg, #00a36c 0%, #00d2ff 100%);
-            --gradient-garnet: linear-gradient(135deg, #782f40 0%, #ce1126 100%);
-            
-            --gradient-twitter: linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%);
-            --gradient-linkedin: linear-gradient(135deg, #0077b5 0%, #005a87 100%);
-            --gradient-github: linear-gradient(135deg, #24292e 0%, #444d56 100%);
-            --gradient-instagram: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            --gradient-facebook: linear-gradient(135deg, #1877F2 0%, #0e52a5 100%);
+    :root {
+        --cream: #F2ECDC;
+        --cream-alt: #E9E1CC;
+        --ink: #1A1714;
+        --ink-soft: #57504A;
+        --red: #FC3D21;
+        --red-deep: #C22C15;
+        --rule: rgba(26,23,20,0.18);
+        --rule-soft: rgba(26,23,20,0.1);
+
+        --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        --font-mono: 'Courier New', Courier, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+    body {
+        font-family: var(--font-sans);
+        background: var(--cream);
+        color: var(--ink);
+        margin: 0;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+    a:focus-visible, summary:focus-visible, button:focus-visible {
+        outline: 2px solid var(--red);
+        outline-offset: 3px;
+    }
+
+    /* ---------------------------------------------------------
+       GRAIN OVERLAY
+    --------------------------------------------------------- */
+    .grain {
+        position: fixed; inset: 0; z-index: 1001; pointer-events: none;
+        filter: url(#grainFilter);
+        mix-blend-mode: multiply;
+        opacity: 0.55;
+    }
+
+    /* ---------------------------------------------------------
+       SCROLL PROGRESS (lives inside the fixed nav)
+    --------------------------------------------------------- */
+    .nav-progress {
+        position: absolute; bottom: -2px; left: 0; height: 2px; width: 0%;
+        background: var(--red);
+        transition: width 0.08s linear;
+    }
+
+    /* ---------------------------------------------------------
+       NAVIGATION
+    --------------------------------------------------------- */
+    .top-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+        display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+        padding: 0.9rem 2.5rem;
+        background: rgba(242, 236, 220, 0.92);
+        border-bottom: 1.5px solid var(--ink);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.5px; white-space: nowrap; }
+    .nav-brand .mark {
+        width: 32px; height: 32px; border-radius: 50%;
+        border: 1.5px solid var(--ink);
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--font-mono); font-weight: 700; font-size: 0.68rem;
+        flex-shrink: 0;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { font-size: 0.8rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-cta {
+        font-size: 0.76rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+        padding: 0.6rem 1.2rem;
+        background: var(--red); color: var(--cream); border: 1.5px solid var(--ink);
+        text-decoration: none; white-space: nowrap;
+        transition: background 0.2s ease;
+    }
+    .nav-cta:hover { background: var(--red-deep); }
+    .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 0; }
+    .nav-toggle span { width: 20px; height: 2px; background: var(--ink); margin: 0 auto; transition: transform 0.3s ease, opacity 0.3s ease; }
+    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+        .nav-links {
+            display: none; position: fixed; top: 66px; left: 1rem; right: 1rem;
+            flex-direction: column; align-items: flex-start; gap: 1.1rem;
+            background: var(--cream); border: 1.5px solid var(--ink);
+            padding: 1.5rem 1.7rem; box-shadow: 6px 6px 0 rgba(26,23,20,0.15);
         }
+        .nav-links.mobile-open { display: flex; }
+        .nav-cta { display: none; }
+        .nav-toggle { display: flex; }
+    }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-page);
-            color: var(--text-dark);
-            margin: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    /* ---------------------------------------------------------
+       MARGIN LABEL: a large rotated section name in the right
+       margin, crossfading as you scroll from section to section.
+       Pure typography, no illustration involved.
+    --------------------------------------------------------- */
+    .margin-label {
+        display: none;
+        position: fixed; top: 50%; right: 60px;
+        transform: translateY(-50%);
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-family: var(--font-sans);
+        font-size: clamp(3.2rem, 7.5vh, 5.5rem); font-weight: 700; letter-spacing: 1px;
+        text-transform: uppercase;
+        color: transparent;
+        -webkit-text-stroke: 1.5px var(--ink);
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 5;
+        transition: opacity 0.35s ease;
+    }
+    @media (min-width: 1780px) { .margin-label { display: block; } }
+    body[data-zone="contact"] .margin-label { -webkit-text-stroke: 0; color: var(--red); opacity: 0.3; }
 
-        .ambient-sphere {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: -1;
-            opacity: 0.4;
-        }
-        .sphere-1 { width: 50vw; height: 50vw; background: #0078d4; top: -10vw; right: -10vw; }
-        .sphere-2 { width: 40vw; height: 40vw; background: #ff8c00; bottom: -10vw; left: -10vw; }
+    /* ---------------------------------------------------------
+       HERO
+    --------------------------------------------------------- */
+    header { padding: 9.5rem 2rem 4.5rem; text-align: center; }
 
-        header {
-            padding: 10rem 2rem 4rem;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(240,244,248,0) 100%);
-            backdrop-filter: blur(10px);
-        }
+    .hero-doc-id { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 1.5px; color: var(--ink-soft); margin-bottom: 1.4rem; }
 
-        header h1 {
-            font-size: 4.5rem;
-            margin: 0;
-            letter-spacing: -2.5px;
-            font-weight: 800;
-            background: linear-gradient(90deg, #1e293b, #334155);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    header h1 {
+        font-family: var(--font-sans);
+        font-size: 5rem; margin: 0; font-weight: 700; letter-spacing: -2px;
+        color: var(--ink);
+    }
 
-        header p {
-            font-size: 1.4rem;
-            font-weight: 400;
-            color: #0078d4;
-            margin-top: 0.5rem;
-        }
+    .hero-role { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; letter-spacing: 1px; color: var(--red); margin-top: 1rem; min-height: 1.4em; }
+    .hero-role .cursor { display: inline-block; width: 2px; background: var(--red); margin-left: 2px; animation: blink 1s step-end infinite; }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    .hero-status-row { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+    .status-chip {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.4px;
+        color: var(--ink);
+        border: 1.5px solid var(--ink);
+        padding: 0.5rem 0.9rem;
+    }
+    .status-chip .sq { width: 7px; height: 7px; background: var(--red); flex-shrink: 0; }
 
-        section { margin-bottom: 8rem; }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.4rem; }
 
-        .label {
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #64748b;
-            margin-bottom: 3rem;
-            display: block;
-            text-align: center;
-        }
+    .btn-primary, .btn-ghost {
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+        padding: 0.9rem 1.8rem; text-decoration: none; border: 1.5px solid var(--ink);
+        transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .btn-primary { background: var(--red); color: var(--cream); border-color: var(--ink); }
+    .btn-primary:hover { background: var(--red-deep); transform: translate(-2px,-2px); }
+    .btn-primary svg { width: 15px; height: 15px; fill: none; stroke: var(--cream); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-ghost { background: transparent; color: var(--ink); }
+    .btn-ghost:hover { background: var(--ink); color: var(--cream); transform: translate(-2px,-2px); }
 
-        .premium-card {
-            background: var(--glass-white);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 3.5rem;
-            margin-bottom: 4rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-            position: relative;
-            transition: all 0.3s ease;
-        }
+    .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin-top: 3.4rem; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 3px; color: var(--ink-soft); animation: bob 2.2s ease-in-out infinite; }
+    .scroll-hint svg { stroke: var(--ink-soft); fill: none; stroke-width: 2; width: 14px; height: 14px; }
 
-        .premium-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,1); }
+    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(6px); opacity: 1; } }
 
-        .date-badge {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-light);
-            border: 1px solid rgba(255,255,255,0.8);
-        }
+    /* ---------------------------------------------------------
+       LAYOUT / SECTIONS
+    --------------------------------------------------------- */
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+    section { margin-bottom: 7rem; }
 
-        .icon-lens {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .icon-lens svg { width: 32px; height: 32px; fill: white; }
+    .label {
+        font-family: var(--font-sans);
+        font-size: 0.8rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 3px;
+        color: var(--ink);
+        margin-bottom: 3rem; text-align: center;
+        position: relative;
+        padding-top: 2.2rem;
+        border-top: 1px solid var(--rule);
+    }
+    .label::after { content: ''; position: absolute; top: -1.5px; left: 50%; transform: translateX(-50%); width: 14px; height: 3px; background: var(--red); }
+    .label span.num { color: var(--red); margin-right: 0.6rem; }
 
-        .blue-accent .icon-lens { background: var(--gradient-blue); }
-        .orange-accent .icon-lens { background: var(--gradient-orange); }
-        .purple-accent .icon-lens { background: var(--gradient-purple); }
-        .gold-accent .icon-lens { background: var(--gradient-gold); }
-        .teal-accent .icon-lens { background: var(--gradient-teal); }
-        .garnet-accent .icon-lens { background: var(--gradient-garnet); }
+    /* ---------------------------------------------------------
+       PANELS
+    --------------------------------------------------------- */
+    .panel {
+        background: var(--cream-alt);
+        border: 1.5px solid var(--ink);
+        border-radius: 2px;
+        padding: 3.1rem;
+        margin-bottom: 3.25rem;
+        position: relative;
+        box-shadow: 7px 7px 0 rgba(26,23,20,0.1);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .panel:hover { transform: translate(-3px, -3px); box-shadow: 10px 10px 0 rgba(26,23,20,0.13); }
+    .panel.no-lift:hover { transform: none; box-shadow: 7px 7px 0 rgba(26,23,20,0.1); }
+    .panel.compact { padding: 2.2rem; margin-bottom: 0; }
 
-        .premium-card h3 { font-size: 1.9rem; margin: 0; font-weight: 700; padding-right: 140px; }
-        .org { font-weight: 600; font-size: 1rem; opacity: 0.8; display: block; margin-bottom: 1.5rem; }
+    .panel::before, .panel::after {
+        content: ''; position: absolute; width: 14px; height: 14px;
+        border: 1.5px solid var(--ink); pointer-events: none;
+    }
+    .panel::before { top: -1.5px; left: -1.5px; border-right: none; border-bottom: none; }
+    .panel::after { bottom: -1.5px; right: -1.5px; border-left: none; border-top: none; }
+    .panel.is-current::before, .panel.is-current::after { border-color: var(--red); }
 
-        .content { font-size: 1.1rem; color: var(--text-light); }
+    .date-badge {
+        position: absolute; top: 1.7rem; right: 1.7rem;
+        padding: 0.4rem 0.85rem;
+        border: 1.5px solid var(--ink);
+        font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.4px;
+        color: var(--ink); text-align: right;
+    }
+    .date-badge.current { border-color: var(--red); color: var(--red); }
 
-        /* Restored Drawer Styling */
-        details { margin-top: 2rem; border-top: 1px solid rgba(0,0,0,0.05); }
-        summary { padding: 1.2rem 0; cursor: pointer; font-weight: 700; color: var(--text-dark); outline: none; display: flex; align-items: center; gap: 10px; }
-        .drawer { padding-bottom: 1rem; font-size: 1rem; color: var(--text-light); }
-        .drawer ul { padding-left: 1.2rem; }
-        .drawer li { margin-bottom: 0.7rem; }
+    .current-flag {
+        position: absolute; top: 1.7rem; right: 1.7rem; transform: translateY(2.4rem);
+        font-family: var(--font-mono); font-size: 0.63rem; font-weight: 700; letter-spacing: 1.5px;
+        background: var(--red); color: var(--cream); padding: 0.2rem 0.5rem;
+    }
 
-        .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .icon-lens {
+        width: 54px; height: 54px;
+        border: 1.5px solid var(--ink);
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 1.4rem;
+    }
+    .icon-lens svg { width: 26px; height: 26px; fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .panel.is-current .icon-lens { border-color: var(--red); }
+    .panel.is-current .icon-lens svg { stroke: var(--red); }
 
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1.5rem;
-        }
+    .panel h3 { font-size: 1.55rem; margin: 0; font-weight: 700; padding-right: 130px; color: var(--ink); letter-spacing: -0.3px; }
+    .panel h4 { font-size: 1.15rem; margin: 0 0 0.2rem; font-weight: 700; color: var(--ink); padding-right: 90px; }
+    .org { font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem; color: var(--ink-soft); display: block; margin: 0.55rem 0 1.4rem; letter-spacing: 0.2px; }
 
-        .social-card {
-            padding: 2rem 1rem;
-            text-align: center;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .content { font-size: 1.02rem; color: var(--ink-soft); }
 
-        .social-card span { margin-top: 1rem; font-weight: 700; color: var(--text-dark); font-size: 0.9rem; }
-        .social-card .icon-lens { width: 50px; height: 50px; border-radius: 14px; margin-bottom: 0; }
-        .social-card .icon-lens svg { width: 24px; height: 24px; }
+    details { margin-top: 1.8rem; border-top: 1px solid var(--rule); }
+    summary { padding: 1.1rem 0; cursor: pointer; font-weight: 700; color: var(--ink); outline: none; display: flex; align-items: center; gap: 10px; list-style: none; font-size: 0.95rem; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: ''; width: 8px; height: 8px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: rotate(45deg); transition: transform 0.3s ease; margin-left: auto; }
+    details[open] summary::after { transform: rotate(-135deg); border-color: var(--red); }
+    .drawer { padding-bottom: 0.4rem; font-size: 0.97rem; color: var(--ink-soft); }
+    .drawer ul { padding-left: 1.15rem; margin-top: 0; }
+    .drawer li { margin-bottom: 0.7rem; }
+    .drawer-label { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-soft); margin: 1.3rem 0 0.6rem; }
 
-        .twitter-accent .icon-lens { background: var(--gradient-twitter); }
-        .linkedin-accent .icon-lens { background: var(--gradient-linkedin); }
-        .github-accent .icon-lens { background: var(--gradient-github); }
-        .instagram-accent .icon-lens { background: var(--gradient-instagram); }
-        .facebook-accent .icon-lens { background: var(--gradient-facebook); }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.3rem; }
+    .tag { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; padding: 0.32rem 0.7rem; border: 1px solid var(--ink); color: var(--ink); }
 
-        @media (max-width: 950px) {
-            .social-grid { grid-template-columns: repeat(3, 1fr); }
-            header h1 { font-size: 3.5rem; }
-        }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 1.6rem; }
 
-        @media (max-width: 600px) {
-            header h1 { font-size: 2.8rem; }
-            .premium-card { padding: 2.5rem; }
-            .date-badge { position: static; display: inline-block; margin-bottom: 1rem; }
-            .premium-card h3 { padding-right: 0; }
-            .edu-grid { grid-template-columns: 1fr; }
-            .social-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+    /* ---------------------------------------------------------
+       ABOUT
+    --------------------------------------------------------- */
+    .about-text p { margin-top: 0; margin-bottom: 1.2rem; max-width: 700px; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .stats-row { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 2.4rem; padding-top: 2.1rem; border-top: 1px solid var(--rule); }
+    .stat-number { display: block; font-size: 2.1rem; font-weight: 700; color: var(--red); letter-spacing: -0.5px; }
+    .stat-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.3rem; max-width: 170px; display: block; }
+
+    /* ---------------------------------------------------------
+       CONTACT
+    --------------------------------------------------------- */
+    .contact-details { display: flex; align-items: center; gap: 1.6rem; margin-top: 1.7rem; flex-wrap: wrap; }
+    .location-badge { display: flex; align-items: center; gap: 0.45rem; color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; }
+    .location-badge svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.3rem; margin-top: 2.3rem; }
+    .social-card { padding: 1.7rem 1rem; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; }
+    .social-card span { margin-top: 0.85rem; font-family: var(--font-mono); font-weight: 700; color: var(--ink-soft); font-size: 0.76rem; letter-spacing: 0.6px; }
+    .social-card .icon-lens { width: 46px; height: 46px; margin-bottom: 0; transition: border-color 0.2s ease; }
+    .social-card .icon-lens svg { width: 21px; height: 21px; fill: var(--ink); stroke: none; transition: fill 0.2s ease; }
+    .social-card:hover .icon-lens { border-color: var(--red); }
+    .social-card:hover .icon-lens svg { fill: var(--red); }
+
+    footer { text-align: center; padding: 3.5rem 2rem; }
+    .footer-mono { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 1.5px; color: var(--ink-soft); text-transform: uppercase; }
+
+    /* ---------------------------------------------------------
+       SCROLL REVEAL: clip-path wipe, not a generic fade
+    --------------------------------------------------------- */
+    .reveal { opacity: 0; clip-path: inset(0 100% 0 0); transition: opacity 0.55s ease, clip-path 0.85s cubic-bezier(0.65, 0, 0.35, 1); }
+    .reveal.visible { opacity: 1; clip-path: inset(0 0 0 0); }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal { opacity: 1; clip-path: inset(0 0 0 0); }
+        .margin-label { transition: none; }
+        *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    @media (max-width: 950px) {
+        .social-grid { grid-template-columns: repeat(3, 1fr); }
+        header h1 { font-size: 3.6rem; }
+    }
+
+    @media (max-width: 600px) {
+        header { padding-top: 8rem; }
+        header h1 { font-size: 2.7rem; }
+        .panel { padding: 2.1rem; }
+        .date-badge, .current-flag { position: static; display: inline-block; margin: 0 0 0.6rem; transform: none; }
+        .panel h3, .panel h4 { padding-right: 0; }
+        .edu-grid { grid-template-columns: 1fr; }
+        .social-grid { grid-template-columns: repeat(2, 1fr); }
+        .stats-row { gap: 2rem; }
+        .top-nav { padding: 0.75rem 1.25rem; }
+    }
+</style>
 </head>
 <body>
 
-<div class="ambient-sphere sphere-1"></div>
-<div class="ambient-sphere sphere-2"></div>
+<svg width="0" height="0" style="position:absolute">
+    <filter id="grainFilter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+        <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.09  0 0 0 0 0.08  0 0 0 0.07 0"/>
+    </filter>
+</svg>
+<div class="grain"></div>
 
-<header>
+<nav class="top-nav" id="topNav">
+    <a href="#" class="nav-brand"><span class="mark">JT</span> JUSTIN TOMLINSON</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-progress" id="navProgress"></div>
+</nav>
+
+<div class="margin-label" id="marginLabel">Home</div>
+
+<header id="hero">
+    <div class="hero-doc-id">DOC. JT&ndash;2026 &middot; REV. A</div>
     <h1>Justin Tomlinson</h1>
-    <p>Principal Software Engineer</p>
+    <div class="hero-role" id="heroRole" data-text="Principal Software Engineer">Principal Software Engineer</div>
+    <div class="hero-status-row">
+        <span class="status-chip"><i class="sq"></i>Systems Architecture</span>
+        <span class="status-chip"><i class="sq"></i>Cloud Infrastructure</span>
+        <span class="status-chip"><i class="sq"></i>Backend Engineering</span>
+    </div>
+    <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+            Get in Touch
+        </a>
+        <a href="https://www.linkedin.com/in/justin-tomlinson/" class="btn-ghost" target="_blank" rel="noopener">View LinkedIn</a>
+    </div>
+    <div class="scroll-hint">
+        <span>SCROLL</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
 </header>
 
 <div class="container">
 
-    <section>
-        <span class="label">Career Trajectory</span>
-
-        <div class="premium-card blue-accent">
-            <div class="date-badge">2022 — Present</div>
-            <div class="icon-lens">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+    <section id="about">
+        <div class="label reveal"><span class="num">01</span>About</div>
+        <div class="panel no-lift reveal">
+            <div class="content about-text">
+                <p>I am a Principal Software Engineer focused on building robust, scalable systems that bridge the gap between complex backend architecture and practical business value. My work is driven by a desire to understand systems from first principles—whether that's optimizing distributed claims infrastructure or engineering applied AI tools to accelerate expert decision-making.</p>
+                <p>My career has been defined by tackling high-stakes environments. From the precise, mission-critical demands of aerospace ground software to cybersecurity research on mobile network vulnerabilities, I prioritize system reliability and data-driven design. I am currently focused on the practical application of retrieval-augmented generation and agentic workflows, aiming to turn specialized domain knowledge into actionable, automated intelligence.</p>
             </div>
-            <h3>Principal Software Engineer</h3>
-            <span class="org">Liberty Mutual Insurance &bull; Remote</span>
-            <p class="content">Directing architectural integrity and engineering standards for distributed software ecosystems.</p>
-            <details>
-                <summary>Strategic Impact</summary>
-                <div class="drawer">
-                    <ul>
-                        <li>Managing complex software design patterns across cross-functional engineering teams.</li>
-                        <li>Driving the implementation of high-performance distributed systems architecture.</li>
-                        <li>Advocating for robust software development life cycles and engineering excellence.</li>
-                    </ul>
-                </div>
-            </details>
-        </div>
 
-        <div class="premium-card orange-accent">
-            <div class="date-badge">2020 — 2021</div>
-            <div class="icon-lens">
-                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-            </div>
-            <h3>NASA OSTEM Intern of the Year</h3>
-            <span class="org">Kennedy Space Center &bull; Artemis Program</span>
-            <p class="content">Engineered ground system software for the SLS rocket and the Artemis human spaceflight program.</p>
-            <details>
-                <summary>Mission Details</summary>
-                <div class="drawer">
-                    <ul>
-                        <li>Developed safety-critical functional tests for the launch control system.</li>
-                        <li>Standardized linting tools used by ground system engineers.</li>
-                        <li>Named <strong>Intern of the Year</strong> for significant codebase improvements.</li>
-                    </ul>
+            <!-- NEW: Animation area for current interests -->
+            <div class="stats-row">
+                <div class="stat-item" style="width: 100%;">
+                    <span class="stat-label">Currently focused on</span>
+                    <span class="stat-number" id="focusAnim" style="font-size: 1.6rem; color: var(--ink);">Retrieval-Augmented Generation</span>
                 </div>
-            </details>
+            </div>
         </div>
     </section>
 
-    <section>
-        <span class="label">Academic Research</span>
+    <section id="experience">
+        <div class="label reveal"><span class="num">02</span>Experience</div>
 
-        <div class="premium-card purple-accent">
-            <div class="date-badge">2021 — 2022</div>
+        <div class="panel is-current reveal">
+            <div class="date-badge current">MAY 2022 &ndash; PRESENT</div>
+            <div class="current-flag">CURRENT</div>
+            <div class="icon-lens">
+                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Principal Software Engineer</h3>
+            <span class="org">Liberty Mutual Insurance &middot; Remote</span>
+            <p class="content">Promoted from Software Engineer to Senior Software Engineer in 2023, then to Principal Software Engineer in 2025, roughly half the typical timeline for the track. I lead architecture and delivery for core systems across the property claims organization, mentor engineers, and work directly with business stakeholders on cost and ROI tradeoffs.</p>
+            <details>
+                <summary>Key Contributions</summary>
+                <div class="drawer">
+                    <ul>
+                        <li><strong>Generated $9M+ in annual savings</strong> by architecting a customer self-scheduling system for property claim inspections.</li>
+                        <li>Designed and maintain a rules engine that matches incoming property claims to adjusters, improving alignment under variable input quality.</li>
+                        <li>Led the decommissioning of a legacy third-party vendor system, addressing a major driver of adjuster attrition.</li>
+                        <li>Building an automated invoicing system for claim auto-adjudication.</li>
+                        <li>Developing a RAG-based agent to surface internal Liberty-specific domain knowledge.</li>
+                    </ul>
+                    <div class="drawer-label">Technologies</div>
+                    <div class="tag-list">
+                        <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">JavaScript</span><span class="tag">Node.js</span><span class="tag">React</span><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">CloudFormation</span><span class="tag">Kubernetes</span><span class="tag">Kafka</span><span class="tag">Jenkins</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="panel reveal">
+            <div class="date-badge">AUG 2021 &ndash; MAY 2022</div>
             <div class="icon-lens">
                 <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             </div>
-            <h3>PhD-Level Researcher</h3>
-            <span class="org">Florida Institute for Cybersecurity Research</span>
-            <p class="content">Conducted specialized research into cellular network vulnerabilities and biometric authentication failures.</p>
+            <h3>Graduate Research Assistant</h3>
+            <span class="org">Florida Institute for Cybersecurity Research (FICS), University of Florida</span>
+            <p class="content">PhD-track research studying how to detect IMSI-catchers, devices that impersonate cell towers to intercept traffic, extending detection methods beyond the 2G and 3G networks covered by earlier work. I left the program after this role to move into industry.</p>
             <details>
-                <summary>Key Findings</summary>
+                <summary>Research Focus</summary>
                 <div class="drawer">
                     <ul>
-                        <li><strong>Marlin Project:</strong> Developed methods to identify adversarial IMSI catchers.</li>
-                        <li><strong>Biometrics:</strong> Proved systemic flaws in Android Face Unlock protocols.</li>
+                        <li>Took over as lead researcher after the original lead moved to other work, directing experimental design, data collection, and analysis in a noisy, real-world RF signal environment</li>
+                        <li>Collaborated with researchers in Switzerland studying next-generation IMSI-catcher hardware to inform detection methodology</li>
                     </ul>
+                    <div class="drawer-label">Technologies</div>
+                    <div class="tag-list">
+                        <span class="tag">Linux/Unix</span><span class="tag">Wireshark</span><span class="tag">GNU Radio</span>
+                    </div>
                 </div>
             </details>
         </div>
 
-        <div class="premium-card gold-accent">
-            <div class="date-badge">2018</div>
+        <div class="panel reveal">
+            <div class="date-badge">AUG 2020 &ndash; APR 2021</div>
+            <div class="icon-lens">
+                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            </div>
+            <h3>Command and Control System Software Development Intern</h3>
+            <span class="org">NASA Kennedy Space Center &middot; Artemis Program &middot; Remote</span>
+            <p class="content">Embedded with contractor and NASA engineers to design, implement, and evaluate software for ground systems supporting the Space Launch System. <strong>Recognized as NASA's OSTEM Intern of the Year (2021).</strong></p>
+            <details>
+                <summary>Mission Contributions</summary>
+                <div class="drawer">
+                    <ul>
+                        <li>Designed and built a linting evaluation framework enforcing correctness and consistency rules across a large functional test codebase, ensuring every test met mission-critical quality standards before use in launch operations, then proposed and prototyped a second-generation system expanding its scope</li>
+                        <li>Authored functional test suites validating a major message-passing subsystem connecting the SLS launch control software to the rocket</li>
+                        <li>Produced documentation for poorly documented legacy systems and mentored incoming interns on the codebase</li>
+                    </ul>
+                    <div class="drawer-label">Technologies</div>
+                    <div class="tag-list">
+                        <span class="tag">Python</span><span class="tag">Java</span><span class="tag">Robot Framework</span><span class="tag">Jenkins</span><span class="tag">Linux/Unix</span><span class="tag">Bash</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="panel reveal">
+            <div class="date-badge">MAY 2018 &ndash; JUL 2018</div>
             <div class="icon-lens">
                 <svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path></svg>
             </div>
-            <h3>Compiler Research Internship</h3>
-            <span class="org">Chalmers University of Technology &bull; Sweden</span>
-            <p class="content">Developed low-level compiler optimizations for the Very Portable Optimizer (VPO).</p>
+            <h3>Undergraduate Research Assistant</h3>
+            <span class="org">Chalmers University of Technology &middot; Gothenburg, Sweden</span>
+            <p class="content">Selected for an international research placement while completing my B.S. at Florida State University, one of a small number of undergraduates chosen for the program. I completed graduate-level coursework beforehand to prepare for the work.</p>
+            <details>
+                <summary>Project Details</summary>
+                <div class="drawer">
+                    <ul>
+                        <li>Implemented loop unrolling optimizations in the Very Portable Optimizer (VPO) compiler</li>
+                        <li>Paired with researchers to identify global variable dependencies and applicable compiler optimization strategies</li>
+                    </ul>
+                    <div class="drawer-label">Technologies</div>
+                    <div class="tag-list">
+                        <span class="tag">VPO Compiler</span><span class="tag">C/C++</span><span class="tag">MIPS Assembly</span><span class="tag">Linux/Unix</span>
+                    </div>
+                </div>
+            </details>
         </div>
     </section>
 
-    <section>
-        <span class="label">Education</span>
+    <section id="skills">
+        <div class="label reveal"><span class="num">03</span>Skills</div>
+        <div class="skills-grid">
+            <div class="panel compact reveal">
+                <div class="icon-lens">
+                    <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                </div>
+                <h4>Languages</h4>
+                <div class="tag-list">
+                    <span class="tag">Java</span><span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">JavaScript</span>
+                </div>
+            </div>
+            <div class="panel compact reveal">
+                <div class="icon-lens">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="1" ry="1"/><rect x="2" y="14" width="20" height="8" rx="1" ry="1"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                </div>
+                <h4>Cloud &amp; Infrastructure</h4>
+                <div class="tag-list">
+                    <span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">CloudFormation</span><span class="tag">Kubernetes</span><span class="tag">Kafka</span><span class="tag">Jenkins</span>
+                </div>
+            </div>
+            <div class="panel compact reveal">
+                <div class="icon-lens">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h4>Frameworks</h4>
+                <div class="tag-list">
+                    <span class="tag">Spring Boot</span><span class="tag">React</span><span class="tag">Node.js</span>
+                </div>
+            </div>
+            <div class="panel compact reveal">
+                <div class="icon-lens">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z" fill="#1A1714" stroke="none"/></svg>
+                </div>
+                <h4>Applied AI</h4>
+                <div class="tag-list">
+                    <span class="tag">RAG Systems</span><span class="tag">LLM Integration</span><span class="tag">Context-Aware Chunking</span>
+                </div>
+            </div>
+            <div class="panel compact reveal">
+                <div class="icon-lens">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h4>Security &amp; RF</h4>
+                <div class="tag-list">
+                    <span class="tag">Network Security Research</span><span class="tag">Wireshark</span><span class="tag">GNU Radio</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="label reveal"><span class="num">04</span>Education</div>
         <div class="edu-grid">
-            <div class="premium-card teal-accent" style="padding: 2.5rem;">
-                <div class="date-badge">2018 — 2020</div>
+            <div class="panel compact reveal">
+                <div class="date-badge">2018 &ndash; 2020</div>
                 <div class="icon-lens">
                     <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
                 </div>
                 <h3>University of Florida</h3>
-                <span class="org">M.S. in Computer Science</span>
-                <p class="content">PhD Research Track &bull; GPA: 3.64</p>
+                <span class="org">M.S. in Computer Science &middot; GPA 3.64</span>
+                <p class="content">PhD research track. Coursework concentrated in machine learning, computer networks, and network security, with independent research on Android facial recognition biometric security at the Florida Institute for Cybersecurity Research.</p>
             </div>
 
-            <div class="premium-card garnet-accent" style="padding: 2.5rem;">
-                <div class="date-badge">2016 — 2018</div>
+            <div class="panel compact reveal">
+                <div class="date-badge">2016 &ndash; 2018</div>
                 <div class="icon-lens">
                     <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
                 </div>
                 <h3>Florida State University</h3>
-                <span class="org">B.S. in Computer Science</span>
-                <p class="content">Magna Cum Laude &bull; GPA: 3.76</p>
+                <span class="org">B.S. in Computer Science &middot; GPA 3.76</span>
+                <p class="content">Graduated Magna Cum Laude, President's List honoree, and three-time Dean's List honoree. Built an application enabling first responders to identify individuals using scannable QR codes during emergency response.</p>
             </div>
         </div>
     </section>
 
-    <section>
-        <span class="label">Connect</span>
+    <section id="contact">
+        <div class="label reveal"><span class="num">05</span>Contact</div>
+        <div class="panel no-lift reveal">
+            <p class="content">I'm always glad to talk shop, swap notes on a project, or hear about new opportunities. Email is the fastest way to reach me.</p>
+            <div class="contact-details">
+                <a href="mailto:justintomlinsonn@gmail.com" class="btn-primary">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+                    justintomlinsonn@gmail.com
+                </a>
+                <span class="location-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    Melbourne, Florida
+                </span>
+            </div>
+        </div>
         <div class="social-grid">
-            <a href="https://www.linkedin.com/in/justin-tomlinson/" class="premium-card social-card linkedin-accent">
+            <a href="https://www.linkedin.com/in/justin-tomlinson/" class="panel social-card reveal">
                 <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></div>
-                <span>LinkedIn</span>
+                <span>LINKEDIN</span>
             </a>
-            <a href="https://github.com/tomljr2/" class="premium-card social-card github-accent">
+            <a href="https://github.com/tomljr2/" class="panel social-card reveal">
                 <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
-                <span>GitHub</span>
+                <span>GITHUB</span>
             </a>
-            <a href="https://twitter.com/tomljr2" class="premium-card social-card twitter-accent">
-                <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></div>
-                <span>Twitter</span>
+            <a href="https://twitter.com/tomljr2" class="panel social-card reveal">
+                <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+                <span>X</span>
             </a>
-            <a href="http://instagram.com/tomljr2" class="premium-card social-card instagram-accent">
+            <a href="http://instagram.com/tomljr2" class="panel social-card reveal">
                 <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-                <span>Instagram</span>
+                <span>INSTAGRAM</span>
             </a>
-            <a href="https://www.facebook.com/justin.tomlinson.3701" class="premium-card social-card facebook-accent">
+            <a href="https://www.facebook.com/justin.tomlinson.3701" class="panel social-card reveal">
                 <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></div>
-                <span>Facebook</span>
+                <span>FACEBOOK</span>
             </a>
         </div>
     </section>
-
 </div>
 
-<footer style="text-align: center; padding: 4rem; opacity: 0.5; font-size: 0.9rem;">
-    &copy; 2026 Justin Tomlinson.
+<footer>
+    <div class="footer-mono">Justin Tomlinson // Melbourne, FL // Est. 2026</div>
 </footer>
 
+<script>
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Mobile nav toggle
+    var navToggle = document.getElementById('navToggle');
+    var navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', function () {
+        var isOpen = navLinks.classList.toggle('mobile-open');
+        navToggle.classList.toggle('active');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+            navLinks.classList.remove('mobile-open');
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Margin label: large rotated section name in the right margin,
+    // crossfading as each section becomes the one in view. Pure
+    // typography, driven by the same section boundaries as the rest
+    // of the page rather than any freehand artwork.
+    //
+    // Checked against a fixed reference line (35% down the viewport)
+    // on every scroll tick, rather than a fixed "40% of the section
+    // is visible" threshold, since a long section like Experience is
+    // taller than the viewport and would never satisfy that.
+    var marginLabel = document.getElementById('marginLabel');
+    var sectionNames = { hero: 'Home', about: 'About', experience: 'Experience', skills: 'Skills', education: 'Education', contact: 'Contact' };
+    var zoneSections = document.querySelectorAll('section[id], header[id]');
+
+    function updateActiveZone() {
+        if (!marginLabel) return;
+        var refY = window.innerHeight * 0.35;
+        var activeId = null;
+        zoneSections.forEach(function (s) {
+            var rect = s.getBoundingClientRect();
+            if (rect.top <= refY) activeId = s.id;
+        });
+        if (!activeId) return;
+        document.body.setAttribute('data-zone', activeId);
+        var name = sectionNames[activeId];
+        if (name && marginLabel.textContent !== name) {
+            marginLabel.style.opacity = '0';
+            setTimeout(function () {
+                marginLabel.textContent = name;
+                marginLabel.style.opacity = '0.4';
+            }, reduceMotion ? 0 : 220);
+        }
+    }
+
+    // Nav progress bar: simple width tied to scroll fraction
+    var navProgress = document.getElementById('navProgress');
+    var ticking = false;
+    function updateScrollEffects() {
+        var y = window.scrollY;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? Math.min(Math.max(y / docHeight, 0), 1) : 0;
+        navProgress.style.width = (pct * 100) + '%';
+        updateActiveZone();
+        ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(updateScrollEffects); ticking = true; }
+    });
+    updateScrollEffects();
+
+    // Stat counters: numbers actually count up to their real value
+    // when they scroll into view, instead of just appearing.
+    function animateCount(el, target, prefix, suffix, duration) {
+        if (reduceMotion) { el.textContent = prefix + target + suffix; return; }
+        var startTime = null;
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = prefix + Math.round(target * eased) + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = prefix + target + suffix;
+        }
+        requestAnimationFrame(step);
+    }
+    var countEls = document.querySelectorAll('.stat-number[data-count]');
+    if ('IntersectionObserver' in window) {
+        var countObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                var target = parseInt(el.getAttribute('data-count'), 10);
+                var prefix = el.getAttribute('data-prefix') || '';
+                var suffix = el.getAttribute('data-suffix') || '';
+                animateCount(el, target, prefix, suffix, 1200);
+                countObserver.unobserve(el);
+            });
+        }, { threshold: 0.6 });
+        countEls.forEach(function (el) { countObserver.observe(el); });
+    } else {
+        countEls.forEach(function (el) {
+            el.textContent = (el.getAttribute('data-prefix') || '') + el.getAttribute('data-count') + (el.getAttribute('data-suffix') || '');
+        });
+    }
+
+    // Hero typewriter
+    var heroRole = document.getElementById('heroRole');
+    if (!reduceMotion && heroRole) {
+        var fullText = heroRole.getAttribute('data-text');
+        heroRole.textContent = '';
+        var cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        var i = 0;
+        function typeStep() {
+            if (i <= fullText.length) {
+                heroRole.textContent = fullText.slice(0, i);
+                heroRole.appendChild(cursor);
+                i++;
+                setTimeout(typeStep, 32);
+            } else {
+                setTimeout(function () { cursor.remove(); }, 900);
+            }
+        }
+        setTimeout(typeStep, 300);
+    }
+</script>
+<script>
+    // 1. Text Rotation (Safely scoped for live-reload)
+    (function() {
+        var focusItems = ["Retrieval-Augmented Generation", "Agentic Workflows", "Distributed Systems", "Reinforcement Learning"];
+        var el = document.getElementById('focusAnim');
+        if (!el) return;
+
+        var focusIndex = 0;
+        setInterval(function() {
+            el.style.opacity = 0;
+            setTimeout(function() {
+                focusIndex = (focusIndex + 1) % focusItems.length;
+                el.textContent = focusItems[focusIndex];
+                el.style.opacity = 1;
+            }, 300);
+        }, 3000);
+    })();
+
+    // 2. Scroll Reveal (Safely scoped, runs immediately)
+    (function() {
+        var reveals = document.querySelectorAll('.reveal');
+        if (!reveals.length) return;
+
+        var observer = new IntersectionObserver(function(entries, obs) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0, // Triggers immediately when even 1px crosses the threshold
+            rootMargin: "0px 0px -40px 0px"
+        });
+
+        reveals.forEach(function(reveal) {
+            var rect = reveal.getBoundingClientRect();
+            // Checks if element is in the viewport OR already scrolled past
+            var isVisibleOrAbove = rect.top <= (window.innerHeight || document.documentElement.clientHeight);
+
+            if (isVisibleOrAbove) {
+                reveal.classList.add('visible');
+            } else {
+                observer.observe(reveal);
+            }
+        });
+    })();
+</script>
 </body>
 </html>
