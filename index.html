@@ -1,890 +1,612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#F2ECDC">
-    <title>Justin Tomlinson | Principal Software Engineer</title>
-    <meta name="description" content="Justin Tomlinson is a Principal Software Engineer at Liberty Mutual Insurance, working on property claims systems and applied AI, with a background in cybersecurity research and NASA aerospace software.">
-    <meta property="og:title" content="Justin Tomlinson | Principal Software Engineer">
-    <meta property="og:description" content="Principal Software Engineer building claims automation and applied AI systems, with a background in cybersecurity research and NASA aerospace software.">
-    <meta property="og:type" content="website">
-    <style>
-    :root {
-        --cream: #F2ECDC;
-        --cream-alt: #E9E1CC;
-        --ink: #1A1714;
-        --ink-soft: #57504A;
-        --red: #FC3D21;
-        --red-deep: #C22C15;
-        --rule: rgba(26,23,20,0.18);
-        --rule-soft: rgba(26,23,20,0.1);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#E9E5D6">
+<title>Justin Tomlinson | Backend Software Engineer</title>
+<meta name="description" content="Justin Tomlinson is a backend engineer at Liberty Mutual building distributed systems for property claims, with earlier work on NASA launch control software and cellular security research.">
+<meta property="og:title" content="Justin Tomlinson | Backend Software Engineer">
+<meta property="og:description" content="Backend engineer building distributed systems for property claims. Earlier: NASA launch control software and cellular security research.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --paper: #E9E5D6;        /* aged report stock */
+    --paper-deep: #DFDAC8;   /* title block and readout fill */
+    --ink: #1B2836;          /* blue-black typewriter ribbon */
+    --ink-soft: #4C5967;
+    --line: #2C4E80;         /* drafting blue for the drawing */
+    --foam: #D2661F;         /* SLS core stage insulation orange: figures, marks, hover */
+    --rule: rgba(27, 40, 54, 0.28);
 
-        --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        --font-mono: 'Courier New', Courier, monospace;
-    }
+    --body: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+    --type: 'Courier Prime', 'Courier New', Courier, monospace;
+    --gothic: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+}
 
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+a:hover { color: var(--foam); text-decoration-color: currentColor; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--foam); outline-offset: 3px; }
+strong { font-weight: 600; }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+/* ---------- running head ---------- */
+.running-head {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper);
+    border-bottom: 1.5px solid var(--ink);
+}
+.running-head .inner {
+    max-width: 1160px; margin: 0 auto; padding: 0.7rem 2rem;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
+}
+.running-head .who {
+    font-family: var(--gothic); font-weight: 700; font-size: 1.2rem; letter-spacing: 0.04em;
+    text-decoration: none;
+}
+.running-head nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.running-head nav a {
+    font-family: var(--gothic); font-weight: 500; font-size: 1.05rem; letter-spacing: 0.03em;
+    text-decoration: none; color: var(--ink-soft);
+}
+.running-head nav a:hover { color: var(--foam); }
 
-    body {
-        font-family: var(--font-sans);
-        background: var(--cream);
-        color: var(--ink);
-        margin: 0;
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
+/* ---------- sheet layout: report column + drawing column ---------- */
+.sheet {
+    max-width: 1160px; margin: 0 auto; padding: 0 2rem 0;
+    display: grid; grid-template-columns: minmax(0, 1fr) 270px; column-gap: 4rem;
+}
+.report { min-width: 0; max-width: 47rem; }
 
-    a { color: inherit; }
-    a:focus-visible, summary:focus-visible, button:focus-visible {
-        outline: 2px solid var(--red);
-        outline-offset: 3px;
-    }
+/* ---------- title page ---------- */
+.title-page { padding: 4.2rem 0 2.6rem; }
+.title-page .series {
+    font-family: var(--type); font-size: 1rem; color: var(--ink-soft); margin: 0 0 1.4rem;
+}
+.title-page h1 {
+    font-family: var(--gothic); font-weight: 700;
+    font-size: clamp(3.4rem, 9vw, 6.2rem); line-height: 0.92; letter-spacing: 0.005em;
+    margin: 0; text-transform: uppercase;
+}
+.title-page .subject { font-size: 1.32rem; line-height: 1.45; margin: 1.5rem 0 0; max-width: 35rem; }
+.title-block {
+    margin: 2.3rem 0 0; padding: 0; border: 1.5px solid var(--ink);
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    background: var(--paper-deep);
+}
+.title-block div { padding: 0.5rem 0.8rem 0.55rem; border-right: 1px solid var(--ink); min-width: 0; }
+.title-block div:last-child { border-right: 0; }
+.title-block dt { font-family: var(--gothic); font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em; color: var(--ink-soft); }
+.title-block dd { margin: 0; font-family: var(--type); font-size: 0.95rem; line-height: 1.35; overflow-wrap: anywhere; }
+.title-actions { margin: 1.6rem 0 0; display: flex; gap: 1.6rem; flex-wrap: wrap; align-items: center; }
+.btn {
+    font-family: var(--gothic); font-weight: 600; font-size: 1.12rem; letter-spacing: 0.04em;
+    padding: 0.5rem 1.15rem; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper);
+    text-decoration: none;
+}
+.btn:hover { background: var(--foam); border-color: var(--foam); color: var(--paper); }
 
-    /* ---------------------------------------------------------
-       GRAIN OVERLAY
-    --------------------------------------------------------- */
-    .grain {
-        position: fixed; inset: 0; z-index: 1001; pointer-events: none;
-        filter: url(#grainFilter);
-        mix-blend-mode: multiply;
-        opacity: 0.55;
-    }
+/* ---------- sections ---------- */
+section { padding: 2.4rem 0 0.2rem; border-top: 1.5px solid var(--ink); margin-top: 2.6rem; }
+h2 {
+    font-family: var(--gothic); font-weight: 700; font-size: 2.2rem; line-height: 1.1; letter-spacing: 0.01em;
+    margin: 0 0 1.2rem; display: flex; gap: 0.8rem; align-items: baseline;
+}
+h2 .no { font-family: var(--type); font-weight: 400; font-size: 1.25rem; color: var(--foam); min-width: 2.4rem; }
+h3 { font-family: var(--gothic); font-weight: 700; font-size: 1.65rem; line-height: 1.15; margin: 0; }
+h4 { font-family: var(--gothic); font-weight: 600; font-size: 1.3rem; line-height: 1.2; margin: 0; }
+p { margin: 0 0 1.05rem; }
+.lede { font-size: 1.22rem; line-height: 1.5; }
 
-    /* ---------------------------------------------------------
-       SCROLL PROGRESS (lives inside the fixed nav)
-    --------------------------------------------------------- */
-    .nav-progress {
-        position: absolute; bottom: -2px; left: 0; height: 2px; width: 0%;
-        background: var(--red);
-        transition: width 0.08s linear;
-    }
+/* readouts: the four numbers worth remembering */
+.readouts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1.5px solid var(--ink); margin: 1.6rem 0 0.4rem; }
+.readout { padding: 1rem 1.1rem 1.05rem; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--paper-deep); }
+.readout:nth-child(2n) { border-right: 0; }
+.readout:nth-last-child(-n+2) { border-bottom: 0; }
+.readout b {
+    display: block; font-family: var(--gothic); font-weight: 700; font-size: 3.1rem; line-height: 1; color: var(--foam);
+    letter-spacing: 0.005em;
+}
+.readout span { display: block; margin-top: 0.4rem; font-size: 1rem; line-height: 1.4; }
 
-    /* ---------------------------------------------------------
-       NAVIGATION
-    --------------------------------------------------------- */
-    .top-nav {
-        position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-        display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
-        padding: 0.9rem 2.5rem;
-        background: rgba(242, 236, 220, 0.92);
-        border-bottom: 1.5px solid var(--ink);
-    }
-    .nav-brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.5px; white-space: nowrap; }
-    .nav-brand .mark {
-        width: 32px; height: 32px; border-radius: 50%;
-        border: 1.5px solid var(--ink);
-        display: flex; align-items: center; justify-content: center;
-        font-family: var(--font-mono); font-weight: 700; font-size: 0.68rem;
-        flex-shrink: 0;
-    }
-    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; margin: 0; padding: 0; }
-    .nav-links a { font-size: 0.8rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.2s ease; }
-    .nav-links a:hover { color: var(--red); }
-    .nav-cta {
-        font-size: 0.76rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-        padding: 0.6rem 1.2rem;
-        background: var(--red); color: var(--cream); border: 1.5px solid var(--ink);
-        text-decoration: none; white-space: nowrap;
-        transition: background 0.2s ease;
-    }
-    .nav-cta:hover { background: var(--red-deep); }
-    .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 0; }
-    .nav-toggle span { width: 20px; height: 2px; background: var(--ink); margin: 0 auto; transition: transform 0.3s ease, opacity 0.3s ease; }
-    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.active span:nth-child(2) { opacity: 0; }
-    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* flight path: the career on one line */
+.track { list-style: none; margin: 2rem 0 0.4rem; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); position: relative; }
+.track::before { content: ""; position: absolute; left: 0; right: 0; top: 0.42rem; height: 1.5px; background: var(--ink); }
+.track li { position: relative; padding: 1.25rem 0.6rem 0 0; }
+.track li::before {
+    content: ""; position: absolute; left: 0; top: 0; width: 0.9rem; height: 0.9rem; border-radius: 50%;
+    background: var(--paper); border: 1.5px solid var(--ink);
+}
+.track li.now::before { background: var(--foam); border-color: var(--foam); }
+.track .yr { display: block; font-family: var(--type); font-size: 0.9rem; color: var(--ink-soft); }
+.track .what { display: block; font-family: var(--gothic); font-weight: 600; font-size: 1.08rem; line-height: 1.2; }
 
-    @media (max-width: 900px) {
-        .nav-links {
-            display: none; position: fixed; top: 66px; left: 1rem; right: 1rem;
-            flex-direction: column; align-items: flex-start; gap: 1.1rem;
-            background: var(--cream); border: 1.5px solid var(--ink);
-            padding: 1.5rem 1.7rem; box-shadow: 6px 6px 0 rgba(26,23,20,0.15);
-        }
-        .nav-links.mobile-open { display: flex; }
-        .nav-cta { display: none; }
-        .nav-toggle { display: flex; }
-    }
+/* experience entries */
+.entry { margin: 0 0 2.4rem; }
+.entry-head, .role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.entry-head > div { min-width: 0; }
+.entry-head { border-bottom: 1px solid var(--rule); padding-bottom: 0.4rem; margin-bottom: 0.9rem; }
+.when { font-family: var(--type); font-size: 0.92rem; color: var(--ink-soft); white-space: nowrap; }
+.where { font-size: 1rem; color: var(--ink-soft); margin: 0.1rem 0 0; }
+.role { margin: 1.7rem 0 0; padding-left: 1.1rem; border-left: 3px solid var(--ink); }
+.role.now { border-left-color: var(--foam); }
+.role-head { margin-bottom: 0.3rem; }
+.gist { font-size: 1.1rem; line-height: 1.45; margin: 0.2rem 0 0.7rem; }
 
-    /* ---------------------------------------------------------
-       MARGIN LABEL: a large rotated section name in the right
-       margin, crossfading as you scroll from section to section.
-       Pure typography, no illustration involved.
-    --------------------------------------------------------- */
-    .margin-label {
-        display: none;
-        position: fixed; top: 50%; right: 60px;
-        transform: translateY(-50%);
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        font-family: var(--font-sans);
-        font-size: clamp(3.2rem, 7.5vh, 5.5rem); font-weight: 700; letter-spacing: 1px;
-        text-transform: uppercase;
-        color: transparent;
-        -webkit-text-stroke: 1.5px var(--ink);
-        opacity: 0.4;
-        pointer-events: none;
-        z-index: 5;
-        transition: opacity 0.35s ease;
-    }
-    @media (min-width: 1780px) { .margin-label { display: block; } }
-    body[data-zone="contact"] .margin-label { -webkit-text-stroke: 0; color: var(--red); opacity: 0.3; }
+ul.items { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+ul.items li { margin: 0 0 0.7rem; }
+ul.items li b { font-family: var(--gothic); font-weight: 600; font-size: 1.14rem; letter-spacing: 0.01em; margin-right: 0.15rem; }
+mark { background: none; color: inherit; font-weight: 600; box-shadow: inset 0 -0.42em 0 rgba(210, 102, 31, 0.26); }
 
-    /* ---------------------------------------------------------
-       HERO
-    --------------------------------------------------------- */
-    header { padding: 9.5rem 2rem 4.5rem; text-align: center; }
+.stamp {
+    display: inline-block; margin: 0.2rem 0 1rem; padding: 0.3rem 0.75rem 0.25rem;
+    border: 2.5px solid var(--foam); color: var(--foam);
+    font-family: var(--gothic); font-weight: 700; font-size: 1.15rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transform: rotate(-2.5deg); text-decoration: none;
+}
+.stamp:hover { background: var(--foam); color: var(--paper); }
 
-    .hero-doc-id { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 1.5px; color: var(--ink-soft); margin-bottom: 1.4rem; }
+/* tables set like report tables */
+table { width: 100%; border-collapse: collapse; margin: 0.3rem 0 0.6rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.9rem 0.5rem 0; border-top: 1px solid var(--rule); }
+tr:last-child th, tr:last-child td { border-bottom: 1px solid var(--rule); }
+th { font-family: var(--gothic); font-weight: 600; font-size: 1.15rem; white-space: nowrap; width: 10.5rem; }
+td { font-family: var(--type); font-size: 0.98rem; }
 
-    header h1 {
-        font-family: var(--font-sans);
-        font-size: 5rem; margin: 0; font-weight: 700; letter-spacing: -2px;
-        color: var(--ink);
-    }
+.contact-list { list-style: none; margin: 0; padding: 0; }
+.contact-list li { display: flex; gap: 1rem; padding: 0.45rem 0; border-top: 1px solid var(--rule); align-items: baseline; }
+.contact-list li:last-child { border-bottom: 1px solid var(--rule); }
+.contact-list .k { font-family: var(--gothic); font-weight: 600; font-size: 1.15rem; width: 8rem; flex-shrink: 0; }
+.contact-list a, .contact-list span:not(.k) { font-family: var(--type); font-size: 0.98rem; overflow-wrap: anywhere; }
 
-    .hero-role { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; letter-spacing: 1px; color: var(--red); margin-top: 1rem; min-height: 1.4em; }
-    .hero-role .cursor { display: inline-block; width: 2px; background: var(--red); margin-left: 2px; animation: blink 1s step-end infinite; }
+footer {
+    margin: 3.2rem 0 0; padding: 1.2rem 0 2.6rem;
+    border-top: 1.5px solid var(--ink);
+    font-family: var(--type); font-size: 0.88rem; color: var(--ink-soft);
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
 
-    .hero-status-row { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
-    .status-chip {
-        display: inline-flex; align-items: center; gap: 0.55rem;
-        font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.4px;
-        color: var(--ink);
-        border: 1.5px solid var(--ink);
-        padding: 0.5rem 0.9rem;
-    }
-    .status-chip .sq { width: 7px; height: 7px; background: var(--red); flex-shrink: 0; }
+/* ---------- the drawing ---------- */
+.plate { position: relative; }
+.plate-inner { position: sticky; top: 64px; height: calc(100vh - 64px); padding: 1.2rem 0 1rem; }
+.plate figure { margin: 0; height: 100%; width: 100%; display: flex; flex-direction: column; }
+.plate svg { flex: 1 1 auto; min-height: 0; width: 100%; overflow: visible; }
+.plate figcaption {
+    font-family: var(--gothic); font-weight: 500; font-size: 1.02rem; letter-spacing: 0.03em;
+    color: var(--ink-soft); text-align: center; margin-top: 0.5rem; line-height: 1.25;
+}
+#stackNote { color: var(--ink); font-weight: 600; }
 
-    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.4rem; }
+.ghost path { fill: none; stroke: var(--line); stroke-width: 0.9; stroke-opacity: 0.22; stroke-dasharray: 2 3; }
+.ink path {
+    fill: none; stroke: var(--line); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+}
+.paint { opacity: 0; transition: opacity 0.4s ease; }
+.paint.foam { fill: var(--foam); }
+.paint.dark { fill: var(--line); }
+.paint.is-on.foam { opacity: 0.9; }
+.callout { opacity: 0; transition: opacity 0.35s ease; }
+.callout text, .dim text { font-family: var(--gothic); font-weight: 600; font-size: 21px; letter-spacing: 0.05em; fill: var(--line); }
+.callout line, .dim line, .ground line { stroke: var(--line); stroke-width: 0.9; }
+.dim path { fill: none; stroke: var(--line); stroke-width: 0.9; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.is-on { opacity: 1; }
+.plume { opacity: 0; fill: var(--foam); transform-origin: 130px 1056px; }
+.plume.is-on { opacity: 0.85; animation: burn 0.5s ease-in-out infinite alternate; }
+@keyframes burn { from { transform: scaleY(0.82); } to { transform: scaleY(1.08); } }
 
-    .btn-primary, .btn-ghost {
-        display: inline-flex; align-items: center; gap: 0.6rem;
-        font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
-        padding: 0.9rem 1.8rem; text-decoration: none; border: 1.5px solid var(--ink);
-        transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-    }
-    .btn-primary { background: var(--red); color: var(--cream); border-color: var(--ink); }
-    .btn-primary:hover { background: var(--red-deep); transform: translate(-2px,-2px); }
-    .btn-primary svg { width: 15px; height: 15px; fill: none; stroke: var(--cream); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .btn-ghost { background: transparent; color: var(--ink); }
-    .btn-ghost:hover { background: var(--ink); color: var(--cream); transform: translate(-2px,-2px); }
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .paint, .callout { transition: none; }
+    .plume.is-on { animation: none; }
+}
 
-    .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin-top: 3.4rem; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 3px; color: var(--ink-soft); animation: bob 2.2s ease-in-out infinite; }
-    .scroll-hint svg { stroke: var(--ink-soft); fill: none; stroke-width: 2; width: 14px; height: 14px; }
-
-    @keyframes blink { 50% { opacity: 0; } }
-    @keyframes bob { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(6px); opacity: 1; } }
-
-    /* ---------------------------------------------------------
-       LAYOUT / SECTIONS
-    --------------------------------------------------------- */
-    .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
-    section { margin-bottom: 7rem; }
-
-    .label {
-        font-family: var(--font-sans);
-        font-size: 0.8rem; font-weight: 700;
-        text-transform: uppercase; letter-spacing: 3px;
-        color: var(--ink);
-        margin-bottom: 3rem; text-align: center;
-        position: relative;
-        padding-top: 2.2rem;
-        border-top: 1px solid var(--rule);
-    }
-    .label::after { content: ''; position: absolute; top: -1.5px; left: 50%; transform: translateX(-50%); width: 14px; height: 3px; background: var(--red); }
-    .label span.num { color: var(--red); margin-right: 0.6rem; }
-
-    /* ---------------------------------------------------------
-       PANELS
-    --------------------------------------------------------- */
-    .panel {
-        background: var(--cream-alt);
-        border: 1.5px solid var(--ink);
-        border-radius: 2px;
-        padding: 3.1rem;
-        margin-bottom: 3.25rem;
-        position: relative;
-        box-shadow: 7px 7px 0 rgba(26,23,20,0.1);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .panel:hover { transform: translate(-3px, -3px); box-shadow: 10px 10px 0 rgba(26,23,20,0.13); }
-    .panel.no-lift:hover { transform: none; box-shadow: 7px 7px 0 rgba(26,23,20,0.1); }
-    .panel.compact { padding: 2.2rem; margin-bottom: 0; }
-
-    .panel::before, .panel::after {
-        content: ''; position: absolute; width: 14px; height: 14px;
-        border: 1.5px solid var(--ink); pointer-events: none;
-    }
-    .panel::before { top: -1.5px; left: -1.5px; border-right: none; border-bottom: none; }
-    .panel::after { bottom: -1.5px; right: -1.5px; border-left: none; border-top: none; }
-    .panel.is-current::before, .panel.is-current::after { border-color: var(--red); }
-
-    .date-badge {
-        position: absolute; top: 1.7rem; right: 1.7rem;
-        padding: 0.4rem 0.85rem;
-        border: 1.5px solid var(--ink);
-        font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.4px;
-        color: var(--ink); text-align: right;
-    }
-    .date-badge.current { border-color: var(--red); color: var(--red); }
-
-    .current-flag {
-        position: absolute; top: 1.7rem; right: 1.7rem; transform: translateY(2.4rem);
-        font-family: var(--font-mono); font-size: 0.63rem; font-weight: 700; letter-spacing: 1.5px;
-        background: var(--red); color: var(--cream); padding: 0.2rem 0.5rem;
-    }
-
-    .icon-lens {
-        width: 54px; height: 54px;
-        border: 1.5px solid var(--ink);
-        display: flex; align-items: center; justify-content: center;
-        margin-bottom: 1.4rem;
-    }
-    .icon-lens svg { width: 26px; height: 26px; fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-    .panel.is-current .icon-lens { border-color: var(--red); }
-    .panel.is-current .icon-lens svg { stroke: var(--red); }
-
-    .panel h3 { font-size: 1.55rem; margin: 0; font-weight: 700; padding-right: 130px; color: var(--ink); letter-spacing: -0.3px; }
-    .panel h4 { font-size: 1.15rem; margin: 0 0 0.2rem; font-weight: 700; color: var(--ink); padding-right: 90px; }
-    .org { font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem; color: var(--ink-soft); display: block; margin: 0.55rem 0 1.4rem; letter-spacing: 0.2px; }
-
-    .content { font-size: 1.02rem; color: var(--ink-soft); }
-
-    details { margin-top: 1.8rem; border-top: 1px solid var(--rule); }
-    summary { padding: 1.1rem 0; cursor: pointer; font-weight: 700; color: var(--ink); outline: none; display: flex; align-items: center; gap: 10px; list-style: none; font-size: 0.95rem; }
-    summary::-webkit-details-marker { display: none; }
-    summary::after { content: ''; width: 8px; height: 8px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: rotate(45deg); transition: transform 0.3s ease; margin-left: auto; }
-    details[open] summary::after { transform: rotate(-135deg); border-color: var(--red); }
-    .drawer { padding-bottom: 0.4rem; font-size: 0.97rem; color: var(--ink-soft); }
-    .drawer ul { padding-left: 1.15rem; margin-top: 0; }
-    .drawer li { margin-bottom: 0.7rem; }
-    .drawer-label { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-soft); margin: 1.3rem 0 0.6rem; }
-
-    .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.3rem; }
-    .tag { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; padding: 0.32rem 0.7rem; border: 1px solid var(--ink); color: var(--ink); }
-
-    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 1.6rem; }
-
-    /* ---------------------------------------------------------
-       ABOUT
-    --------------------------------------------------------- */
-    .about-text p { margin-top: 0; margin-bottom: 1.2rem; max-width: 700px; }
-    .about-text p:last-child { margin-bottom: 0; }
-
-    .stats-row { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 2.4rem; padding-top: 2.1rem; border-top: 1px solid var(--rule); }
-    .stat-number { display: block; font-size: 2.1rem; font-weight: 700; color: var(--red); letter-spacing: -0.5px; }
-    .stat-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.3rem; max-width: 170px; display: block; }
-
-    /* ---------------------------------------------------------
-       CONTACT
-    --------------------------------------------------------- */
-    .contact-details { display: flex; align-items: center; gap: 1.6rem; margin-top: 1.7rem; flex-wrap: wrap; }
-    .location-badge { display: flex; align-items: center; gap: 0.45rem; color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; }
-    .location-badge svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-    .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.3rem; margin-top: 2.3rem; }
-    .social-card { padding: 1.7rem 1rem; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; }
-    .social-card span { margin-top: 0.85rem; font-family: var(--font-mono); font-weight: 700; color: var(--ink-soft); font-size: 0.76rem; letter-spacing: 0.6px; }
-    .social-card .icon-lens { width: 46px; height: 46px; margin-bottom: 0; transition: border-color 0.2s ease; }
-    .social-card .icon-lens svg { width: 21px; height: 21px; fill: var(--ink); stroke: none; transition: fill 0.2s ease; }
-    .social-card:hover .icon-lens { border-color: var(--red); }
-    .social-card:hover .icon-lens svg { fill: var(--red); }
-
-    footer { text-align: center; padding: 3.5rem 2rem; }
-    .footer-mono { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 1.5px; color: var(--ink-soft); text-transform: uppercase; }
-
-    /* ---------------------------------------------------------
-       SCROLL REVEAL: clip-path wipe, not a generic fade
-    --------------------------------------------------------- */
-    .reveal { opacity: 0; clip-path: inset(0 100% 0 0); transition: opacity 0.55s ease, clip-path 0.85s cubic-bezier(0.65, 0, 0.35, 1); }
-    .reveal.visible { opacity: 1; clip-path: inset(0 0 0 0); }
-
-    @media (prefers-reduced-motion: reduce) {
-        html { scroll-behavior: auto; }
-        .reveal { opacity: 1; clip-path: inset(0 0 0 0); }
-        .margin-label { transition: none; }
-        *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-    }
-
-    @media (max-width: 950px) {
-        .social-grid { grid-template-columns: repeat(3, 1fr); }
-        header h1 { font-size: 3.6rem; }
-    }
-
-    @media (max-width: 600px) {
-        header { padding-top: 8rem; }
-        header h1 { font-size: 2.7rem; }
-        .panel { padding: 2.1rem; }
-        .date-badge, .current-flag { position: static; display: inline-block; margin: 0 0 0.6rem; transform: none; }
-        .panel h3, .panel h4 { padding-right: 0; }
-        .edu-grid { grid-template-columns: 1fr; }
-        .social-grid { grid-template-columns: repeat(2, 1fr); }
-        .stats-row { gap: 2rem; }
-        .top-nav { padding: 0.75rem 1.25rem; }
-    }
+/* ---------- narrow screens: the report stands alone ---------- */
+@media (max-width: 1020px) {
+    .sheet { grid-template-columns: minmax(0, 1fr); }
+    .plate { display: none; }
+}
+@media (max-width: 640px) {
+    body { font-size: 16.5px; }
+    .running-head .inner, .sheet { padding-left: 1.1rem; padding-right: 1.1rem; }
+    .running-head nav { gap: 0.9rem; }
+    .running-head nav a { font-size: 0.98rem; }
+    .running-head .who { display: none; }
+    .title-page { padding-top: 2.6rem; }
+    .title-block { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .title-block div:nth-child(2) { border-right: 0; }
+    .title-block div:nth-child(-n+2) { border-bottom: 1px solid var(--ink); }
+    .readout b { font-size: 2.4rem; }
+    .track { grid-template-columns: 1fr; row-gap: 0.9rem; }
+    .track::before { left: 0.42rem; right: auto; top: 0; bottom: 0; width: 1.5px; height: auto; }
+    .track li { padding: 0 0 0 1.6rem; }
+    .entry-head, .role-head { flex-wrap: wrap; gap: 0.1rem 1rem; }
+    th { width: auto; white-space: normal; }
+    .contact-list .k { width: 5.5rem; }
+}
+@media print {
+    .running-head, .plate { display: none; }
+    .sheet { display: block; }
+}
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute">
-    <filter id="grainFilter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
-        <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.09  0 0 0 0 0.08  0 0 0 0.07 0"/>
-    </filter>
-</svg>
-<div class="grain"></div>
-
-<nav class="top-nav" id="topNav">
-    <a href="#" class="nav-brand"><span class="mark">JT</span> JUSTIN TOMLINSON</a>
-    <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-    </button>
-    <div class="nav-progress" id="navProgress"></div>
-</nav>
-
-<div class="margin-label" id="marginLabel">Home</div>
-
-<header id="hero">
-    <div class="hero-doc-id">DOC. JT&ndash;2026 &middot; REV. A</div>
-    <h1>Justin Tomlinson</h1>
-    <div class="hero-role" id="heroRole" data-text="Principal Software Engineer">Principal Software Engineer</div>
-    <div class="hero-status-row">
-        <span class="status-chip"><i class="sq"></i>Systems Architecture</span>
-        <span class="status-chip"><i class="sq"></i>Cloud Infrastructure</span>
-        <span class="status-chip"><i class="sq"></i>Backend Engineering</span>
-    </div>
-    <div class="hero-actions">
-        <a href="#contact" class="btn-primary">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
-            Get in Touch
-        </a>
-        <a href="https://www.linkedin.com/in/justin-tomlinson/" class="btn-ghost" target="_blank" rel="noopener">View LinkedIn</a>
-    </div>
-    <div class="scroll-hint">
-        <span>SCROLL</span>
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+<header class="running-head">
+    <div class="inner">
+        <a class="who" href="#top">Justin Tomlinson</a>
+        <nav aria-label="Sections">
+            <a href="#summary">Summary</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </div>
 </header>
 
-<div class="container">
+<div class="sheet" id="top">
+<main class="report">
 
-    <section id="about">
-        <div class="label reveal"><span class="num">01</span>About</div>
-        <div class="panel no-lift reveal">
-            <div class="content about-text">
-                <p>I am a Principal Software Engineer focused on building robust, scalable systems that bridge the gap
-                    between complex backend architecture and practical business value. My work is driven by a desire to
-                    understand systems from first principles, whether that's optimizing distributed claims infrastructure
-                    or engineering applied AI tools to accelerate expert decision-making.</p>
-                <p>My career has been defined by tackling high-stakes environments. From the precise, mission-critical
-                    demands of aerospace ground software to cybersecurity research on mobile network vulnerabilities, I
-                    prioritize system reliability and data-driven design. I am currently focused on the practical
-                    application of retrieval-augmented generation and agentic workflows, aiming to turn specialized
-                    domain knowledge into actionable, automated intelligence.</p>
-            </div>
-
-            <!-- NEW: Animation area for current interests -->
-            <div class="stats-row">
-                <div class="stat-item" style="width: 100%;">
-                    <span class="stat-label">Currently focused on</span>
-                    <span class="stat-number" id="focusAnim" style="font-size: 1.6rem; color: var(--ink);">Retrieval-Augmented Generation</span>
-                </div>
-            </div>
+    <div class="title-page">
+        <p class="series">Technical memorandum JT-TM-2026</p>
+        <h1>Justin Tomlinson</h1>
+        <p class="subject">I build the backend systems that route, schedule and pay property insurance claims. Before that I tested launch control software for NASA's Space Launch System.</p>
+        <dl class="title-block">
+            <div><dt>Role</dt><dd>Backend software engineer</dd></div>
+            <div><dt>Employer</dt><dd>Liberty Mutual</dd></div>
+            <div><dt>Station</dt><dd>Melbourne, Florida</dd></div>
+            <div><dt>Revision</dt><dd>B, November 2026</dd></div>
+        </dl>
+        <div class="title-actions">
+            <a class="btn" href="mailto:justintomlinsonn@gmail.com">Email me</a>
+            <a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/tomljr2" target="_blank" rel="noopener">GitHub</a>
         </div>
+    </div>
+
+    <section id="summary">
+        <h2><span class="no">1.0</span>Summary</h2>
+        <p class="lede">When a house floods, someone has to decide which adjuster can handle it, get an inspection on the calendar, and pay the contractor. I write the services that do those three things at Liberty Mutual.</p>
+        <p>Today I co-lead the team behind an invoicing service that checks vendor estimates against a rules engine I designed, creates the invoice and sends it for payment with far less manual review. I care most about high availability, scalability, security and observability, because I am also the one on call when it breaks.</p>
+
+        <div class="readouts">
+            <div class="readout"><b>$90M</b><span>in invoices a year, nearly, at the invoicing service's run rate since launch. About 24,000 invoices, 45% eligible for auto-pay.</span></div>
+            <div class="readout"><b>$9M</b><span>saved per year, by estimate, by a self-scheduling platform I designed, over its roughly two years in service.</span></div>
+            <div class="readout"><b>30&times;</b><span>faster requests on that platform: from 3 to 4 seconds down to about 100 ms.</span></div>
+            <div class="readout"><b>3 teams</b><span>now run on the rules engine: 41 rule sets built from 90 rules.</span></div>
+        </div>
+
+        <ol class="track" aria-label="Career timeline">
+            <li><span class="yr">2018</span><span class="what">Compiler research, Chalmers</span></li>
+            <li><span class="yr">2020</span><span class="what">M.S., University of Florida</span></li>
+            <li><span class="yr">2020</span><span class="what">NASA launch control</span></li>
+            <li><span class="yr">2021</span><span class="what">Cellular security research</span></li>
+            <li><span class="yr">2022</span><span class="what">Liberty Mutual</span></li>
+            <li class="now"><span class="yr">2025</span><span class="what">Principal engineer</span></li>
+        </ol>
     </section>
 
     <section id="experience">
-        <div class="label reveal"><span class="num">02</span>Experience</div>
+        <h2><span class="no">2.0</span>Experience</h2>
 
-        <div class="panel is-current reveal">
-            <div class="date-badge current">MAY 2022 &ndash; PRESENT</div>
-            <div class="current-flag">CURRENT</div>
-            <div class="icon-lens">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <h3>Principal Software Engineer</h3>
-            <span class="org">Liberty Mutual Insurance &middot; Remote</span>
-            <p class="content">Progressed from Software Engineer to Principal Software Engineer through demonstrated
-                ownership of enterprise-scale architecture, cross-team technical leadership, and delivery of high-impact
-                systems. Lead architecture and delivery for distributed systems supporting Liberty Mutual's property
-                claims organization, mentor engineers, and partner with architects and business stakeholders on
-                technical strategy and cost tradeoffs.</p>
-            <details>
-                <summary>Key Contributions</summary>
-                <div class="drawer">
-                    <ul>
-                        <li>Architected and led development of the core backend service powering a customer
-                            self-scheduling platform for property inspections, coordinating across three engineering
-                            teams to replace a manual workflow <strong>serving hundreds of thousands of annual claims
-                                and generating an estimated $9M in annual savings.</strong></li>
-                        <li>Selected as a Cybersecurity Guardian, partnering with security teams to promote secure
-                            engineering practices and communicate cybersecurity guidance across development teams.</li>
-                        <li>Architected a highly configurable rules engine that translated property claim details into
-                            adjuster skill requirements, turning loosely defined business policies into reusable
-                            decision logic <strong>for hundreds of thousands of annual claims.</strong> The platform was
-                            later adopted for additional workflow automation beyond claim skilling.</li>
-                        <li>Led the retirement of a mission-critical third-party scheduling platform after its
-                            decommissioning was announced, coordinating with multiple engineering teams to eliminate a
-                            deeply embedded vendor dependency while improving scheduling flexibility for adjusters.</li>
-                        <li>Leading development of a straight-through processing platform that automatically adjudicates
-                            and pays eligible property claims using the team's configurable rules engine, with an
-                            initial rollout <strong>targeting tens of thousands of claims annually and designed to scale
-                                across additional claim types.</strong></li>
-                        <li>Built a retrieval-augmented generation (RAG) prototype using AWS S3, OpenSearch, and Python
-                            to support automated estimate review, and later expanded it into a multi-agent workflow
-                            using LangGraph to evaluate estimates across independent review criteria.</li>
-                    </ul>
-                    <div class="drawer-label">Technologies</div>
-                    <div class="tag-list">
-                        <span class="tag">Java</span>
-                        <span class="tag">Spring Boot</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">TypeScript</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">React</span>
-                        <span class="tag">AWS</span>
-                        <span class="tag">Azure</span>
-                        <span class="tag">CloudFormation</span>
-                        <span class="tag">Kubernetes</span>
-                        <span class="tag">Kafka</span>
-                        <span class="tag">Jenkins</span>
-                        <span class="tag">LangChain / LangGraph</span>
-                    </div>
+        <div class="entry">
+            <div class="entry-head">
+                <div>
+                    <h3>Liberty Mutual Insurance</h3>
+                    <p class="where">Remote. Three titles in four and a half years.</p>
                 </div>
-            </details>
+                <span class="when">May 2022 to present</span>
+            </div>
+
+            <div class="role now">
+                <div class="role-head"><h4>Principal Software Engineer</h4><span class="when">Oct 2025 to present</span></div>
+                <p class="gist">Paying claims with fewer people in the loop.</p>
+                <ul class="items">
+                    <li><b>Invoicing and payments.</b> Co-lead a team of five engineers that launched straight-through invoicing for property claims. Vendor estimates are validated by the rules engine, invoiced and sent for payment with reduced manual review. On pace to process <mark>nearly $90M a year</mark> across 24,000 invoices, 45% of them eligible for auto-pay.</li>
+                    <li><b>Event-driven on Kafka.</b> The service runs in the auto-scaling property platform. It consumes payment confirmations, downstream errors and coverage-status updates, and rechecks pending coverage after 72 hours.</li>
+                    <li><b>On-call and auth.</b> On the rotation for all live services. Built the invoicing observability in Splunk and Datadog, and configured authentication and authorization for every service the team has set up: OAuth 2.0 across microservices, JWT where roles are needed.</li>
+                    <li><b>Claim linking.</b> Technical lead for a human-in-the-loop workflow that links first- and third-party claims filed separately for the same incident. Reviewers confirm or reject candidate links from the data science team, and the results feed reporting.</li>
+                    <li><b>AI prototype.</b> Built a RAG pipeline and a LangGraph multi-agent workflow for estimate review as an innovation effort.</li>
+                    <li><b>Mentoring.</b> Mentor engineers in design and code reviews, and work with architects and business stakeholders on technical strategy and cost tradeoffs.</li>
+                </ul>
+            </div>
+
+            <div class="role">
+                <div class="role-head"><h4>Senior Software Engineer</h4><span class="when">Jul 2023 to Oct 2025</span></div>
+                <p class="gist">Turning fuzzy business policy into rules a machine can run.</p>
+                <ul class="items">
+                    <li><b>Rules engine.</b> Designed a configurable engine that turns loosely defined policy into decision logic for adjuster skill routing. It has since scaled to <mark>three teams, 41 rule sets and 90 rules</mark>, at about 600,000 requests a year. In catastrophes such as hurricanes, floods and wildfires, its skill rules are reconfigured so adjusters are not overloaded.</li>
+                    <li><b>Security fix.</b> Removed an expression-injection risk by replacing config-defined SpEL rules with annotated Java functions registered at startup.</li>
+                    <li><b>Vendor retirement.</b> Led the retirement of a deeply embedded third-party scheduling platform across three engineering teams, finishing <mark>before the shutdown date with no downtime</mark>.</li>
+                </ul>
+            </div>
+
+            <div class="role">
+                <div class="role-head"><h4>Software Engineer</h4><span class="when">May 2022 to Jul 2023</span></div>
+                <p class="gist">Letting customers book their own inspections.</p>
+                <ul class="items">
+                    <li><b>Self-scheduling platform.</b> Designed and led development of the core backend (Spring REST API, DynamoDB) and observability for a high-availability platform where customers scheduled property inspections, across three teams. Over about two years it replaced a manual workflow on hundreds of thousands of claims, saving <mark>an estimated $9M a year</mark>.</li>
+                    <li><b>Latency.</b> Cut requests from <mark>3 to 4 seconds down to about 100 ms</mark> by parallelizing downstream calls and deferring the Microsoft Graph calendar update until after the response.</li>
+                    <li><b>Cybersecurity Guardians.</b> Selected for a cross-team group that finds security gaps and routes them to the teams building company-wide security foundations.</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="panel reveal">
-            <div class="date-badge">AUG 2021 &ndash; MAY 2022</div>
-            <div class="icon-lens">
-                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            </div>
-            <h3>Graduate Research Assistant</h3>
-            <span class="org">Florida Institute for Cybersecurity Research (FICS), University of Florida</span>
-            <p class="content">Conducted PhD-track security research within the Florida Institute for Cybersecurity
-                Research (FICS), <a href="https://www.cise.ufl.edu/~butler/pubs/ndss25-tucker-marlin.pdf">focusing on
-                    detecting IMSI-catchers, devices that impersonate cell towers to intercept traffic, beyond the 2G
-                    and 3G networks covered by prior work.</a> Left the program to move into industry.</p>
-            <details>
-                <summary>Research Focus</summary>
-                <div class="drawer">
-                    <ul>
-                        <li>Conducted PhD research within the Florida Institute for Cybersecurity Research (FICS),
-                            investigating detection techniques for 4G/5G IMSI catchers after assuming ownership of the
-                            project from the original lead researcher.</li>
-                        <li>Collaborated with researchers in Switzerland developing next-generation IMSI-catcher
-                            hardware to refine experimental methodology.</li>
-                    </ul>
-                    <div class="drawer-label">Technologies</div>
-                    <div class="tag-list">
-                        <span class="tag">Linux/Unix</span>
-                        <span class="tag">Wireshark</span>
-                        <span class="tag">GNU Radio</span>
-                    </div>
+        <div class="entry">
+            <div class="entry-head">
+                <div>
+                    <h3>Graduate Research Assistant</h3>
+                    <p class="where">Florida Institute for Cybersecurity Research, University of Florida</p>
                 </div>
-            </details>
+                <span class="when">Aug 2021 to May 2022</span>
+            </div>
+            <p class="gist">Catching fake cell towers.</p>
+            <ul class="items">
+                <li><b>The problem.</b> PhD-track research on detecting IMSI-catchers, rogue base stations that intercept cellular traffic, in 4G and 5G networks.</li>
+                <li><b>The project.</b> Took it over from its original lead researcher. The work was published at <a href="https://www.cise.ufl.edu/~butler/pubs/ndss25-tucker-marlin.pdf" target="_blank" rel="noopener">NDSS 2025</a> after I left for industry.</li>
+                <li><b>Collaboration.</b> Worked with ETH Zurich researchers developing next-generation IMSI-catcher hardware to refine the experimental methodology.</li>
+            </ul>
         </div>
 
-        <div class="panel reveal">
-            <div class="date-badge">AUG 2020 &ndash; APR 2021</div>
-            <div class="icon-lens">
-                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-            </div>
-            <h3>Command and Control System Software Development Intern</h3>
-            <span class="org">NASA Kennedy Space Center &middot; Artemis Program &middot; Remote</span>
-            <p class="content">Embedded with contractor and NASA engineers to design, implement, and evaluate software
-                for ground-based systems supporting the Space Launch System (SLS).</p>
-            <details>
-                <summary>Mission Contributions</summary>
-                <div class="drawer">
-                    <ul>
-                        <li><strong><a href="https://youtu.be/S6ckOVnDSVc?t=452">Awarded NASA OSTEM Intern of the Year</a></strong></li>
-                        <li>Designed and implemented a linting framework for functional tests, improving consistency and
-                            correctness across a mission-critical test suite.</li>
-                        <li>Developed functional tests validating a core message-passing subsystem used throughout
-                            NASA's launch control software.</li>
-                        <li>Produced documentation for poorly-documented legacy systems and mentored incoming interns
-                            on the codebase.</li>
-                    </ul>
-                    <div class="drawer-label">Technologies</div>
-                    <div class="tag-list">
-                        <span class="tag">Python</span>
-                        <span class="tag">Java</span>
-                        <span class="tag">Robot Framework</span>
-                        <span class="tag">Jenkins</span>
-                        <span class="tag">Linux/Unix</span>
-                        <span class="tag">Bash</span>
-                    </div>
+        <div class="entry">
+            <div class="entry-head">
+                <div>
+                    <h3>Command and Control System Software Development Intern</h3>
+                    <p class="where">NASA Kennedy Space Center, remote</p>
                 </div>
-            </details>
+                <span class="when">Aug 2020 to Apr 2021</span>
+            </div>
+            <p class="gist">Ground software for the rocket in the margin.</p>
+            <a class="stamp" href="https://youtu.be/S6ckOVnDSVc?t=452" target="_blank" rel="noopener">NASA OSTEM Intern of the Year</a>
+            <ul class="items">
+                <li><b>The program.</b> Two internships on launch control software for the Space Launch System, the vehicle that flies Artemis.</li>
+                <li><b>Developer tools.</b> Built a linting framework that enforces consistency and correctness across the launch control functional test suite.</li>
+                <li><b>Testing.</b> Wrote functional tests for a core message-passing subsystem used throughout the launch control software.</li>
+                <li><b>Documentation.</b> Documented sparsely documented legacy systems and mentored incoming interns.</li>
+            </ul>
         </div>
 
-        <div class="panel reveal">
-            <div class="date-badge">MAY 2018 &ndash; JUL 2018</div>
-            <div class="icon-lens">
-                <svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path></svg>
-            </div>
-            <h3>Undergraduate Research Assistant</h3>
-            <span class="org">Chalmers University of Technology &middot; Gothenburg, Sweden</span>
-            <p class="content">Selected for an international research placement while completing a B.S. at Florida State
-                University, one of a small number of undergraduates chosen for the program. Completed graduate-level
-                coursework beforehand to prepare for the work.</p>
-            <details>
-                <summary>Project Details</summary>
-                <div class="drawer">
-                    <ul>
-                        <li>Implemented loop unrolling optimizations in the Very Portable Optimizer (VPO) compiler.</li>
-                        <li>Paired with researchers to identify global variable dependencies and applicable compiler
-                            optimization strategies.</li>
-                    </ul>
-                    <div class="drawer-label">Technologies</div>
-                    <div class="tag-list">
-                        <span class="tag">VPO Compiler</span>
-                        <span class="tag">C/C++</span>
-                        <span class="tag">MIPS Assembly</span>
-                        <span class="tag">Linux/Unix</span>
-                    </div>
+        <div class="entry">
+            <div class="entry-head">
+                <div>
+                    <h3>Undergraduate Research Assistant</h3>
+                    <p class="where">Chalmers University of Technology, Gothenburg, Sweden</p>
                 </div>
-            </details>
+                <span class="when">May 2018 to Jul 2018</span>
+            </div>
+            <p class="gist">A summer inside a compiler.</p>
+            <ul class="items">
+                <li><b>Optimization.</b> Implemented loop unrolling in the Very Portable Optimizer (VPO) compiler, in C and MIPS assembly.</li>
+                <li><b>Analysis.</b> Worked with researchers to identify global variable dependencies and the optimizations they allow.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2><span class="no">3.0</span>Projects</h2>
+        <div class="entry">
+            <div class="entry-head">
+                <div>
+                    <h3><a href="https://github.com/tomljr2/artemis-mcc" target="_blank" rel="noopener">Artemis</a></h3>
+                    <p class="where">An LLM learning project. An AI coding agent writes the code; I run the experiments.</p>
+                </div>
+                <span class="when">2026 to present</span>
+            </div>
+            <p class="gist">Learning how language models work by having one built from scratch.</p>
+            <ul class="items">
+                <li><b>Method.</b> I direct an AI coding agent through a from-scratch build of a GPT-style model, one stage at a time, and measure every change in a public experiment log.</li>
+                <li><b>Result so far.</b> The first release scores <mark>1.37 bits per byte</mark> on held-out web text, down from 1.52, against 1.20 for the nanochat reference.</li>
+            </ul>
         </div>
     </section>
 
     <section id="skills">
-        <div class="label reveal"><span class="num">03</span>Skills</div>
-        <div class="skills-grid">
-            <div class="panel compact reveal">
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                </div>
-                <h4>Languages</h4>
-                <div class="tag-list">
-                    <span class="tag">Java</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">TypeScript</span>
-                    <span class="tag">JavaScript</span>
-                </div>
-            </div>
-            <div class="panel compact reveal">
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="1" ry="1"/><rect x="2" y="14" width="20" height="8" rx="1" ry="1"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-                </div>
-                <h4>Distributed Systems</h4>
-                <div class="tag-list">
-                    <span class="tag">Spring Boot</span>
-                    <span class="tag">Kubernetes</span>
-                    <span class="tag">Kafka</span>
-                    <span class="tag">Jenkins</span>
-                </div>
-            </div>
-            <div class="panel compact reveal">
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                </div>
-                <h4>Cloud</h4>
-                <div class="tag-list">
-                    <span class="tag">AWS</span>
-                    <span class="tag">Azure</span>
-                    <span class="tag">Cloudformation</span>
-                </div>
-            </div>
-            <div class="panel compact reveal">
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z" fill="#1A1714" stroke="none"/></svg>
-                </div>
-                <h4>Applied AI</h4>
-                <div class="tag-list">
-                    <span class="tag">LangChain</span>
-                    <span class="tag">LangGraph</span>
-                    <span class="tag">RAG</span>
-                    <span class="tag">OpenSearch</span>
-                </div>
-            </div>
-            <div class="panel compact reveal">
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                </div>
-                <h4>Security</h4>
-                <div class="tag-list">
-                    <span class="tag">Network Security Research</span>
-                    <span class="tag">Wireshark</span>
-                    <span class="tag">GNU Radio</span>
-                </div>
-            </div>
-            <div class="panel compact reveal">
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <path d="M2 8h20"/>
-                    </svg>
-                </div>
-                <h4>Frontend</h4>
-                <div class="tag-list">
-                    <span class="tag">React</span>
-                    <span class="tag">Node.js</span>
-                </div>
-            </div>
-        </div>
+        <h2><span class="no">4.0</span>Skills</h2>
+        <table>
+            <tbody>
+                <tr><th scope="row">Languages</th><td>Java, Python, TypeScript, JavaScript</td></tr>
+                <tr><th scope="row">Backend</th><td>Spring Boot, Node.js, Kafka, OAuth 2.0, JWT</td></tr>
+                <tr><th scope="row">Data</th><td>MongoDB, DynamoDB, Amazon S3</td></tr>
+                <tr><th scope="row">Infrastructure</th><td>AWS, Azure, Kubernetes, CloudFormation, CI/CD with GitHub Actions and Jenkins</td></tr>
+                <tr><th scope="row">Observability</th><td>Splunk, Datadog, CloudWatch</td></tr>
+                <tr><th scope="row">Frontend</th><td>React, Angular</td></tr>
+            </tbody>
+        </table>
     </section>
 
     <section id="education">
-        <div class="label reveal"><span class="num">04</span>Education</div>
-        <div class="edu-grid">
-            <div class="panel compact reveal">
-                <div class="date-badge">2018 &ndash; 2020</div>
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+        <h2><span class="no">5.0</span>Education</h2>
+        <div class="entry">
+            <div class="entry-head">
+                <div>
+                    <h3>M.S. Computer Science</h3>
+                    <p class="where">University of Florida. GPA 3.64</p>
                 </div>
-                <h3>University of Florida</h3>
-                <span class="org">M.S. in Computer Science &middot; GPA 3.64</span>
-                <p class="content">Coursework concentrated in machine learning, computer networks, and network security.
-                    <a href="https://github.com/tomljr2/How-To-Bypass-Android-Biometrics">Conducted independent research
-                        on Android facial recognition biometric security at the Florida Institute for Cybersecurity
-                        Research (FICS).</a></p>
+                <span class="when">2018 to 2020</span>
             </div>
-
-            <div class="panel compact reveal">
-                <div class="date-badge">2016 &ndash; 2018</div>
-                <div class="icon-lens">
-                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>
+            <p>Coursework in machine learning, computer networks and network security. <a href="https://github.com/tomljr2/How-To-Bypass-Android-Biometrics" target="_blank" rel="noopener">Independent research on the security of Android facial-recognition biometrics</a> at the Florida Institute for Cybersecurity Research.</p>
+        </div>
+        <div class="entry">
+            <div class="entry-head">
+                <div>
+                    <h3>B.S. Computer Science</h3>
+                    <p class="where">Florida State University. GPA 3.76</p>
                 </div>
-                <h3>Florida State University</h3>
-                <span class="org">B.S. in Computer Science &middot; GPA 3.76</span>
-                <p class="content">Graduated Magna Cum Laude, President's List honoree, and three-time Dean's List
-                    honoree. Built an application enabling first responders to identify individuals via scannable QR
-                    codes during emergency response.</p>
+                <span class="when">2016 to 2018</span>
             </div>
+            <p>Graduated Magna Cum Laude, on the President's List once and the Dean's List three times. Built an application that lets first responders identify people by scanning a QR code during emergency response.</p>
         </div>
     </section>
 
     <section id="contact">
-        <div class="label reveal"><span class="num">05</span>Contact</div>
-        <div class="panel no-lift reveal">
-            <p class="content">I'm always glad to talk shop, swap notes on a project, or hear about new opportunities. Email is the fastest way to reach me.</p>
-            <div class="contact-details">
-                <a href="mailto:justintomlinsonn@gmail.com" class="btn-primary">
-                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
-                    justintomlinsonn@gmail.com
-                </a>
-                <span class="location-badge">
-                    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-                    Melbourne, Florida
-                </span>
-            </div>
-        </div>
-        <div class="social-grid">
-            <a href="https://www.linkedin.com/in/justin-tomlinson/" class="panel social-card reveal">
-                <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></div>
-                <span>LINKEDIN</span>
-            </a>
-            <a href="https://github.com/tomljr2/" class="panel social-card reveal">
-                <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
-                <span>GITHUB</span>
-            </a>
-            <a href="https://twitter.com/tomljr2" class="panel social-card reveal">
-                <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
-                <span>X</span>
-            </a>
-            <a href="http://instagram.com/tomljr2" class="panel social-card reveal">
-                <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-                <span>INSTAGRAM</span>
-            </a>
-            <a href="https://www.facebook.com/justin.tomlinson.3701" class="panel social-card reveal">
-                <div class="icon-lens"><svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></div>
-                <span>FACEBOOK</span>
-            </a>
-        </div>
+        <h2><span class="no">6.0</span>Contact</h2>
+        <p class="lede">Email is the fastest way to reach me.</p>
+        <ul class="contact-list">
+            <li><span class="k">Email</span><a href="mailto:justintomlinsonn@gmail.com">justintomlinsonn@gmail.com</a></li>
+            <li><span class="k">Location</span><span>Melbourne, Florida</span></li>
+            <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">linkedin.com/in/justin-tomlinson</a></li>
+            <li><span class="k">GitHub</span><a href="https://github.com/tomljr2" target="_blank" rel="noopener">github.com/tomljr2</a></li>
+        </ul>
     </section>
+
+    <footer>
+        <span>Justin Tomlinson, Melbourne, Florida</span>
+        <span>JT-TM-2026, revision B</span>
+    </footer>
+
+</main>
+
+<!-- The drawing: an SLS Block 1, stacked from the pad up as the reader scrolls. Decorative. -->
+<aside class="plate" aria-hidden="true">
+    <div class="plate-inner">
+        <figure>
+            <svg id="vehicle" viewBox="-44 0 316 1120" preserveAspectRatio="xMidYMid meet" role="presentation">
+                <!-- exhaust, shown only once the stack is complete -->
+                <g class="plume" id="plume">
+                    <path d="M112 1058 L148 1058 L140 1100 L130 1118 L120 1100 Z"/>
+                    <path d="M55 1058 L81 1058 L76 1092 L68 1108 L60 1092 Z"/>
+                    <path d="M179 1058 L205 1058 L200 1092 L192 1108 L184 1092 Z"/>
+                </g>
+                <g class="ground"><line x1="30" y1="1058" x2="236" y2="1058"/></g>
+
+                <g class="dim">
+                    <line x1="234" y1="1056" x2="246" y2="1056"/><line x1="234" y1="58" x2="246" y2="58" stroke-opacity=".35"/>
+                    <path id="dimLine" pathLength="1" d="M240 1056 L240 58"/>
+                    <text class="callout" data-at="0.9" transform="translate(262 560) rotate(-90)" text-anchor="middle">322 FT</text>
+                </g>
+
+                <!-- paint goes under the ink so the line work stays crisp -->
+                <g id="paint">
+                    <path class="paint foam" data-stage="3" d="M87 1024 L87 399 L173 399 L173 1024 Z"/>
+                    <path class="paint foam" data-stage="4" d="M87 399 L104 314 L156 314 L173 399 Z"/>
+                </g>
+
+                <g class="ink" id="ink">
+                    <!-- 0  RS-25 engines -->
+                    <path pathLength="1" d="M104 1024 L99 1054 L115 1054 L110 1024 M122 1024 L117 1054 L143 1054 L138 1024 M150 1024 L145 1054 L161 1054 L156 1024"/>
+                    <!-- 1  solid rocket boosters, stacked first -->
+                    <path pathLength="1" d="M49 1016 L45 1052 L91 1052 L87 1016 M49 1016 L49 566 M87 1016 L87 566 M49 566 C51 540 60 518 68 506 C76 518 85 540 87 566 M49 1016 L87 1016 M49 900 L87 900 M49 790 L87 790 M49 680 L87 680 M49 566 L87 566 M173 1016 L169 1052 L215 1052 L211 1016 M173 1016 L173 566 M211 1016 L211 566 M173 566 C175 540 184 518 192 506 C200 518 209 540 211 566 M173 1016 L211 1016 M173 900 L211 900 M173 790 L211 790 M173 680 L211 680 M173 566 L211 566"/>
+                    <!-- 2  core stage: engine section and hydrogen tank -->
+                    <path pathLength="1" d="M87 1024 L173 1024 M87 1024 L87 640 M173 1024 L173 640 M87 980 L173 980 M87 640 L173 640"/>
+                    <!-- 3  core stage: intertank, oxygen tank, forward skirt -->
+                    <path pathLength="1" d="M87 640 L87 399 M173 640 L173 399 M87 596 L173 596 M98 640 L98 596 M109 640 L109 596 M120 640 L120 596 M130 640 L130 596 M140 640 L140 596 M151 640 L151 596 M162 640 L162 596 M87 428 L173 428 M87 399 L173 399"/>
+                    <!-- 4  launch vehicle stage adapter -->
+                    <path pathLength="1" d="M87 399 L104 314 M173 399 L156 314 M104 314 L156 314"/>
+                    <!-- 5  upper stage and Orion stage adapter -->
+                    <path pathLength="1" d="M104 314 L104 280 M156 314 L156 280 M104 280 L156 280 M104 297 L156 297"/>
+                    <!-- 6  Orion service module -->
+                    <path pathLength="1" d="M104 280 L104 226 M156 280 L156 226 M104 226 L156 226 M121 280 L121 226 M139 280 L139 226"/>
+                    <!-- 7  crew module under the launch abort fairing -->
+                    <path pathLength="1" d="M104 226 C106 196 114 168 124 150 M156 226 C154 196 146 168 136 150 M124 150 L136 150"/>
+                    <!-- 8  launch abort system -->
+                    <path pathLength="1" d="M124 150 L124 88 M136 150 L136 88 M121 150 L139 150 M124 122 L136 122 M124 88 L130 58 L136 88 M124 88 L136 88"/>
+                </g>
+
+                <g id="bands">
+                    <rect class="paint dark" data-stage="1" x="49" y="566" width="38" height="7"/>
+                    <rect class="paint dark" data-stage="1" x="173" y="566" width="38" height="7"/>
+                    <rect class="paint dark" data-stage="1" x="49" y="1008" width="38" height="8"/>
+                    <rect class="paint dark" data-stage="1" x="173" y="1008" width="38" height="8"/>
+                    <rect class="paint dark" data-stage="5" x="104" y="297" width="52" height="5"/>
+                </g>
+
+                <g class="callout" data-stage="0"><text x="-44" y="1100">RS-25 &times; 4</text><line x1="40" y1="1086" x2="104" y2="1046"/></g>
+                <g class="callout" data-stage="1"><text x="-44" y="797">SRB</text><line x1="-8" y1="790" x2="47" y2="790"/></g>
+                <g class="callout" data-stage="3"><text x="-44" y="477">CORE</text><line x1="2" y1="470" x2="85" y2="470"/></g>
+                <g class="callout" data-stage="5"><text x="-44" y="320">ICPS</text><line x1="-6" y1="313" x2="102" y2="306"/></g>
+                <g class="callout" data-stage="6"><text x="-44" y="258">ORION</text><line x1="8" y1="251" x2="102" y2="251"/></g>
+                <g class="callout" data-stage="8"><text x="-44" y="117">LAS</text><line x1="-10" y1="110" x2="122" y2="110"/></g>
+            </svg>
+            <figcaption>Figure 1. Space Launch System, Artemis II<br><span id="stackNote">On the pad</span></figcaption>
+        </figure>
+    </div>
+</aside>
 </div>
 
-<footer>
-    <div class="footer-mono">Justin Tomlinson // Melbourne, FL // Est. 2026</div>
-</footer>
-
 <script>
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function () {
+    var svg = document.getElementById('vehicle');
+    if (!svg) return;
 
-    // Mobile nav toggle
-    var navToggle = document.getElementById('navToggle');
-    var navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', function () {
-        var isOpen = navLinks.classList.toggle('mobile-open');
-        navToggle.classList.toggle('active');
-        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    var ink = document.getElementById('ink');
+    var paths = Array.prototype.slice.call(ink.querySelectorAll('path'));
+    var dim = document.getElementById('dimLine');
+    var note = document.getElementById('stackNote');
+    var plume = document.getElementById('plume');
+    var staged = Array.prototype.slice.call(svg.querySelectorAll('[data-stage]'));
+    var timed = Array.prototype.slice.call(svg.querySelectorAll('[data-at]'));
+    var names = ['RS-25 engines', 'Solid rocket boosters', 'Core stage', 'Core stage', 'Stage adapter',
+                 'Upper stage', 'Orion service module', 'Orion crew module', 'Launch abort system'];
+
+    // Pencil construction lines: a faint dashed copy of the whole vehicle that is
+    // always visible, so the column reads as a drawing in progress from the first screen.
+    var ghost = ink.cloneNode(true);
+    ghost.removeAttribute('id');
+    ghost.setAttribute('class', 'ghost');
+    Array.prototype.forEach.call(ghost.querySelectorAll('path'), function (p) {
+        p.removeAttribute('pathLength'); p.removeAttribute('class');
     });
-    navLinks.querySelectorAll('a').forEach(function (link) {
-        link.addEventListener('click', function () {
-            navLinks.classList.remove('mobile-open');
-            navToggle.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
-        });
-    });
+    svg.insertBefore(ghost, document.getElementById('paint'));
 
-    // Margin label: large rotated section name in the right margin,
-    // crossfading as each section becomes the one in view. Pure
-    // typography, driven by the same section boundaries as the rest
-    // of the page rather than any freehand artwork.
-    //
-    // Checked against a fixed reference line (35% down the viewport)
-    // on every scroll tick, rather than a fixed "40% of the section
-    // is visible" threshold, since a long section like Experience is
-    // taller than the viewport and would never satisfy that.
-    var marginLabel = document.getElementById('marginLabel');
-    var sectionNames = { hero: 'Home', about: 'About', experience: 'Experience', skills: 'Skills', education: 'Education', contact: 'Contact' };
-    var zoneSections = document.querySelectorAll('section[id], header[id]');
+    var n = paths.length;
+    var START = 0.03, END = 0.93;      // share of the page over which the vehicle is stacked
+    var slice = (END - START) / n;
 
-    function updateActiveZone() {
-        if (!marginLabel) return;
-        var refY = window.innerHeight * 0.35;
-        var activeId = null;
-        zoneSections.forEach(function (s) {
-            var rect = s.getBoundingClientRect();
-            if (rect.top <= refY) activeId = s.id;
+    function clamp(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
+
+    function render(p) {
+        var current = -1;
+        for (var i = 0; i < n; i++) {
+            var t = clamp((p - (START + i * slice)) / slice);
+            paths[i].style.strokeDashoffset = (1 - t).toFixed(4);
+            if (t > 0) current = i;
+        }
+        dim.style.strokeDashoffset = (1 - clamp((p - START) / (END - START))).toFixed(4);
+        staged.forEach(function (el) {
+            var s = parseInt(el.getAttribute('data-stage'), 10);
+            el.classList.toggle('is-on', clamp((p - (START + s * slice)) / slice) >= 0.85);
         });
-        if (!activeId) return;
-        document.body.setAttribute('data-zone', activeId);
-        var name = sectionNames[activeId];
-        if (name && marginLabel.textContent !== name) {
-            marginLabel.style.opacity = '0';
-            setTimeout(function () {
-                marginLabel.textContent = name;
-                marginLabel.style.opacity = '0.4';
-            }, reduceMotion ? 0 : 220);
+        timed.forEach(function (el) {
+            el.classList.toggle('is-on', p >= parseFloat(el.getAttribute('data-at')));
+        });
+        var go = p >= 0.985;
+        plume.classList.toggle('is-on', go);
+        if (note) {
+            note.textContent = go ? 'Go for launch' : (p >= END ? 'Stacked, 322 ft' : (current < 0 ? 'On the pad' : 'Stacking: ' + names[current]));
         }
     }
 
-    // Nav progress bar: simple width tied to scroll fraction
-    var navProgress = document.getElementById('navProgress');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { render(0.95); return; }
+
     var ticking = false;
-    function updateScrollEffects() {
-        var y = window.scrollY;
-        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        var pct = docHeight > 0 ? Math.min(Math.max(y / docHeight, 0), 1) : 0;
-        navProgress.style.width = (pct * 100) + '%';
-        updateActiveZone();
-        ticking = false;
-    }
-    window.addEventListener('scroll', function () {
-        if (!ticking) { requestAnimationFrame(updateScrollEffects); ticking = true; }
-    });
-    updateScrollEffects();
-
-    // Stat counters: numbers actually count up to their real value
-    // when they scroll into view, instead of just appearing.
-    function animateCount(el, target, prefix, suffix, duration) {
-        if (reduceMotion) { el.textContent = prefix + target + suffix; return; }
-        var startTime = null;
-        function step(ts) {
-            if (!startTime) startTime = ts;
-            var progress = Math.min((ts - startTime) / duration, 1);
-            var eased = 1 - Math.pow(1 - progress, 3);
-            el.textContent = prefix + Math.round(target * eased) + suffix;
-            if (progress < 1) requestAnimationFrame(step);
-            else el.textContent = prefix + target + suffix;
-        }
-        requestAnimationFrame(step);
-    }
-    var countEls = document.querySelectorAll('.stat-number[data-count]');
-    if ('IntersectionObserver' in window) {
-        var countObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                var el = entry.target;
-                var target = parseInt(el.getAttribute('data-count'), 10);
-                var prefix = el.getAttribute('data-prefix') || '';
-                var suffix = el.getAttribute('data-suffix') || '';
-                animateCount(el, target, prefix, suffix, 1200);
-                countObserver.unobserve(el);
-            });
-        }, { threshold: 0.6 });
-        countEls.forEach(function (el) { countObserver.observe(el); });
-    } else {
-        countEls.forEach(function (el) {
-            el.textContent = (el.getAttribute('data-prefix') || '') + el.getAttribute('data-count') + (el.getAttribute('data-suffix') || '');
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+            var max = document.documentElement.scrollHeight - window.innerHeight;
+            render(max > 0 ? clamp(window.scrollY / max) : 1);
+            ticking = false;
         });
     }
-
-    // Hero typewriter
-    var heroRole = document.getElementById('heroRole');
-    if (!reduceMotion && heroRole) {
-        var fullText = heroRole.getAttribute('data-text');
-        heroRole.textContent = '';
-        var cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        var i = 0;
-        function typeStep() {
-            if (i <= fullText.length) {
-                heroRole.textContent = fullText.slice(0, i);
-                heroRole.appendChild(cursor);
-                i++;
-                setTimeout(typeStep, 32);
-            } else {
-                setTimeout(function () { cursor.remove(); }, 900);
-            }
-        }
-        setTimeout(typeStep, 300);
-    }
-</script>
-<script>
-    // 1. Text Rotation (Safely scoped for live-reload)
-    (function() {
-        var focusItems = ["Retrieval-Augmented Generation", "Agentic Workflows", "Distributed Systems", "Reinforcement Learning"];
-        var el = document.getElementById('focusAnim');
-        if (!el) return;
-
-        var focusIndex = 0;
-        setInterval(function() {
-            el.style.opacity = 0;
-            setTimeout(function() {
-                focusIndex = (focusIndex + 1) % focusItems.length;
-                el.textContent = focusItems[focusIndex];
-                el.style.opacity = 1;
-            }, 300);
-        }, 3000);
-    })();
-
-    // 2. Scroll Reveal (Safely scoped, runs immediately)
-    (function() {
-        var reveals = document.querySelectorAll('.reveal');
-        if (!reveals.length) return;
-
-        var observer = new IntersectionObserver(function(entries, obs) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    obs.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0, // Triggers immediately when even 1px crosses the threshold
-            rootMargin: "0px 0px -40px 0px"
-        });
-
-        reveals.forEach(function(reveal) {
-            var rect = reveal.getBoundingClientRect();
-            // Checks if element is in the viewport OR already scrolled past
-            var isVisibleOrAbove = rect.top <= (window.innerHeight || document.documentElement.clientHeight);
-
-            if (isVisibleOrAbove) {
-                reveal.classList.add('visible');
-            } else {
-                observer.observe(reveal);
-            }
-        });
-    })();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+})();
 </script>
 </body>
 </html>
