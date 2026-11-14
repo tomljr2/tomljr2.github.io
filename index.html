@@ -2,296 +2,342 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#E9E5D6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#EEF0EF">
 <title>Justin Tomlinson | Backend Software Engineer</title>
-<meta name="description" content="Justin Tomlinson is a backend engineer at Liberty Mutual building distributed systems for property claims, with earlier work on NASA launch control software and cellular security research.">
+<meta name="description" content="Justin Tomlinson is a backend engineer at Liberty Mutual building the systems that route, schedule and pay property insurance claims. Earlier: NASA launch control software and cellular security research.">
 <meta property="og:title" content="Justin Tomlinson | Backend Software Engineer">
-<meta property="og:description" content="Backend engineer building distributed systems for property claims. Earlier: NASA launch control software and cellular security research.">
+<meta property="og:description" content="Backend engineer building the systems that route, schedule and pay property insurance claims. Earlier: NASA launch control software and cellular security research.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
 <style>
+/* ------------------------------------------------------------------
+   One family, three widths: expanded for names and headings, normal
+   for reading, condensed for the drawing and small reference text.
+   Palette: drafting film, blue-black ink, SLS core-stage orange.
+------------------------------------------------------------------- */
 :root {
-    --paper: #E9E5D6;        /* aged report stock */
-    --paper-deep: #DFDAC8;   /* title block and readout fill */
-    --ink: #1B2836;          /* blue-black typewriter ribbon */
-    --ink-soft: #4C5967;
-    --line: #2C4E80;         /* drafting blue for the drawing */
-    --foam: #D2661F;         /* SLS core stage insulation orange: figures, marks, hover */
-    --rule: rgba(27, 40, 54, 0.28);
-
-    --body: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
-    --type: 'Courier Prime', 'Courier New', Courier, monospace;
-    --gothic: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+    --paper: #EEF0EF;
+    --paper-hi: #F9FAF9;
+    --sheet: #E3E7E6;
+    --ink: #0B1A2E;
+    --ink-2: #4E5C6B;
+    --rule: rgba(11, 26, 46, 0.16);
+    --accent: #E0601D;
+    --accent-deep: #8E3A0C;
+    --metal: #485466;
+    --font: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --plate-w: clamp(380px, 36vw, 580px);
+    --gut: clamp(22px, 4.6vw, 76px);
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 body {
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: var(--body);
-    font-size: 17.5px;
+    font-family: var(--font);
+    font-size: 18px;
     line-height: 1.6;
+    font-stretch: 100%;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
-a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
-a:hover { color: var(--foam); text-decoration-color: currentColor; }
-a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--foam); outline-offset: 3px; }
-strong { font-weight: 600; }
+::selection { background: var(--accent); color: var(--paper-hi); }
+a { color: inherit; text-decoration-thickness: 1px; text-decoration-color: rgba(11, 26, 46, 0.35); text-underline-offset: 4px; }
+a:hover { color: var(--accent); text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 1px; }
+p { margin: 0 0 1em; }
+strong { font-weight: 650; font-variant-numeric: lining-nums tabular-nums; }
 
-/* ---------- running head ---------- */
-.running-head {
-    position: sticky; top: 0; z-index: 20;
+/* ---------- page grid ---------- */
+.page { display: grid; grid-template-columns: minmax(0, 1fr) var(--plate-w); }
+.col { min-width: 0; padding: 0 var(--gut); }
+main, footer { max-width: 780px; }
+
+/* ---------- running bar ---------- */
+.bar {
+    position: sticky; top: 0; z-index: 10;
+    height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
     background: var(--paper);
-    border-bottom: 1.5px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    max-width: 780px;
 }
-.running-head .inner {
-    max-width: 1160px; margin: 0 auto; padding: 0.7rem 2rem;
-    display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
-}
-.running-head .who {
-    font-family: var(--gothic); font-weight: 700; font-size: 1.2rem; letter-spacing: 0.04em;
-    text-decoration: none;
-}
-.running-head nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-.running-head nav a {
-    font-family: var(--gothic); font-weight: 500; font-size: 1.05rem; letter-spacing: 0.03em;
-    text-decoration: none; color: var(--ink-soft);
-}
-.running-head nav a:hover { color: var(--foam); }
+.bar .mark { font-weight: 700; font-stretch: 115%; font-size: 15.5px; letter-spacing: 0.01em; text-decoration: none; }
+.bar nav { display: flex; gap: 22px; }
+.bar nav a { font-stretch: 88%; font-size: 15.5px; font-weight: 500; color: var(--ink-2); text-decoration: none; }
+.bar nav a:hover { color: var(--ink); }
 
-/* ---------- sheet layout: report column + drawing column ---------- */
-.sheet {
-    max-width: 1160px; margin: 0 auto; padding: 0 2rem 0;
-    display: grid; grid-template-columns: minmax(0, 1fr) 270px; column-gap: 4rem;
+/* ---------- hero ---------- */
+.hero {
+    min-height: calc(100vh - 62px); min-height: calc(100svh - 62px);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: clamp(40px, 10vh, 110px) 0 36px;
 }
-.report { min-width: 0; max-width: 47rem; }
-
-/* ---------- title page ---------- */
-.title-page { padding: 4.2rem 0 2.6rem; }
-.title-page .series {
-    font-family: var(--type); font-size: 1rem; color: var(--ink-soft); margin: 0 0 1.4rem;
+h1 {
+    margin: 0;
+    font-weight: 800; font-stretch: 125%;
+    font-size: clamp(50px, 6.5vw, 108px);
+    line-height: 0.88; letter-spacing: -0.012em;
+    text-transform: uppercase;
 }
-.title-page h1 {
-    font-family: var(--gothic); font-weight: 700;
-    font-size: clamp(3.4rem, 9vw, 6.2rem); line-height: 0.92; letter-spacing: 0.005em;
-    margin: 0; text-transform: uppercase;
+.lead {
+    margin: clamp(26px, 4vh, 40px) 0 0; max-width: 29em;
+    font-size: clamp(20px, 1.85vw, 27px); line-height: 1.36; font-weight: 400;
 }
-.title-page .subject { font-size: 1.32rem; line-height: 1.45; margin: 1.5rem 0 0; max-width: 35rem; }
-.title-block {
-    margin: 2.3rem 0 0; padding: 0; border: 1.5px solid var(--ink);
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-    background: var(--paper-deep);
-}
-.title-block div { padding: 0.5rem 0.8rem 0.55rem; border-right: 1px solid var(--ink); min-width: 0; }
-.title-block div:last-child { border-right: 0; }
-.title-block dt { font-family: var(--gothic); font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em; color: var(--ink-soft); }
-.title-block dd { margin: 0; font-family: var(--type); font-size: 0.95rem; line-height: 1.35; overflow-wrap: anywhere; }
-.title-actions { margin: 1.6rem 0 0; display: flex; gap: 1.6rem; flex-wrap: wrap; align-items: center; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 26px; margin: clamp(28px, 5vh, 48px) 0 0; padding: 0; }
+.facts div { border-top: 1.5px solid var(--ink); padding-top: 10px; }
+.facts dt { font-stretch: 85%; font-size: 14.5px; color: var(--ink-2); }
+.facts dd { margin: 2px 0 0; font-size: 16.5px; line-height: 1.38; font-weight: 500; }
+.actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 30px; }
 .btn {
-    font-family: var(--gothic); font-weight: 600; font-size: 1.12rem; letter-spacing: 0.04em;
-    padding: 0.5rem 1.15rem; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper);
-    text-decoration: none;
+    display: inline-block; padding: 12px 22px 13px;
+    background: var(--ink); color: var(--paper-hi); text-decoration: none;
+    font-weight: 600; font-stretch: 110%; font-size: 15.5px; letter-spacing: 0.01em;
 }
-.btn:hover { background: var(--foam); border-color: var(--foam); color: var(--paper); }
+.btn:hover { background: var(--accent); color: var(--paper-hi); }
+.actions a:not(.btn) { font-weight: 500; font-size: 16.5px; }
 
-/* ---------- sections ---------- */
-section { padding: 2.4rem 0 0.2rem; border-top: 1.5px solid var(--ink); margin-top: 2.6rem; }
-h2 {
-    font-family: var(--gothic); font-weight: 700; font-size: 2.2rem; line-height: 1.1; letter-spacing: 0.01em;
-    margin: 0 0 1.2rem; display: flex; gap: 0.8rem; align-items: baseline;
-}
-h2 .no { font-family: var(--type); font-weight: 400; font-size: 1.25rem; color: var(--foam); min-width: 2.4rem; }
-h3 { font-family: var(--gothic); font-weight: 700; font-size: 1.65rem; line-height: 1.15; margin: 0; }
-h4 { font-family: var(--gothic); font-weight: 600; font-size: 1.3rem; line-height: 1.2; margin: 0; }
-p { margin: 0 0 1.05rem; }
-.lede { font-size: 1.22rem; line-height: 1.5; }
-
-/* readouts: the four numbers worth remembering */
-.readouts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1.5px solid var(--ink); margin: 1.6rem 0 0.4rem; }
-.readout { padding: 1rem 1.1rem 1.05rem; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--paper-deep); }
-.readout:nth-child(2n) { border-right: 0; }
-.readout:nth-last-child(-n+2) { border-bottom: 0; }
-.readout b {
-    display: block; font-family: var(--gothic); font-weight: 700; font-size: 3.1rem; line-height: 1; color: var(--foam);
-    letter-spacing: 0.005em;
-}
-.readout span { display: block; margin-top: 0.4rem; font-size: 1rem; line-height: 1.4; }
-
-/* flight path: the career on one line */
-.track { list-style: none; margin: 2rem 0 0.4rem; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); position: relative; }
-.track::before { content: ""; position: absolute; left: 0; right: 0; top: 0.42rem; height: 1.5px; background: var(--ink); }
-.track li { position: relative; padding: 1.25rem 0.6rem 0 0; }
-.track li::before {
-    content: ""; position: absolute; left: 0; top: 0; width: 0.9rem; height: 0.9rem; border-radius: 50%;
+/* flight path: the career as a sequence */
+.path { list-style: none; margin: clamp(36px, 7vh, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); position: relative; }
+.path::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: var(--ink); }
+.path li { position: relative; padding: 22px 10px 0 0; }
+.path li::before {
+    content: ""; position: absolute; left: 0; top: 0; width: 11px; height: 11px; border-radius: 50%;
     background: var(--paper); border: 1.5px solid var(--ink);
 }
-.track li.now::before { background: var(--foam); border-color: var(--foam); }
-.track .yr { display: block; font-family: var(--type); font-size: 0.9rem; color: var(--ink-soft); }
-.track .what { display: block; font-family: var(--gothic); font-weight: 600; font-size: 1.08rem; line-height: 1.2; }
+.path li.now::before { background: var(--accent); border-color: var(--accent); }
+.path .yr { display: block; font-stretch: 85%; font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.path .what { display: block; font-size: 14.5px; line-height: 1.3; font-weight: 600; }
 
-/* experience entries */
-.entry { margin: 0 0 2.4rem; }
-.entry-head, .role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-.entry-head > div { min-width: 0; }
-.entry-head { border-bottom: 1px solid var(--rule); padding-bottom: 0.4rem; margin-bottom: 0.9rem; }
-.when { font-family: var(--type); font-size: 0.92rem; color: var(--ink-soft); white-space: nowrap; }
-.where { font-size: 1rem; color: var(--ink-soft); margin: 0.1rem 0 0; }
-.role { margin: 1.7rem 0 0; padding-left: 1.1rem; border-left: 3px solid var(--ink); }
-.role.now { border-left-color: var(--foam); }
-.role-head { margin-bottom: 0.3rem; }
-.gist { font-size: 1.1rem; line-height: 1.45; margin: 0.2rem 0 0.7rem; }
-
-ul.items { list-style: none; margin: 0.4rem 0 0; padding: 0; }
-ul.items li { margin: 0 0 0.7rem; }
-ul.items li b { font-family: var(--gothic); font-weight: 600; font-size: 1.14rem; letter-spacing: 0.01em; margin-right: 0.15rem; }
-mark { background: none; color: inherit; font-weight: 600; box-shadow: inset 0 -0.42em 0 rgba(210, 102, 31, 0.26); }
-
-.stamp {
-    display: inline-block; margin: 0.2rem 0 1rem; padding: 0.3rem 0.75rem 0.25rem;
-    border: 2.5px solid var(--foam); color: var(--foam);
-    font-family: var(--gothic); font-weight: 700; font-size: 1.15rem; letter-spacing: 0.08em; text-transform: uppercase;
-    transform: rotate(-2.5deg); text-decoration: none;
+/* ---------- results panel ---------- */
+.results { background: var(--ink); color: var(--paper-hi); padding: clamp(28px, 4vw, 48px); margin-top: 24px; }
+.results h2 { color: var(--paper-hi); font-size: clamp(22px, 2vw, 28px); margin: 0 0 8px; }
+.figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 3vw, 44px); margin: 0; padding: 0; }
+.fig { border-top: 1px solid rgba(249, 250, 249, 0.22); padding: 22px 0 6px; }
+.fig dt {
+    font-weight: 300; font-stretch: 110%; color: var(--accent);
+    font-size: clamp(46px, 5vw, 80px); line-height: 1; letter-spacing: -0.01em;
+    font-variant-numeric: lining-nums;
 }
-.stamp:hover { background: var(--foam); color: var(--paper); }
+.fig dd { margin: 12px 0 0; font-size: 15.5px; line-height: 1.45; color: rgba(249, 250, 249, 0.86); max-width: 22em; }
 
-/* tables set like report tables */
-table { width: 100%; border-collapse: collapse; margin: 0.3rem 0 0.6rem; }
-th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.9rem 0.5rem 0; border-top: 1px solid var(--rule); }
-tr:last-child th, tr:last-child td { border-bottom: 1px solid var(--rule); }
-th { font-family: var(--gothic); font-weight: 600; font-size: 1.15rem; white-space: nowrap; width: 10.5rem; }
-td { font-family: var(--type); font-size: 0.98rem; }
+/* ---------- sections ---------- */
+.block { padding-top: clamp(72px, 11vh, 112px); }
+.block-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    border-top: 1.5px solid var(--ink); padding-top: 14px; margin-bottom: clamp(28px, 4vh, 44px);
+}
+h2 { margin: 0; font-weight: 700; font-stretch: 125%; font-size: clamp(30px, 3.1vw, 44px); line-height: 1.04; letter-spacing: -0.008em; }
+.block-head .aside { font-stretch: 85%; font-size: 15.5px; color: var(--ink-2); white-space: nowrap; }
+h3 { margin: 0; font-weight: 700; font-stretch: 112%; font-size: clamp(22px, 2vw, 27px); line-height: 1.15; }
+h4 { margin: 0; font-weight: 650; font-size: 20px; line-height: 1.25; }
 
-.contact-list { list-style: none; margin: 0; padding: 0; }
-.contact-list li { display: flex; gap: 1rem; padding: 0.45rem 0; border-top: 1px solid var(--rule); align-items: baseline; }
-.contact-list li:last-child { border-bottom: 1px solid var(--rule); }
-.contact-list .k { font-family: var(--gothic); font-weight: 600; font-size: 1.15rem; width: 8rem; flex-shrink: 0; }
-.contact-list a, .contact-list span:not(.k) { font-family: var(--type); font-size: 0.98rem; overflow-wrap: anywhere; }
+/* jobs: reference column + body */
+.job { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 0 32px; padding-bottom: clamp(44px, 6vh, 64px); }
+.job-ref { padding-top: 7px; font-stretch: 85%; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+.job-ref b { display: block; color: var(--ink); font-weight: 600; }
+.org { color: var(--ink-2); margin: 4px 0 20px; font-size: 16.5px; }
+.gist { font-size: 19px; line-height: 1.42; font-weight: 500; margin: 6px 0 14px; }
+.pts { list-style: none; margin: 0; padding: 0; }
+.pts li { margin: 0 0 13px; }
+.pts li b { font-weight: 650; }
+
+/* promotions shown as a path with nodes */
+.roles { position: relative; padding-left: 30px; }
+.roles::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 18px; width: 1px; background: var(--ink); }
+.role { position: relative; padding-bottom: 30px; }
+.role:last-child { padding-bottom: 0; }
+.role::before {
+    content: ""; position: absolute; left: -30px; top: 6px; width: 11px; height: 11px; border-radius: 50%;
+    background: var(--paper); border: 1.5px solid var(--ink);
+}
+.role.now::before { background: var(--accent); border-color: var(--accent); }
+.role .when { display: block; font-stretch: 85%; font-size: 15px; color: var(--ink-2); margin-top: 2px; }
+
+.award { display: inline-flex; align-items: center; gap: 12px; margin: 2px 0 18px; font-weight: 600; font-size: 16.5px; text-decoration: none; }
+.award::before { content: ""; width: 12px; height: 12px; background: var(--accent); flex: none; }
+.award span { text-decoration: underline; text-decoration-color: rgba(11, 26, 46, 0.35); text-underline-offset: 4px; }
+.award:hover span { text-decoration-color: currentColor; }
+
+/* project chart */
+.chart { margin: 24px 0 4px; max-width: 560px; }
+.chart figcaption { font-stretch: 85%; font-size: 14.5px; color: var(--ink-2); margin-bottom: 10px; }
+.bar-row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 44px; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid var(--rule); }
+.bar-row:last-child { border-bottom: 1px solid var(--rule); }
+.bar-row .k { font-size: 15px; font-weight: 500; }
+.bar-row .v { font-size: 15px; font-weight: 650; text-align: right; font-variant-numeric: tabular-nums; }
+.track { height: 12px; position: relative; }
+.track i { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) / 1.6 * 100%); background: rgba(11, 26, 46, 0.22); }
+.bar-row.us .track i { background: var(--accent); }
+.bar-row.ref .track i { background: transparent; border: 1.5px solid var(--ink); }
+
+/* skills */
+.skills { margin: 0; padding: 0; }
+.skills div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 0 32px; padding: 11px 0; border-top: 1px solid var(--rule); }
+.skills div:last-child { border-bottom: 1px solid var(--rule); }
+.skills dt { font-stretch: 85%; font-size: 15px; color: var(--ink-2); padding-top: 2px; }
+.skills dd { margin: 0; font-size: 17px; }
+
+/* education */
+.edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+.edu article { border-top: 1px solid var(--rule); padding-top: 14px; }
+.edu h3 { font-size: 21px; }
+.edu .org { margin: 4px 0 12px; font-size: 15.5px; }
+.edu p { font-size: 16.5px; }
+
+/* contact */
+.mail {
+    display: inline-block; margin: 0 0 26px;
+    font-weight: 600; font-stretch: 108%; font-size: clamp(25px, 3.3vw, 46px); line-height: 1.1; letter-spacing: -0.01em;
+    text-decoration-thickness: 2px; text-underline-offset: 8px; overflow-wrap: anywhere;
+}
+.links { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; flex-wrap: wrap; font-size: 17px; font-weight: 500; }
 
 footer {
-    margin: 3.2rem 0 0; padding: 1.2rem 0 2.6rem;
-    border-top: 1.5px solid var(--ink);
-    font-family: var(--type); font-size: 0.88rem; color: var(--ink-soft);
-    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    margin-top: clamp(72px, 11vh, 120px); padding: 18px 0 40px; border-top: 1px solid var(--rule);
+    display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 40px;
+    font-stretch: 88%; font-size: 14px; color: var(--ink-2);
 }
+footer p { margin: 0; max-width: 40em; }
 
-/* ---------- the drawing ---------- */
-.plate { position: relative; }
-.plate-inner { position: sticky; top: 64px; height: calc(100vh - 64px); padding: 1.2rem 0 1rem; }
-.plate figure { margin: 0; height: 100%; width: 100%; display: flex; flex-direction: column; }
-.plate svg { flex: 1 1 auto; min-height: 0; width: 100%; overflow: visible; }
-.plate figcaption {
-    font-family: var(--gothic); font-weight: 500; font-size: 1.02rem; letter-spacing: 0.03em;
-    color: var(--ink-soft); text-align: center; margin-top: 0.5rem; line-height: 1.25;
+/* ---------- the plate: an engineering sheet ---------- */
+.plate { position: sticky; top: 0; height: 100vh; height: 100svh; align-self: start; background: var(--sheet); border-left: 1px solid var(--rule); }
+.zones { position: absolute; inset: 14px; width: calc(100% - 28px); height: calc(100% - 28px); overflow: visible; }
+.zones rect { fill: none; stroke: var(--ink); }
+.zones .zo { stroke-width: 1; }
+.zones .zi { stroke-width: 1.5; }
+.zones line { stroke: var(--ink); stroke-width: 1; }
+.zones text { font-family: var(--font); font-stretch: 80%; font-weight: 600; font-size: 10px; fill: var(--ink-2); text-anchor: middle; }
+.sheet {
+    position: absolute; inset: 32px; display: flex; flex-direction: column;
+    background-image:
+        linear-gradient(rgba(11, 26, 46, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 26, 46, 0.055) 1px, transparent 1px);
+    background-size: 24px 24px; background-position: -1px -1px;
 }
-#stackNote { color: var(--ink); font-weight: 600; }
+#v { flex: 1 1 auto; min-height: 0; width: 100%; overflow: visible; display: block; padding: 18px 0 6px; }
+.tb { display: grid; grid-template-columns: 1.45fr 0.9fr 0.9fr 1.35fr; border-top: 1.5px solid var(--ink); background: var(--paper-hi); }
+.tb div { padding: 7px 10px 9px; border-left: 1px solid var(--ink); min-width: 0; }
+.tb div:first-child { border-left: 0; }
+.tb dt { font-stretch: 80%; font-size: 11px; line-height: 1.2; color: var(--ink-2); }
+.tb dd { margin: 2px 0 0; font-stretch: 85%; font-size: 13.5px; line-height: 1.25; font-weight: 600; }
+#status { color: var(--accent-deep); }
 
-.ghost path { fill: none; stroke: var(--line); stroke-width: 0.9; stroke-opacity: 0.22; stroke-dasharray: 2 3; }
-.ink path {
-    fill: none; stroke: var(--line); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-    stroke-dasharray: 1; stroke-dashoffset: 1;
-}
-.paint { opacity: 0; transition: opacity 0.4s ease; }
-.paint.foam { fill: var(--foam); }
-.paint.dark { fill: var(--line); }
-.paint.is-on.foam { opacity: 0.9; }
-.callout { opacity: 0; transition: opacity 0.35s ease; }
-.callout text, .dim text { font-family: var(--gothic); font-weight: 600; font-size: 21px; letter-spacing: 0.05em; fill: var(--line); }
-.callout line, .dim line, .ground line { stroke: var(--line); stroke-width: 0.9; }
-.dim path { fill: none; stroke: var(--line); stroke-width: 0.9; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.is-on { opacity: 1; }
-.plume { opacity: 0; fill: var(--foam); transform-origin: 130px 1056px; }
-.plume.is-on { opacity: 0.85; animation: burn 0.5s ease-in-out infinite alternate; }
-@keyframes burn { from { transform: scaleY(0.82); } to { transform: scaleY(1.08); } }
+/* drawing strokes and fills */
+#v .line path { fill: none; stroke: var(--ink); stroke-width: 1.45; stroke-linejoin: round; stroke-linecap: round; }
+#v .ghost path { fill: none; stroke: var(--ink); stroke-opacity: 0.2; stroke-width: 1; stroke-dasharray: 3 4; }
+#v .fill, #v .hatch { opacity: 0; transition: opacity 0.6s ease; }
+#v .stage.on .fill, #v .stage.on .hatch { opacity: 1; }
+#v .w { fill: var(--paper-hi); }
+#v .o { fill: var(--accent); }
+#v .m { fill: var(--metal); }
+#v .hatch line { stroke-width: 0.8; }
+#v .hw { stroke: var(--ink); stroke-opacity: 0.26; }
+#v .ho { stroke: var(--accent-deep); stroke-opacity: 0.42; }
+#v .ground line { stroke: var(--ink); stroke-width: 1.2; }
+#v .gh line { stroke-width: 0.8; stroke-opacity: 0.55; }
+#v .lbl, #v .dim { opacity: 0; transition: opacity 0.45s ease; }
+#v .lbl.on, #v .dim.on { opacity: 1; }
+#v .lbl text, #v .dim text, #v .scale text { font-family: var(--font); font-stretch: 82%; font-weight: 500; font-size: 19px; fill: var(--ink); }
+#v .dim text { font-weight: 600; }
+#v .lbl line, #v .dim line, #v .dim path { stroke: var(--ink); stroke-width: 0.9; fill: none; }
+#v .lbl circle, #v .arrow { fill: var(--ink); }
+#v #dimAll { stroke: var(--ink); stroke-width: 0.9; fill: none; }
+#v .scale rect { stroke: var(--ink); stroke-width: 0.9; }
+#v .scale text { font-size: 15px; fill: var(--ink-2); }
+
+/* liftoff */
+#v #stack { transition: transform 2.6s cubic-bezier(0.6, 0, 0.88, 0.35); }
+#v.launch #stack { transform: translateY(-92px); }
+#v.launch .lbl, #v.launch .dim { opacity: 0; }
+#v #dimAll { transition: opacity 0.45s ease; }
+#v.launch #dimAll { opacity: 0; }
+#v .plume { opacity: 0; transition: opacity 0.25s ease; }
+#v.launch .plume { opacity: 1; }
+#v .plume path { fill: url(#pg); transform-box: fill-box; transform-origin: 50% 0; }
+#v.launch .plume path { animation: flick 0.09s ease-in-out infinite alternate; }
+@keyframes flick { from { transform: scale(0.98, 0.92); } to { transform: scale(1.01, 1.04); } }
+#v .smoke circle { transform: scale(0); transform-box: fill-box; transform-origin: 50% 85%; transition: transform 1.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+#v.launch .smoke circle { transform: scale(1); }
+#v .smoke-o circle { fill: var(--sheet); stroke: var(--ink); stroke-width: 2.4; }
+#v .smoke-f circle { fill: var(--sheet); }
 
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .paint, .callout { transition: none; }
-    .plume.is-on { animation: none; }
+    #v .fill, #v .hatch, #v .lbl, #v .dim { transition: none; }
 }
 
-/* ---------- narrow screens: the report stands alone ---------- */
-@media (max-width: 1020px) {
-    .sheet { grid-template-columns: minmax(0, 1fr); }
+/* ---------- smaller screens: the report stands alone ---------- */
+@media (max-width: 1080px) {
+    .page { grid-template-columns: minmax(0, 1fr); }
     .plate { display: none; }
+    main, footer, .bar { max-width: 760px; margin-left: auto; margin-right: auto; }
 }
-@media (max-width: 640px) {
-    body { font-size: 16.5px; }
-    .running-head .inner, .sheet { padding-left: 1.1rem; padding-right: 1.1rem; }
-    .running-head nav { gap: 0.9rem; }
-    .running-head nav a { font-size: 0.98rem; }
-    .running-head .who { display: none; }
-    .title-page { padding-top: 2.6rem; }
-    .title-block { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .title-block div:nth-child(2) { border-right: 0; }
-    .title-block div:nth-child(-n+2) { border-bottom: 1px solid var(--ink); }
-    .readout b { font-size: 2.4rem; }
-    .track { grid-template-columns: 1fr; row-gap: 0.9rem; }
-    .track::before { left: 0.42rem; right: auto; top: 0; bottom: 0; width: 1.5px; height: auto; }
-    .track li { padding: 0 0 0 1.6rem; }
-    .entry-head, .role-head { flex-wrap: wrap; gap: 0.1rem 1rem; }
-    th { width: auto; white-space: normal; }
-    .contact-list .k { width: 5.5rem; }
+@media (max-width: 680px) {
+    body { font-size: 17px; }
+    h1 { font-size: 11.4vw; }
+    .bar .mark { display: none; }
+    .bar nav { gap: 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+    .bar nav a { font-size: 15px; }
+    .facts { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    .path { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
+    .path::before { left: 5px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+    .path li { padding: 0 0 0 26px; }
+    .path .yr { display: inline; margin-right: 8px; }
+    .path .what { display: inline; }
+    .figs { grid-template-columns: minmax(0, 1fr); }
+    .job, .skills div { grid-template-columns: minmax(0, 1fr); }
+    .job-ref { padding: 0 0 8px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .job-ref b { display: inline; }
+    .edu { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .bar-row { grid-template-columns: 110px minmax(0, 1fr) 40px; }
+    .block-head .aside { display: none; }
+    footer { grid-template-columns: minmax(0, 1fr); }
 }
 @media print {
-    .running-head, .plate { display: none; }
-    .sheet { display: block; }
+    .plate, .bar { display: none; }
+    .page { display: block; }
+    .hero { min-height: 0; }
 }
 </style>
 </head>
 <body>
+<div class="page">
+<div class="col">
 
-<header class="running-head">
-    <div class="inner">
-        <a class="who" href="#top">Justin Tomlinson</a>
-        <nav aria-label="Sections">
-            <a href="#summary">Summary</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#education">Education</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </div>
+<header class="bar">
+    <a class="mark" href="#top">Justin Tomlinson</a>
+    <nav aria-label="Sections">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+    </nav>
 </header>
 
-<div class="sheet" id="top">
-<main class="report">
+<main id="top">
 
-    <div class="title-page">
-        <p class="series">Technical memorandum JT-TM-2026</p>
-        <h1>Justin Tomlinson</h1>
-        <p class="subject">I build the backend systems that route, schedule and pay property insurance claims. Before that I tested launch control software for NASA's Space Launch System.</p>
-        <dl class="title-block">
-            <div><dt>Role</dt><dd>Backend software engineer</dd></div>
-            <div><dt>Employer</dt><dd>Liberty Mutual</dd></div>
-            <div><dt>Station</dt><dd>Melbourne, Florida</dd></div>
-            <div><dt>Revision</dt><dd>B, November 2026</dd></div>
-        </dl>
-        <div class="title-actions">
-            <a class="btn" href="mailto:justintomlinsonn@gmail.com">Email me</a>
-            <a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://github.com/tomljr2" target="_blank" rel="noopener">GitHub</a>
+    <section class="hero" aria-label="Introduction">
+        <div>
+            <h1>Justin<br>Tomlinson</h1>
+            <p class="lead">I build the backend systems that route, schedule and pay property insurance claims at Liberty Mutual. Before that, I tested launch control software for NASA's Space Launch System.</p>
+            <dl class="facts">
+                <div><dt>Now</dt><dd>Principal Software Engineer, Liberty Mutual</dd></div>
+                <div><dt>Before</dt><dd>NASA launch control, cellular security research</dd></div>
+                <div><dt>Based</dt><dd>Melbourne, Florida, down the coast from Kennedy</dd></div>
+            </dl>
+            <div class="actions">
+                <a class="btn" href="mailto:justintomlinsonn@gmail.com">Email me</a>
+                <a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/tomljr2" target="_blank" rel="noopener">GitHub</a>
+            </div>
         </div>
-    </div>
-
-    <section id="summary">
-        <h2><span class="no">1.0</span>Summary</h2>
-        <p class="lede">When a house floods, someone has to decide which adjuster can handle it, get an inspection on the calendar, and pay the contractor. I write the services that do those three things at Liberty Mutual.</p>
-        <p>Today I co-lead the team behind an invoicing service that checks vendor estimates against a rules engine I designed, creates the invoice and sends it for payment with far less manual review. I care most about high availability, scalability, security and observability, because I am also the one on call when it breaks.</p>
-
-        <div class="readouts">
-            <div class="readout"><b>$90M</b><span>in invoices a year, nearly, at the invoicing service's run rate since launch. About 24,000 invoices, 45% eligible for auto-pay.</span></div>
-            <div class="readout"><b>$9M</b><span>saved per year, by estimate, by a self-scheduling platform I designed, over its roughly two years in service.</span></div>
-            <div class="readout"><b>30&times;</b><span>faster requests on that platform: from 3 to 4 seconds down to about 100 ms.</span></div>
-            <div class="readout"><b>3 teams</b><span>now run on the rules engine: 41 rule sets built from 90 rules.</span></div>
-        </div>
-
-        <ol class="track" aria-label="Career timeline">
+        <ol class="path" aria-label="Career so far">
             <li><span class="yr">2018</span><span class="what">Compiler research, Chalmers</span></li>
             <li><span class="yr">2020</span><span class="what">M.S., University of Florida</span></li>
             <li><span class="yr">2020</span><span class="what">NASA launch control</span></li>
@@ -301,311 +347,488 @@ footer {
         </ol>
     </section>
 
-    <section id="experience">
-        <h2><span class="no">2.0</span>Experience</h2>
+    <section class="results" aria-labelledby="results-h">
+        <h2 id="results-h">Selected results</h2>
+        <dl class="figs">
+            <div class="fig"><dt>$90M</dt><dd>in invoices a year that the invoicing service I co-lead is on pace to process, across about 24,000 invoices. 45% of them are eligible for auto-pay.</dd></div>
+            <div class="fig"><dt>$9M</dt><dd>saved per year, by estimate, by the customer self-scheduling platform I designed, over its roughly two years in service.</dd></div>
+            <div class="fig"><dt>30x</dt><dd>faster requests on that platform: from 3 to 4 seconds down to about 100 ms.</dd></div>
+            <div class="fig"><dt>41</dt><dd>rule sets now running on the rules engine I designed, built from 90 rules and used by three teams.</dd></div>
+        </dl>
+    </section>
 
-        <div class="entry">
-            <div class="entry-head">
-                <div>
-                    <h3>Liberty Mutual Insurance</h3>
-                    <p class="where">Remote. Three titles in four and a half years.</p>
+    <section class="block" id="experience" aria-labelledby="exp-h">
+        <div class="block-head"><h2 id="exp-h">Experience</h2><span class="aside">2018 to present</span></div>
+
+        <article class="job">
+            <div class="job-ref"><b>May 2022 to present</b>Remote</div>
+            <div>
+                <h3>Liberty Mutual Insurance</h3>
+                <p class="org">Three titles in four and a half years.</p>
+                <div class="roles">
+                    <div class="role now">
+                        <h4>Principal Software Engineer</h4>
+                        <span class="when">Oct 2025 to present</span>
+                        <p class="gist">Paying claims with fewer people in the loop.</p>
+                        <ul class="pts">
+                            <li><b>Invoicing and payments.</b> Co-lead a team of five engineers that launched straight-through invoicing for property claims. Vendor estimates are validated by the rules engine, invoiced and sent for payment with reduced manual review. On pace to process <strong>nearly $90M a year</strong> across 24,000 invoices, 45% of them eligible for auto-pay.</li>
+                            <li><b>Event-driven on Kafka.</b> The service runs in the auto-scaling property platform. It consumes payment confirmations, downstream errors and coverage-status updates, and rechecks pending coverage after 72 hours.</li>
+                            <li><b>On-call and auth.</b> On the rotation for all live services. Built the invoicing observability in Splunk and Datadog, and configured authentication and authorization for every service the team has set up: OAuth 2.0 across microservices, JWT where roles are needed.</li>
+                            <li><b>Claim linking.</b> Technical lead for a human-in-the-loop workflow that links first- and third-party claims filed separately for the same incident. Reviewers confirm or reject candidate links from the data science team, and the results feed reporting.</li>
+                            <li><b>AI prototype.</b> Built a RAG pipeline and a LangGraph multi-agent workflow for estimate review as an innovation effort.</li>
+                            <li><b>Mentoring.</b> Mentor engineers in design and code reviews, and work with architects and business stakeholders on technical strategy and cost tradeoffs.</li>
+                        </ul>
+                    </div>
+                    <div class="role">
+                        <h4>Senior Software Engineer</h4>
+                        <span class="when">Jul 2023 to Oct 2025</span>
+                        <p class="gist">Turning fuzzy business policy into rules a machine can run.</p>
+                        <ul class="pts">
+                            <li><b>Rules engine.</b> Designed a configurable engine that turns loosely defined policy into decision logic for adjuster skill routing. It has since scaled to <strong>three teams, 41 rule sets and 90 rules</strong>, at about 600,000 requests a year. In catastrophes such as hurricanes, floods and wildfires, its skill rules are reconfigured so adjusters are not overloaded.</li>
+                            <li><b>Security fix.</b> Removed an expression-injection risk by replacing config-defined SpEL rules with annotated Java functions registered at startup.</li>
+                            <li><b>Vendor retirement.</b> Led the retirement of a deeply embedded third-party scheduling platform across three engineering teams, finishing <strong>before the shutdown date with no downtime</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="role">
+                        <h4>Software Engineer</h4>
+                        <span class="when">May 2022 to Jul 2023</span>
+                        <p class="gist">Letting customers book their own inspections.</p>
+                        <ul class="pts">
+                            <li><b>Self-scheduling platform.</b> Designed and led development of the core backend (Spring REST API, DynamoDB) and observability for a high-availability platform where customers scheduled property inspections, across three teams. Over about two years it replaced a manual workflow on hundreds of thousands of claims, saving <strong>an estimated $9M a year</strong>.</li>
+                            <li><b>Latency.</b> Cut requests from <strong>3 to 4 seconds down to about 100 ms</strong> by parallelizing downstream calls and deferring the Microsoft Graph calendar update until after the response.</li>
+                            <li><b>Cybersecurity Guardians.</b> Selected for a cross-team group that finds security gaps and routes them to the teams building company-wide security foundations.</li>
+                        </ul>
+                    </div>
                 </div>
-                <span class="when">May 2022 to present</span>
             </div>
+        </article>
 
-            <div class="role now">
-                <div class="role-head"><h4>Principal Software Engineer</h4><span class="when">Oct 2025 to present</span></div>
-                <p class="gist">Paying claims with fewer people in the loop.</p>
-                <ul class="items">
-                    <li><b>Invoicing and payments.</b> Co-lead a team of five engineers that launched straight-through invoicing for property claims. Vendor estimates are validated by the rules engine, invoiced and sent for payment with reduced manual review. On pace to process <mark>nearly $90M a year</mark> across 24,000 invoices, 45% of them eligible for auto-pay.</li>
-                    <li><b>Event-driven on Kafka.</b> The service runs in the auto-scaling property platform. It consumes payment confirmations, downstream errors and coverage-status updates, and rechecks pending coverage after 72 hours.</li>
-                    <li><b>On-call and auth.</b> On the rotation for all live services. Built the invoicing observability in Splunk and Datadog, and configured authentication and authorization for every service the team has set up: OAuth 2.0 across microservices, JWT where roles are needed.</li>
-                    <li><b>Claim linking.</b> Technical lead for a human-in-the-loop workflow that links first- and third-party claims filed separately for the same incident. Reviewers confirm or reject candidate links from the data science team, and the results feed reporting.</li>
-                    <li><b>AI prototype.</b> Built a RAG pipeline and a LangGraph multi-agent workflow for estimate review as an innovation effort.</li>
-                    <li><b>Mentoring.</b> Mentor engineers in design and code reviews, and work with architects and business stakeholders on technical strategy and cost tradeoffs.</li>
+        <article class="job">
+            <div class="job-ref"><b>Aug 2021 to May 2022</b>Gainesville, Florida</div>
+            <div>
+                <h3>Graduate Research Assistant</h3>
+                <p class="org">Florida Institute for Cybersecurity Research, University of Florida</p>
+                <p class="gist">Catching fake cell towers.</p>
+                <ul class="pts">
+                    <li><b>The problem.</b> PhD-track research on detecting IMSI-catchers, rogue base stations that intercept cellular traffic, in 4G and 5G networks.</li>
+                    <li><b>The project.</b> Took it over from its original lead researcher. The work was published at <a href="https://www.cise.ufl.edu/~butler/pubs/ndss25-tucker-marlin.pdf" target="_blank" rel="noopener">NDSS 2025</a> after I left for industry.</li>
+                    <li><b>Collaboration.</b> Worked with ETH Zurich researchers developing next-generation IMSI-catcher hardware to refine the experimental methodology.</li>
                 </ul>
             </div>
+        </article>
 
-            <div class="role">
-                <div class="role-head"><h4>Senior Software Engineer</h4><span class="when">Jul 2023 to Oct 2025</span></div>
-                <p class="gist">Turning fuzzy business policy into rules a machine can run.</p>
-                <ul class="items">
-                    <li><b>Rules engine.</b> Designed a configurable engine that turns loosely defined policy into decision logic for adjuster skill routing. It has since scaled to <mark>three teams, 41 rule sets and 90 rules</mark>, at about 600,000 requests a year. In catastrophes such as hurricanes, floods and wildfires, its skill rules are reconfigured so adjusters are not overloaded.</li>
-                    <li><b>Security fix.</b> Removed an expression-injection risk by replacing config-defined SpEL rules with annotated Java functions registered at startup.</li>
-                    <li><b>Vendor retirement.</b> Led the retirement of a deeply embedded third-party scheduling platform across three engineering teams, finishing <mark>before the shutdown date with no downtime</mark>.</li>
+        <article class="job">
+            <div class="job-ref"><b>Aug 2020 to Apr 2021</b>Kennedy Space Center, remote</div>
+            <div>
+                <h3>Command and Control System Software Development Intern</h3>
+                <p class="org">NASA</p>
+                <p class="gist">Ground software for the rocket on this page.</p>
+                <a class="award" href="https://youtu.be/S6ckOVnDSVc?t=452" target="_blank" rel="noopener"><span>Named NASA OSTEM Intern of the Year</span></a>
+                <ul class="pts">
+                    <li><b>The program.</b> Two internships on launch control software for the Space Launch System, the vehicle that flies Artemis.</li>
+                    <li><b>Developer tools.</b> Built a linting framework that enforces consistency and correctness across the launch control functional test suite.</li>
+                    <li><b>Testing.</b> Wrote functional tests for a core message-passing subsystem used throughout the launch control software.</li>
+                    <li><b>Documentation.</b> Documented sparsely documented legacy systems and mentored incoming interns.</li>
                 </ul>
             </div>
+        </article>
 
-            <div class="role">
-                <div class="role-head"><h4>Software Engineer</h4><span class="when">May 2022 to Jul 2023</span></div>
-                <p class="gist">Letting customers book their own inspections.</p>
-                <ul class="items">
-                    <li><b>Self-scheduling platform.</b> Designed and led development of the core backend (Spring REST API, DynamoDB) and observability for a high-availability platform where customers scheduled property inspections, across three teams. Over about two years it replaced a manual workflow on hundreds of thousands of claims, saving <mark>an estimated $9M a year</mark>.</li>
-                    <li><b>Latency.</b> Cut requests from <mark>3 to 4 seconds down to about 100 ms</mark> by parallelizing downstream calls and deferring the Microsoft Graph calendar update until after the response.</li>
-                    <li><b>Cybersecurity Guardians.</b> Selected for a cross-team group that finds security gaps and routes them to the teams building company-wide security foundations.</li>
+        <article class="job">
+            <div class="job-ref"><b>May 2018 to Jul 2018</b>Gothenburg, Sweden</div>
+            <div>
+                <h3>Undergraduate Research Assistant</h3>
+                <p class="org">Chalmers University of Technology</p>
+                <p class="gist">A summer inside a compiler.</p>
+                <ul class="pts">
+                    <li><b>Optimization.</b> Implemented loop unrolling in the Very Portable Optimizer (VPO) compiler, in C and MIPS assembly.</li>
+                    <li><b>Analysis.</b> Worked with researchers to identify global variable dependencies and the optimizations they allow.</li>
                 </ul>
             </div>
-        </div>
+        </article>
+    </section>
 
-        <div class="entry">
-            <div class="entry-head">
-                <div>
-                    <h3>Graduate Research Assistant</h3>
-                    <p class="where">Florida Institute for Cybersecurity Research, University of Florida</p>
-                </div>
-                <span class="when">Aug 2021 to May 2022</span>
+    <section class="block" id="projects" aria-labelledby="proj-h">
+        <div class="block-head"><h2 id="proj-h">Projects</h2><span class="aside">2026 to present</span></div>
+        <article class="job">
+            <div class="job-ref"><b>Personal</b>Python, PyTorch</div>
+            <div>
+                <h3><a href="https://github.com/tomljr2/artemis-mcc" target="_blank" rel="noopener">Artemis</a></h3>
+                <p class="org">An LLM learning project. An AI coding agent writes the code; I direct it and run the experiments.</p>
+                <p class="gist">Learning how language models work by having one built from scratch.</p>
+                <ul class="pts">
+                    <li><b>Method.</b> I direct an AI coding agent through a from-scratch build of a GPT-style model, one stage at a time, and measure every change in a public experiment log.</li>
+                    <li><b>Result so far.</b> The first release scores <strong>1.37 bits per byte</strong> on held-out web text, down from 1.52, against 1.20 for the nanochat reference.</li>
+                </ul>
+                <figure class="chart" aria-label="Bits per byte: baseline 1.52, first release 1.37, nanochat reference 1.20. Lower is better.">
+                    <figcaption>Bits per byte on held-out web text. Lower is better.</figcaption>
+                    <div class="bar-row"><span class="k">First run</span><span class="track"><i style="--v:1.52"></i></span><span class="v">1.52</span></div>
+                    <div class="bar-row us"><span class="k">First release</span><span class="track"><i style="--v:1.37"></i></span><span class="v">1.37</span></div>
+                    <div class="bar-row ref"><span class="k">nanochat reference</span><span class="track"><i style="--v:1.20"></i></span><span class="v">1.20</span></div>
+                </figure>
             </div>
-            <p class="gist">Catching fake cell towers.</p>
-            <ul class="items">
-                <li><b>The problem.</b> PhD-track research on detecting IMSI-catchers, rogue base stations that intercept cellular traffic, in 4G and 5G networks.</li>
-                <li><b>The project.</b> Took it over from its original lead researcher. The work was published at <a href="https://www.cise.ufl.edu/~butler/pubs/ndss25-tucker-marlin.pdf" target="_blank" rel="noopener">NDSS 2025</a> after I left for industry.</li>
-                <li><b>Collaboration.</b> Worked with ETH Zurich researchers developing next-generation IMSI-catcher hardware to refine the experimental methodology.</li>
-            </ul>
-        </div>
+        </article>
+    </section>
 
-        <div class="entry">
-            <div class="entry-head">
-                <div>
-                    <h3>Command and Control System Software Development Intern</h3>
-                    <p class="where">NASA Kennedy Space Center, remote</p>
-                </div>
-                <span class="when">Aug 2020 to Apr 2021</span>
-            </div>
-            <p class="gist">Ground software for the rocket in the margin.</p>
-            <a class="stamp" href="https://youtu.be/S6ckOVnDSVc?t=452" target="_blank" rel="noopener">NASA OSTEM Intern of the Year</a>
-            <ul class="items">
-                <li><b>The program.</b> Two internships on launch control software for the Space Launch System, the vehicle that flies Artemis.</li>
-                <li><b>Developer tools.</b> Built a linting framework that enforces consistency and correctness across the launch control functional test suite.</li>
-                <li><b>Testing.</b> Wrote functional tests for a core message-passing subsystem used throughout the launch control software.</li>
-                <li><b>Documentation.</b> Documented sparsely documented legacy systems and mentored incoming interns.</li>
-            </ul>
-        </div>
+    <section class="block" id="skills" aria-labelledby="skills-h">
+        <div class="block-head"><h2 id="skills-h">Skills</h2></div>
+        <dl class="skills">
+            <div><dt>Languages</dt><dd>Java, Python, TypeScript, JavaScript</dd></div>
+            <div><dt>Backend</dt><dd>Spring Boot, Node.js, Kafka, OAuth 2.0, JWT</dd></div>
+            <div><dt>Data</dt><dd>MongoDB, DynamoDB, Amazon S3</dd></div>
+            <div><dt>Infrastructure</dt><dd>AWS, Azure, Kubernetes, CloudFormation, CI/CD with GitHub Actions and Jenkins</dd></div>
+            <div><dt>Observability</dt><dd>Splunk, Datadog, CloudWatch</dd></div>
+            <div><dt>Frontend</dt><dd>React, Angular</dd></div>
+        </dl>
+    </section>
 
-        <div class="entry">
-            <div class="entry-head">
-                <div>
-                    <h3>Undergraduate Research Assistant</h3>
-                    <p class="where">Chalmers University of Technology, Gothenburg, Sweden</p>
-                </div>
-                <span class="when">May 2018 to Jul 2018</span>
-            </div>
-            <p class="gist">A summer inside a compiler.</p>
-            <ul class="items">
-                <li><b>Optimization.</b> Implemented loop unrolling in the Very Portable Optimizer (VPO) compiler, in C and MIPS assembly.</li>
-                <li><b>Analysis.</b> Worked with researchers to identify global variable dependencies and the optimizations they allow.</li>
-            </ul>
+    <section class="block" id="education" aria-labelledby="edu-h">
+        <div class="block-head"><h2 id="edu-h">Education</h2><span class="aside">2016 to 2020</span></div>
+        <div class="edu">
+            <article>
+                <h3>M.S. Computer Science</h3>
+                <p class="org">University of Florida, 2018 to 2020. GPA 3.64</p>
+                <p>Coursework in machine learning, computer networks and network security. <a href="https://github.com/tomljr2/How-To-Bypass-Android-Biometrics" target="_blank" rel="noopener">Independent research on the security of Android facial-recognition biometrics</a>.</p>
+            </article>
+            <article>
+                <h3>B.S. Computer Science</h3>
+                <p class="org">Florida State University, 2016 to 2018. GPA 3.76</p>
+                <p>Graduated Magna Cum Laude, on the President's List once and the Dean's List three times. Built an app that lets first responders identify people by scanning a QR code.</p>
+            </article>
         </div>
     </section>
 
-    <section id="projects">
-        <h2><span class="no">3.0</span>Projects</h2>
-        <div class="entry">
-            <div class="entry-head">
-                <div>
-                    <h3><a href="https://github.com/tomljr2/artemis-mcc" target="_blank" rel="noopener">Artemis</a></h3>
-                    <p class="where">An LLM learning project. An AI coding agent writes the code; I run the experiments.</p>
-                </div>
-                <span class="when">2026 to present</span>
-            </div>
-            <p class="gist">Learning how language models work by having one built from scratch.</p>
-            <ul class="items">
-                <li><b>Method.</b> I direct an AI coding agent through a from-scratch build of a GPT-style model, one stage at a time, and measure every change in a public experiment log.</li>
-                <li><b>Result so far.</b> The first release scores <mark>1.37 bits per byte</mark> on held-out web text, down from 1.52, against 1.20 for the nanochat reference.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2><span class="no">4.0</span>Skills</h2>
-        <table>
-            <tbody>
-                <tr><th scope="row">Languages</th><td>Java, Python, TypeScript, JavaScript</td></tr>
-                <tr><th scope="row">Backend</th><td>Spring Boot, Node.js, Kafka, OAuth 2.0, JWT</td></tr>
-                <tr><th scope="row">Data</th><td>MongoDB, DynamoDB, Amazon S3</td></tr>
-                <tr><th scope="row">Infrastructure</th><td>AWS, Azure, Kubernetes, CloudFormation, CI/CD with GitHub Actions and Jenkins</td></tr>
-                <tr><th scope="row">Observability</th><td>Splunk, Datadog, CloudWatch</td></tr>
-                <tr><th scope="row">Frontend</th><td>React, Angular</td></tr>
-            </tbody>
-        </table>
-    </section>
-
-    <section id="education">
-        <h2><span class="no">5.0</span>Education</h2>
-        <div class="entry">
-            <div class="entry-head">
-                <div>
-                    <h3>M.S. Computer Science</h3>
-                    <p class="where">University of Florida. GPA 3.64</p>
-                </div>
-                <span class="when">2018 to 2020</span>
-            </div>
-            <p>Coursework in machine learning, computer networks and network security. <a href="https://github.com/tomljr2/How-To-Bypass-Android-Biometrics" target="_blank" rel="noopener">Independent research on the security of Android facial-recognition biometrics</a> at the Florida Institute for Cybersecurity Research.</p>
-        </div>
-        <div class="entry">
-            <div class="entry-head">
-                <div>
-                    <h3>B.S. Computer Science</h3>
-                    <p class="where">Florida State University. GPA 3.76</p>
-                </div>
-                <span class="when">2016 to 2018</span>
-            </div>
-            <p>Graduated Magna Cum Laude, on the President's List once and the Dean's List three times. Built an application that lets first responders identify people by scanning a QR code during emergency response.</p>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2><span class="no">6.0</span>Contact</h2>
-        <p class="lede">Email is the fastest way to reach me.</p>
-        <ul class="contact-list">
-            <li><span class="k">Email</span><a href="mailto:justintomlinsonn@gmail.com">justintomlinsonn@gmail.com</a></li>
-            <li><span class="k">Location</span><span>Melbourne, Florida</span></li>
-            <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">linkedin.com/in/justin-tomlinson</a></li>
-            <li><span class="k">GitHub</span><a href="https://github.com/tomljr2" target="_blank" rel="noopener">github.com/tomljr2</a></li>
+    <section class="block" id="contact" aria-labelledby="contact-h">
+        <div class="block-head"><h2 id="contact-h">Contact</h2></div>
+        <p class="gist">Email is the fastest way to reach me.</p>
+        <a class="mail" href="mailto:justintomlinsonn@gmail.com">justintomlinsonn@gmail.com</a>
+        <ul class="links">
+            <li><a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/tomljr2" target="_blank" rel="noopener">GitHub</a></li>
         </ul>
     </section>
 
-    <footer>
-        <span>Justin Tomlinson, Melbourne, Florida</span>
-        <span>JT-TM-2026, revision B</span>
-    </footer>
-
 </main>
 
-<!-- The drawing: an SLS Block 1, stacked from the pad up as the reader scrolls. Decorative. -->
+<footer>
+    <span>Justin Tomlinson, 2026</span>
+    <p>The drawing is a simplified illustration of the Space Launch System in its Artemis II configuration, stacked in the order it is assembled at Kennedy Space Center: boosters, core stage, upper stage, then Orion.</p>
+</footer>
+
+</div>
+
+<!-- The plate: an engineering sheet. The SLS stacks as the reader scrolls and lifts off at the end. Decorative. -->
 <aside class="plate" aria-hidden="true">
-    <div class="plate-inner">
-        <figure>
-            <svg id="vehicle" viewBox="-44 0 316 1120" preserveAspectRatio="xMidYMid meet" role="presentation">
-                <!-- exhaust, shown only once the stack is complete -->
-                <g class="plume" id="plume">
-                    <path d="M112 1058 L148 1058 L140 1100 L130 1118 L120 1100 Z"/>
-                    <path d="M55 1058 L81 1058 L76 1092 L68 1108 L60 1092 Z"/>
-                    <path d="M179 1058 L205 1058 L200 1092 L192 1108 L184 1092 Z"/>
-                </g>
-                <g class="ground"><line x1="30" y1="1058" x2="236" y2="1058"/></g>
+    <svg class="zones"></svg>
+    <div class="sheet">
+        <svg id="v" viewBox="-290 -74 540 1194" preserveAspectRatio="xMidYMid meet">
+            <defs>
+                <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#FFF7E3"/>
+                    <stop offset="0.2" stop-color="#FFC56A"/>
+                    <stop offset="0.55" stop-color="#E0601D" stop-opacity="0.9"/>
+                    <stop offset="1" stop-color="#E0601D" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
 
-                <g class="dim">
-                    <line x1="234" y1="1056" x2="246" y2="1056"/><line x1="234" y1="58" x2="246" y2="58" stroke-opacity=".35"/>
-                    <path id="dimLine" pathLength="1" d="M240 1056 L240 58"/>
-                    <text class="callout" data-at="0.9" transform="translate(262 560) rotate(-90)" text-anchor="middle">322 FT</text>
-                </g>
+            <g class="ground">
+                <line x1="-215" y1="1000" x2="215" y2="1000"/>
+                <g class="gh"></g>
+            </g>
 
-                <!-- paint goes under the ink so the line work stays crisp -->
-                <g id="paint">
-                    <path class="paint foam" data-stage="3" d="M87 1024 L87 399 L173 399 L173 1024 Z"/>
-                    <path class="paint foam" data-stage="4" d="M87 399 L104 314 L156 314 L173 399 Z"/>
-                </g>
-
-                <g class="ink" id="ink">
-                    <!-- 0  RS-25 engines -->
-                    <path pathLength="1" d="M104 1024 L99 1054 L115 1054 L110 1024 M122 1024 L117 1054 L143 1054 L138 1024 M150 1024 L145 1054 L161 1054 L156 1024"/>
-                    <!-- 1  solid rocket boosters, stacked first -->
-                    <path pathLength="1" d="M49 1016 L45 1052 L91 1052 L87 1016 M49 1016 L49 566 M87 1016 L87 566 M49 566 C51 540 60 518 68 506 C76 518 85 540 87 566 M49 1016 L87 1016 M49 900 L87 900 M49 790 L87 790 M49 680 L87 680 M49 566 L87 566 M173 1016 L169 1052 L215 1052 L211 1016 M173 1016 L173 566 M211 1016 L211 566 M173 566 C175 540 184 518 192 506 C200 518 209 540 211 566 M173 1016 L211 1016 M173 900 L211 900 M173 790 L211 790 M173 680 L211 680 M173 566 L211 566"/>
-                    <!-- 2  core stage: engine section and hydrogen tank -->
-                    <path pathLength="1" d="M87 1024 L173 1024 M87 1024 L87 640 M173 1024 L173 640 M87 980 L173 980 M87 640 L173 640"/>
-                    <!-- 3  core stage: intertank, oxygen tank, forward skirt -->
-                    <path pathLength="1" d="M87 640 L87 399 M173 640 L173 399 M87 596 L173 596 M98 640 L98 596 M109 640 L109 596 M120 640 L120 596 M130 640 L130 596 M140 640 L140 596 M151 640 L151 596 M162 640 L162 596 M87 428 L173 428 M87 399 L173 399"/>
-                    <!-- 4  launch vehicle stage adapter -->
-                    <path pathLength="1" d="M87 399 L104 314 M173 399 L156 314 M104 314 L156 314"/>
-                    <!-- 5  upper stage and Orion stage adapter -->
-                    <path pathLength="1" d="M104 314 L104 280 M156 314 L156 280 M104 280 L156 280 M104 297 L156 297"/>
-                    <!-- 6  Orion service module -->
-                    <path pathLength="1" d="M104 280 L104 226 M156 280 L156 226 M104 226 L156 226 M121 280 L121 226 M139 280 L139 226"/>
-                    <!-- 7  crew module under the launch abort fairing -->
-                    <path pathLength="1" d="M104 226 C106 196 114 168 124 150 M156 226 C154 196 146 168 136 150 M124 150 L136 150"/>
-                    <!-- 8  launch abort system -->
-                    <path pathLength="1" d="M124 150 L124 88 M136 150 L136 88 M121 150 L139 150 M124 122 L136 122 M124 88 L130 58 L136 88 M124 88 L136 88"/>
+            <g id="stack">
+                <g class="plume">
+                    <path d="M37 1000 C30 1060 42 1120 62 1185 C82 1120 94 1060 87 1000 Z"/>
+                    <path d="M-37 1000 C-30 1060 -42 1120 -62 1185 C-82 1120 -94 1060 -87 1000 Z"/>
+                    <path d="M7 1000 C4 1036 10 1070 18 1100 C26 1070 32 1036 29 1000 Z"/>
+                    <path d="M-7 1000 C-4 1036 -10 1070 -18 1100 C-26 1070 -32 1036 -29 1000 Z"/>
                 </g>
 
-                <g id="bands">
-                    <rect class="paint dark" data-stage="1" x="49" y="566" width="38" height="7"/>
-                    <rect class="paint dark" data-stage="1" x="173" y="566" width="38" height="7"/>
-                    <rect class="paint dark" data-stage="1" x="49" y="1008" width="38" height="8"/>
-                    <rect class="paint dark" data-stage="1" x="173" y="1008" width="38" height="8"/>
-                    <rect class="paint dark" data-stage="5" x="104" y="297" width="52" height="5"/>
+                <!-- 0  solid rocket boosters: aft skirts, five motor segments, forward assemblies -->
+                <g class="stage" data-name="Solid rocket boosters">
+                    <g class="fill">
+                        <path class="w" d="M35 1000 C39 988 43 976 44 967 L44 529 L51.5 490 C53 478 58 470 62 469 C66 470 71 478 72.5 490 L80 529 L80 967 C81 976 85 988 89 1000 Z"/>
+                        <path class="w" d="M-35 1000 C-39 988 -43 976 -44 967 L-44 529 L-51.5 490 C-53 478 -58 470 -62 469 C-66 470 -71 478 -72.5 490 L-80 529 L-80 967 C-81 976 -85 988 -89 1000 Z"/>
+                    </g>
+                    <g class="hatch"></g>
+                    <g class="line">
+                        <path d="M35 1000 C39 988 43 976 44 967 L44 529 L51.5 490 C53 478 58 470 62 469 C66 470 71 478 72.5 490 L80 529 L80 967 C81 976 85 988 89 1000 Z M44 967 L80 967 M44 886.6 L80 886.6 M44 889.1 L80 889.1 M44 806.2 L80 806.2 M44 808.7 L80 808.7 M44 725.8 L80 725.8 M44 728.3 L80 728.3 M44 645.4 L80 645.4 M44 647.9 L80 647.9 M44 565 L80 565 M44 529 L80 529 M51.5 490 L72.5 490 M75.5 500 L79 500 L79 512 L76.6 512 M75 568 L75 964"/>
+                        <path d="M-35 1000 C-39 988 -43 976 -44 967 L-44 529 L-51.5 490 C-53 478 -58 470 -62 469 C-66 470 -71 478 -72.5 490 L-80 529 L-80 967 C-81 976 -85 988 -89 1000 Z M-44 967 L-80 967 M-44 886.6 L-80 886.6 M-44 889.1 L-80 889.1 M-44 806.2 L-80 806.2 M-44 808.7 L-80 808.7 M-44 725.8 L-80 725.8 M-44 728.3 L-80 728.3 M-44 645.4 L-80 645.4 M-44 647.9 L-80 647.9 M-44 565 L-80 565 M-44 529 L-80 529 M-51.5 490 L-72.5 490 M-75.5 500 L-79 500 L-79 512 L-76.6 512 M-75 568 L-75 964"/>
+                    </g>
                 </g>
 
-                <g class="callout" data-stage="0"><text x="-44" y="1100">RS-25 &times; 4</text><line x1="40" y1="1086" x2="104" y2="1046"/></g>
-                <g class="callout" data-stage="1"><text x="-44" y="797">SRB</text><line x1="-8" y1="790" x2="47" y2="790"/></g>
-                <g class="callout" data-stage="3"><text x="-44" y="477">CORE</text><line x1="2" y1="470" x2="85" y2="470"/></g>
-                <g class="callout" data-stage="5"><text x="-44" y="320">ICPS</text><line x1="-6" y1="313" x2="102" y2="306"/></g>
-                <g class="callout" data-stage="6"><text x="-44" y="258">ORION</text><line x1="8" y1="251" x2="102" y2="251"/></g>
-                <g class="callout" data-stage="8"><text x="-44" y="117">LAS</text><line x1="-10" y1="110" x2="122" y2="110"/></g>
-            </svg>
-            <figcaption>Figure 1. Space Launch System, Artemis II<br><span id="stackNote">On the pad</span></figcaption>
-        </figure>
+                <!-- 1  core stage, lower: RS-25 engines, engine section, hydrogen tank, booster attach struts -->
+                <g class="stage" data-name="Core stage and RS-25 engines">
+                    <g class="fill">
+                        <path class="o" d="M-37 976 L37 976 L41 958 L41 550 L-41 550 L-41 958 Z"/>
+                        <path class="m" d="M-23 976 C-24 986 -27 994 -29 1000 L-7 1000 C-9 994 -12 986 -13 976 Z"/>
+                        <path class="m" d="M13 976 C12 986 9 994 7 1000 L29 1000 C27 994 24 986 23 976 Z"/>
+                    </g>
+                    <g class="hatch"></g>
+                    <g class="line">
+                        <path d="M-23 976 C-24 986 -27 994 -29 1000 L-7 1000 C-9 994 -12 986 -13 976 M13 976 C12 986 9 994 7 1000 L29 1000 C27 994 24 986 23 976 M-24.6 987 L-11.4 987 M-26.8 994 L-9.2 994 M11.4 987 L24.6 987 M9.2 994 L26.8 994"/>
+                        <path d="M-41 550 L-41 958 L-37 976 L37 976 L41 958 L41 550 M-41 958 L41 958 M-41 910 L41 910 M31 552 L31 912 M35.5 552 L35.5 912 M29 610 L37.5 610 M29 690 L37.5 690 M29 770 L37.5 770 M29 850 L37.5 850 M41 912 L44 919 L41 926 M-41 912 L-44 919 L-41 926 M41 519 L44 519 M41 523 L44 523 M-41 519 L-44 519 M-41 523 L-44 523"/>
+                    </g>
+                </g>
+
+                <!-- 2  core stage, upper: intertank, oxygen tank, forward skirt -->
+                <g class="stage" data-name="Core stage">
+                    <g class="fill"><path class="o" d="M-41 550 L-41 364 L41 364 L41 550 Z"/></g>
+                    <g class="hatch"></g>
+                    <g class="line"><path d="M-41 550 L-41 364 L41 364 L41 550 M-41 487 L41 487 M-41 391 L41 391"/></g>
+                </g>
+
+                <!-- 3  launch vehicle stage adapter -->
+                <g class="stage" data-name="Launch vehicle stage adapter">
+                    <g class="fill"><path class="w" d="M-41 364 L-24.6 274 L24.6 274 L41 364 Z"/></g>
+                    <g class="hatch"></g>
+                    <g class="line"><path d="M-41 364 L-24.6 274 L24.6 274 L41 364 M-36.6 340 L36.6 340"/></g>
+                </g>
+
+                <!-- 4  interim cryogenic propulsion stage and Orion stage adapter -->
+                <g class="stage" data-name="Interim cryogenic propulsion stage">
+                    <g class="fill"><path class="w" d="M-24.6 274 L-24.6 214 L24.6 214 L24.6 274 Z"/></g>
+                    <g class="hatch"></g>
+                    <g class="line"><path d="M-24.6 274 L-24.6 214 L24.6 214 L24.6 274 M-24.6 236 L24.6 236 M-24.6 229 L24.6 229"/></g>
+                </g>
+
+                <!-- 5  Orion service module and spacecraft adapter fairings -->
+                <g class="stage" data-name="Orion service module">
+                    <g class="fill"><path class="w" d="M-24.6 214 L-24.6 157 L24.6 157 L24.6 214 Z"/></g>
+                    <g class="hatch"></g>
+                    <g class="line"><path d="M-24.6 214 L-24.6 157 L24.6 157 L24.6 214 M-24.6 200 L24.6 200 M-8 157 L-8 200 M8 157 L8 200"/></g>
+                </g>
+
+                <!-- 6  Orion crew module under the boost protective cover -->
+                <g class="stage" data-name="Orion crew module">
+                    <g class="fill"><path class="w" d="M-24.6 157 C-24 138 -14 120 -5.5 112 L5.5 112 C14 120 24 138 24.6 157 Z"/></g>
+                    <g class="hatch"></g>
+                    <g class="line"><path d="M-24.6 157 C-24 138 -14 120 -5.5 112 L5.5 112 C14 120 24 138 24.6 157 L-24.6 157"/></g>
+                </g>
+
+                <!-- 7  launch abort system -->
+                <g class="stage" data-name="Launch abort system">
+                    <g class="fill">
+                        <path class="w" d="M-4.5 112 L-4.5 76 L-6 76 L-6 70 L-4 70 L-4 48 C-4 41 -1.5 36 0 34 C1.5 36 4 41 4 48 L4 70 L6 70 L6 76 L4.5 76 L4.5 112 Z"/>
+                        <path class="m" d="M-4.5 98 L-10.5 106 L-8.5 109 L-4.5 104 Z M4.5 98 L10.5 106 L8.5 109 L4.5 104 Z"/>
+                    </g>
+                    <g class="hatch"></g>
+                    <g class="line"><path d="M-4.5 112 L-4.5 76 L-6 76 L-6 70 L-4 70 L-4 48 C-4 41 -1.5 36 0 34 C1.5 36 4 41 4 48 L4 70 L6 70 L6 76 L4.5 76 L4.5 112 M-4.5 98 L-10.5 106 L-8.5 109 L-4.5 104 M4.5 98 L10.5 106 L8.5 109 L4.5 104 M-4 56 L-8 50.5 L-6.6 48.6 L-4 52 M4 56 L8 50.5 L6.6 48.6 L4 52 M-4.5 88 L4.5 88"/></g>
+                </g>
+            </g>
+
+            <!-- smoke at liftoff: an outlined layer under a filled layer leaves only the outer contour -->
+            <g class="smoke"><g class="smoke-o"></g><g class="smoke-f"></g></g>
+
+            <!-- dimensions -->
+            <g class="dim" data-s="0">
+                <line x1="66" y1="469" x2="118" y2="469"/><line x1="93" y1="1000" x2="118" y2="1000"/>
+                <line x1="112" y1="469" x2="112" y2="1000"/>
+                <path class="arrow" d="M112 469 L108.5 481 L115.5 481 Z"/><path class="arrow" d="M112 1000 L108.5 988 L115.5 988 Z"/>
+                <text transform="translate(128 735) rotate(-90)" text-anchor="middle">177 ft</text>
+            </g>
+            <g class="dim" data-s="2">
+                <line x1="45" y1="364" x2="158" y2="364"/><line x1="118" y1="1000" x2="158" y2="1000"/>
+                <line x1="152" y1="364" x2="152" y2="1000"/>
+                <path class="arrow" d="M152 364 L148.5 376 L155.5 376 Z"/><path class="arrow" d="M152 1000 L148.5 988 L155.5 988 Z"/>
+                <text transform="translate(168 682) rotate(-90)" text-anchor="middle">212 ft</text>
+            </g>
+            <path id="dimAll" d="M192 1000 L192 34"/>
+            <g class="dim" data-s="7">
+                <line x1="8" y1="34" x2="198" y2="34"/><line x1="158" y1="1000" x2="198" y2="1000"/>
+                <path class="arrow" d="M192 34 L188.5 46 L195.5 46 Z"/><path class="arrow" d="M192 1000 L188.5 988 L195.5 988 Z"/>
+                <text transform="translate(208 517) rotate(-90)" text-anchor="middle">322 ft (98 m)</text>
+            </g>
+
+            <!-- part labels -->
+            <g class="lbl" data-s="7"><text x="-100" y="80" text-anchor="end">Launch abort system</text><line x1="-96" y1="74" x2="-6" y2="74"/><circle cx="-6" cy="74" r="2.2"/></g>
+            <g class="lbl" data-s="6"><text x="-100" y="141" text-anchor="end">Orion crew module</text><line x1="-96" y1="135" x2="-21" y2="135"/><circle cx="-21" cy="135" r="2.2"/></g>
+            <g class="lbl" data-s="5"><text x="-100" y="192" text-anchor="end">Orion service module</text><line x1="-96" y1="186" x2="-24.6" y2="186"/><circle cx="-24.6" cy="186" r="2.2"/></g>
+            <g class="lbl" data-s="4"><text x="-100" y="258" text-anchor="end">Upper stage (ICPS)</text><line x1="-96" y1="252" x2="-24.6" y2="252"/><circle cx="-24.6" cy="252" r="2.2"/></g>
+            <g class="lbl" data-s="3"><text x="-100" y="326" text-anchor="end">Stage adapter</text><line x1="-96" y1="320" x2="-33.3" y2="320"/><circle cx="-33.3" cy="320" r="2.2"/></g>
+            <g class="lbl" data-s="2"><text x="-100" y="426" text-anchor="end">Core stage</text><line x1="-96" y1="420" x2="-41" y2="420"/><circle cx="-41" cy="420" r="2.2"/></g>
+            <g class="lbl" data-s="0"><text x="-100" y="706" text-anchor="end">Solid rocket</text><text x="-100" y="728" text-anchor="end">booster</text><line x1="-96" y1="700" x2="-80" y2="700"/><circle cx="-80" cy="700" r="2.2"/></g>
+            <g class="lbl" data-s="1"><text x="-100" y="1052" text-anchor="end">RS-25 engines</text><line x1="-96" y1="1046" x2="-20" y2="998"/><circle cx="-20" cy="998" r="2.2"/></g>
+
+            <!-- scale bar -->
+            <g class="scale">
+                <rect x="-270" y="1086" width="75" height="6" fill="#0B1A2E"/>
+                <rect x="-195" y="1086" width="75" height="6" fill="#F9FAF9"/>
+                <text x="-270" y="1112" text-anchor="middle">0</text>
+                <text x="-195" y="1112" text-anchor="middle">25</text>
+                <text x="-120" y="1112" text-anchor="middle">50 ft</text>
+            </g>
+        </svg>
+        <dl class="tb">
+            <div><dt>Drawing</dt><dd>Space Launch System, Block 1</dd></div>
+            <div><dt>Mission</dt><dd>Artemis II</dd></div>
+            <div><dt>Height</dt><dd>322 ft</dd></div>
+            <div><dt>Status</dt><dd id="status">On the pad</dd></div>
+        </dl>
     </div>
 </aside>
 </div>
 
 <script>
 (function () {
-    var svg = document.getElementById('vehicle');
-    if (!svg) return;
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.getElementById('v');
+    var zones = document.querySelector('.zones');
+    if (!svg || !zones) return;
 
-    var ink = document.getElementById('ink');
-    var paths = Array.prototype.slice.call(ink.querySelectorAll('path'));
-    var dim = document.getElementById('dimLine');
-    var note = document.getElementById('stackNote');
-    var plume = document.getElementById('plume');
-    var staged = Array.prototype.slice.call(svg.querySelectorAll('[data-stage]'));
-    var timed = Array.prototype.slice.call(svg.querySelectorAll('[data-at]'));
-    var names = ['RS-25 engines', 'Solid rocket boosters', 'Core stage', 'Core stage', 'Stage adapter',
-                 'Upper stage', 'Orion service module', 'Orion crew module', 'Launch abort system'];
+    var wide = window.matchMedia('(min-width: 1081px)');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ready = false, stages, segs, marks, dimAll, dimLen, statusEl, lastStatus = '';
+    var S = 0.02, E = 0.9;
 
-    // Pencil construction lines: a faint dashed copy of the whole vehicle that is
-    // always visible, so the column reads as a drawing in progress from the first screen.
-    var ghost = ink.cloneNode(true);
-    ghost.removeAttribute('id');
-    ghost.setAttribute('class', 'ghost');
-    Array.prototype.forEach.call(ghost.querySelectorAll('path'), function (p) {
-        p.removeAttribute('pathLength'); p.removeAttribute('class');
-    });
-    svg.insertBefore(ghost, document.getElementById('paint'));
-
-    var n = paths.length;
-    var START = 0.03, END = 0.93;      // share of the page over which the vehicle is stacked
-    var slice = (END - START) / n;
-
+    function mk(tag, attrs, parent) {
+        var e = document.createElementNS(NS, tag);
+        for (var k in attrs) e.setAttribute(k, attrs[k]);
+        if (parent) parent.appendChild(e);
+        return e;
+    }
     function clamp(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
 
+    // Sheet border with drawing zones, redrawn to the plate's size.
+    function drawZones() {
+        var w = zones.clientWidth, h = zones.clientHeight, b = 18, i, x, y;
+        if (!w || !h) return;
+        zones.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+        while (zones.firstChild) zones.removeChild(zones.firstChild);
+        mk('rect', { x: 0.5, y: 0.5, width: w - 1, height: h - 1, 'class': 'zo' }, zones);
+        mk('rect', { x: b, y: b, width: w - 2 * b, height: h - 2 * b, 'class': 'zi' }, zones);
+        var cols = 4, rows = Math.max(4, Math.round((h - 2 * b) / 150));
+        for (i = 0; i < cols; i++) {
+            x = b + (w - 2 * b) * (i + 0.5) / cols;
+            mk('text', { x: x, y: b / 2 + 3.5 }, zones).textContent = cols - i;
+            mk('text', { x: x, y: h - b / 2 + 3.5 }, zones).textContent = cols - i;
+            if (i) {
+                x = b + (w - 2 * b) * i / cols;
+                mk('line', { x1: x, y1: 0, x2: x, y2: b }, zones);
+                mk('line', { x1: x, y1: h - b, x2: x, y2: h }, zones);
+            }
+        }
+        for (i = 0; i < rows; i++) {
+            y = b + (h - 2 * b) * (i + 0.5) / rows;
+            var letter = String.fromCharCode(65 + rows - 1 - i);
+            mk('text', { x: b / 2, y: y + 3.5 }, zones).textContent = letter;
+            mk('text', { x: w - b / 2, y: y + 3.5 }, zones).textContent = letter;
+            if (i) {
+                y = b + (h - 2 * b) * i / rows;
+                mk('line', { x1: 0, y1: y, x2: b, y2: y }, zones);
+                mk('line', { x1: w - b, y1: y, x2: w, y2: y }, zones);
+            }
+        }
+    }
+
+    function build() {
+        stages = [].slice.call(svg.querySelectorAll('.stage'));
+        function hatch(s) { return stages[s].querySelector('.hatch'); }
+
+        // Cylinder shading: hatch lines bunching toward the right edge, light from the left.
+        var F = [0.6, 0.7, 0.78, 0.845, 0.895, 0.935, 0.965, 0.986];
+        function shade(s, tone, a, b, yT, c, d, yB) {
+            F.forEach(function (f) {
+                mk('line', { x1: a + (b - a) * f, y1: yT, x2: c + (d - c) * f, y2: yB, 'class': tone }, hatch(s));
+            });
+        }
+        shade(0, 'hw', 44, 80, 529, 44, 80, 967);
+        shade(0, 'hw', -80, -44, 529, -80, -44, 967);
+        shade(1, 'ho', -41, 41, 550, -41, 41, 958);
+        shade(2, 'ho', -41, 41, 364, -41, 41, 550);
+        shade(3, 'hw', -24.6, 24.6, 274, -41, 41, 364);
+        shade(4, 'hw', -24.6, 24.6, 214, -24.6, 24.6, 274);
+        shade(5, 'hw', -24.6, 24.6, 157, -24.6, 24.6, 214);
+
+        // Hydrogen tank barrel welds and intertank stringers.
+        [850, 790, 730, 670, 610].forEach(function (y) {
+            mk('line', { x1: -41, y1: y, x2: 41, y2: y, 'class': 'ho' }, hatch(1));
+        });
+        for (var x = -38.5; x <= 38.6; x += 5.5) {
+            mk('line', { x1: x, y1: 489, x2: x, y2: 548, 'class': 'ho' }, hatch(2));
+        }
+
+        // Section hatching under the pad deck.
+        var gh = svg.querySelector('.gh');
+        for (var g = -132; g < 128; g += 8) mk('line', { x1: g, y1: 1014, x2: g + 14, y2: 1000 }, gh);
+
+        // Smoke puffs: center first, spreading outward.
+        var puffs = [[-232, 1040, 20], [-204, 1032, 27], [-172, 1027, 31], [-138, 1023, 35], [-104, 1020, 38], [-70, 1018, 41], [-34, 1020, 42], [0, 1017, 44],
+                     [34, 1020, 42], [70, 1018, 41], [104, 1020, 38], [138, 1023, 35], [172, 1027, 31], [204, 1032, 27], [232, 1040, 20],
+                     [-156, 1046, 30], [-84, 1050, 34], [0, 1052, 36], [84, 1050, 34], [156, 1046, 30]];
+        var so = svg.querySelector('.smoke-o'), sf = svg.querySelector('.smoke-f');
+        puffs.forEach(function (q) {
+            var delay = (Math.abs(q[0]) / 230 * 0.55).toFixed(2) + 's';
+            [so, sf].forEach(function (layer) {
+                mk('circle', { cx: q[0], cy: q[1], r: q[2] }, layer).style.transitionDelay = delay;
+            });
+        });
+
+        // Pencil construction lines: a faint dashed copy of the whole vehicle.
+        var ghost = mk('g', { 'class': 'ghost' });
+        stages.forEach(function (st) {
+            var c = st.querySelector('.line').cloneNode(true);
+            c.removeAttribute('class');
+            ghost.appendChild(c);
+        });
+        document.getElementById('stack').insertBefore(ghost, stages[0]);
+
+        segs = stages.map(function (st) {
+            return [].slice.call(st.querySelectorAll('.line path')).map(function (p) {
+                var L = p.getTotalLength();
+                p.style.strokeDasharray = L + ' ' + L;
+                p.style.strokeDashoffset = L;
+                return { p: p, L: L };
+            });
+        });
+        dimAll = document.getElementById('dimAll');
+        dimLen = dimAll.getTotalLength();
+        dimAll.style.strokeDasharray = dimLen + ' ' + dimLen;
+        marks = [].slice.call(svg.querySelectorAll('[data-s]'));
+        statusEl = document.getElementById('status');
+        ready = true;
+    }
+
     function render(p) {
-        var current = -1;
+        var n = stages.length, slice = (E - S) / n, current = -1, done = [];
         for (var i = 0; i < n; i++) {
-            var t = clamp((p - (START + i * slice)) / slice);
-            paths[i].style.strokeDashoffset = (1 - t).toFixed(4);
+            var t = clamp((p - (S + i * slice)) / (slice * 0.72));
+            segs[i].forEach(function (o) { o.p.style.strokeDashoffset = (o.L * (1 - t)).toFixed(2); });
+            done[i] = t >= 1;
+            stages[i].classList.toggle('on', done[i]);
             if (t > 0) current = i;
         }
-        dim.style.strokeDashoffset = (1 - clamp((p - START) / (END - START))).toFixed(4);
-        staged.forEach(function (el) {
-            var s = parseInt(el.getAttribute('data-stage'), 10);
-            el.classList.toggle('is-on', clamp((p - (START + s * slice)) / slice) >= 0.85);
-        });
-        timed.forEach(function (el) {
-            el.classList.toggle('is-on', p >= parseFloat(el.getAttribute('data-at')));
-        });
-        var go = p >= 0.985;
-        plume.classList.toggle('is-on', go);
-        if (note) {
-            note.textContent = go ? 'Go for launch' : (p >= END ? 'Stacked, 322 ft' : (current < 0 ? 'On the pad' : 'Stacking: ' + names[current]));
-        }
-    }
+        marks.forEach(function (m) { m.classList.toggle('on', !!done[+m.getAttribute('data-s')]); });
+        dimAll.style.strokeDashoffset = (dimLen * (1 - clamp((p - S) / (E - S)))).toFixed(2);
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { render(0.95); return; }
+        var launch = !reduce && p >= 0.992;
+        svg.classList.toggle('launch', launch);
+        var s = launch ? 'Liftoff' : (done[n - 1] ? 'Stacked, go for launch' : (current < 0 ? 'On the pad' : 'Stacking: ' + stages[current].getAttribute('data-name')));
+        if (s !== lastStatus) { statusEl.textContent = s; lastStatus = s; }
+    }
 
     var ticking = false;
-    function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-            var max = document.documentElement.scrollHeight - window.innerHeight;
-            render(max > 0 ? clamp(window.scrollY / max) : 1);
-            ticking = false;
-        });
+    function update() {
+        ticking = false;
+        if (!ready) return;
+        if (reduce) { render(E); return; }
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        render(max > 0 ? clamp(window.scrollY / max) : 1);
     }
+    function onScroll() {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    function start() {
+        if (!wide.matches) return;
+        drawZones();
+        if (!ready) build();
+        update();
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    onScroll();
+    window.addEventListener('resize', function () { if (wide.matches) { drawZones(); onScroll(); } });
+    if (wide.addEventListener) wide.addEventListener('change', start); else wide.addListener(start);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+    start();
 })();
 </script>
 </body>
