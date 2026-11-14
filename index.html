@@ -12,44 +12,40 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
 /* ------------------------------------------------------------------
    One family, three widths: expanded for names and headings, normal
-   for reading, condensed for the drawing and small reference text.
-   Palette: drafting film, blue-black ink, SLS core-stage orange.
+   for reading, condensed for the drawing and reference text.
+   Drafting film, blue-black ink, one orange used sparingly.
 ------------------------------------------------------------------- */
 :root {
     --paper: #EEF0EF;
-    --paper-hi: #F9FAF9;
-    --sheet: #E3E7E6;
+    --paper-hi: #FAFBFA;
+    --sheet: #E4E8E7;
     --ink: #0B1A2E;
     --ink-2: #4E5C6B;
     --rule: rgba(11, 26, 46, 0.16);
     --accent: #E0601D;
-    --accent-deep: #8E3A0C;
-    --metal: #485466;
     --font: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --plate-w: clamp(380px, 36vw, 580px);
+    --plate-w: clamp(400px, 38vw, 620px);
     --gut: clamp(22px, 4.6vw, 76px);
+    --tw: 150px;
+    --out: cubic-bezier(0.16, 1, 0.3, 1);
+    --inout: cubic-bezier(0.7, 0, 0.2, 1);
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--font);
-    font-size: 18px;
-    line-height: 1.6;
-    font-stretch: 100%;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--font); font-size: 18px; line-height: 1.6; font-stretch: 100%;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
 ::selection { background: var(--accent); color: var(--paper-hi); }
-a { color: inherit; text-decoration-thickness: 1px; text-decoration-color: rgba(11, 26, 46, 0.35); text-underline-offset: 4px; }
+a { color: inherit; text-decoration-thickness: 1px; text-decoration-color: rgba(11, 26, 46, 0.35); text-underline-offset: 4px; transition: color 0.25s ease, text-decoration-color 0.25s ease; }
 a:hover { color: var(--accent); text-decoration-color: currentColor; }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 1px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 p { margin: 0 0 1em; }
 strong { font-weight: 650; font-variant-numeric: lining-nums tabular-nums; }
 
@@ -60,16 +56,15 @@ main, footer { max-width: 780px; }
 
 /* ---------- running bar ---------- */
 .bar {
-    position: sticky; top: 0; z-index: 10;
+    position: sticky; top: 0; z-index: 10; max-width: 780px;
     height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
-    max-width: 780px;
+    background: var(--paper); border-bottom: 1px solid var(--rule);
 }
 .bar .mark { font-weight: 700; font-stretch: 115%; font-size: 15.5px; letter-spacing: 0.01em; text-decoration: none; }
-.bar nav { display: flex; gap: 22px; }
-.bar nav a { font-stretch: 88%; font-size: 15.5px; font-weight: 500; color: var(--ink-2); text-decoration: none; }
-.bar nav a:hover { color: var(--ink); }
+.bar nav { position: relative; display: flex; gap: 22px; }
+.bar nav a { position: relative; font-stretch: 88%; font-size: 15.5px; font-weight: 500; color: var(--ink-2); text-decoration: none; padding: 20px 0; }
+.bar nav a:hover, .bar nav a.active { color: var(--ink); }
+.bar .ind { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--ink); transition: transform 0.55s var(--out), width 0.55s var(--out), opacity 0.3s; opacity: 0; }
 
 /* ---------- hero ---------- */
 .hero {
@@ -77,66 +72,58 @@ main, footer { max-width: 780px; }
     display: flex; flex-direction: column; justify-content: space-between;
     padding: clamp(40px, 10vh, 110px) 0 36px;
 }
-h1 {
-    margin: 0;
-    font-weight: 800; font-stretch: 125%;
-    font-size: clamp(50px, 6.5vw, 108px);
-    line-height: 0.88; letter-spacing: -0.012em;
-    text-transform: uppercase;
-}
-.lead {
-    margin: clamp(26px, 4vh, 40px) 0 0; max-width: 29em;
-    font-size: clamp(20px, 1.85vw, 27px); line-height: 1.36; font-weight: 400;
-}
+h1 { margin: 0; font-weight: 800; font-stretch: 125%; font-size: clamp(50px, 6.5vw, 108px); line-height: 0.88; letter-spacing: -0.012em; text-transform: uppercase; }
+.ln { display: block; overflow: hidden; padding: 0.04em 0 0.06em; margin: -0.04em 0 -0.06em; }
+.ln > span { display: block; }
+.lead { margin: clamp(26px, 4vh, 40px) 0 0; max-width: 29em; font-size: clamp(20px, 1.85vw, 27px); line-height: 1.36; }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 26px; margin: clamp(28px, 5vh, 48px) 0 0; padding: 0; }
-.facts div { border-top: 1.5px solid var(--ink); padding-top: 10px; }
+.facts div { position: relative; padding-top: 11px; }
+.facts div::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1.5px; background: var(--ink); transform-origin: left; }
 .facts dt { font-stretch: 85%; font-size: 14.5px; color: var(--ink-2); }
 .facts dd { margin: 2px 0 0; font-size: 16.5px; line-height: 1.38; font-weight: 500; }
 .actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 30px; }
 .btn {
-    display: inline-block; padding: 12px 22px 13px;
+    position: relative; overflow: hidden; display: inline-block; padding: 12px 22px 13px;
     background: var(--ink); color: var(--paper-hi); text-decoration: none;
     font-weight: 600; font-stretch: 110%; font-size: 15.5px; letter-spacing: 0.01em;
 }
-.btn:hover { background: var(--accent); color: var(--paper-hi); }
+.btn span { position: relative; }
+.btn::before { content: ""; position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: right; transition: transform 0.55s var(--out); }
+.btn:hover { color: var(--paper-hi); }
+.btn:hover::before { transform: scaleX(1); transform-origin: left; }
 .actions a:not(.btn) { font-weight: 500; font-size: 16.5px; }
 
-/* flight path: the career as a sequence */
+.mview { display: none; }
+
+/* career path */
 .path { list-style: none; margin: clamp(36px, 7vh, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); position: relative; }
-.path::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: var(--ink); }
+.path::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: var(--ink); transform-origin: left; }
 .path li { position: relative; padding: 22px 10px 0 0; }
-.path li::before {
-    content: ""; position: absolute; left: 0; top: 0; width: 11px; height: 11px; border-radius: 50%;
-    background: var(--paper); border: 1.5px solid var(--ink);
-}
+.path li::before { content: ""; position: absolute; left: 0; top: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink); }
 .path li.now::before { background: var(--accent); border-color: var(--accent); }
 .path .yr { display: block; font-stretch: 85%; font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 .path .what { display: block; font-size: 14.5px; line-height: 1.3; font-weight: 600; }
 
-/* ---------- results panel ---------- */
+/* ---------- results ---------- */
 .results { background: var(--ink); color: var(--paper-hi); padding: clamp(28px, 4vw, 48px); margin-top: 24px; }
 .results h2 { color: var(--paper-hi); font-size: clamp(22px, 2vw, 28px); margin: 0 0 8px; }
 .figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 3vw, 44px); margin: 0; padding: 0; }
-.fig { border-top: 1px solid rgba(249, 250, 249, 0.22); padding: 22px 0 6px; }
-.fig dt {
-    font-weight: 300; font-stretch: 110%; color: var(--accent);
-    font-size: clamp(46px, 5vw, 80px); line-height: 1; letter-spacing: -0.01em;
-    font-variant-numeric: lining-nums;
-}
-.fig dd { margin: 12px 0 0; font-size: 15.5px; line-height: 1.45; color: rgba(249, 250, 249, 0.86); max-width: 22em; }
+.fig { position: relative; padding: 22px 0 6px; }
+.fig::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(250, 251, 250, 0.22); transform-origin: left; }
+.fig dt { font-weight: 300; font-stretch: 110%; color: var(--accent); font-size: clamp(46px, 5vw, 80px); line-height: 1; letter-spacing: -0.01em; font-variant-numeric: lining-nums tabular-nums; }
+.fig dd { margin: 12px 0 0; font-size: 15.5px; line-height: 1.45; color: rgba(250, 251, 250, 0.86); max-width: 22em; }
 
 /* ---------- sections ---------- */
 .block { padding-top: clamp(72px, 11vh, 112px); }
-.block-head {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-    border-top: 1.5px solid var(--ink); padding-top: 14px; margin-bottom: clamp(28px, 4vh, 44px);
-}
+.block-head { position: relative; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-top: 16px; margin-bottom: clamp(28px, 4vh, 44px); }
+.block-head::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1.5px; background: var(--ink); transform-origin: left; }
 h2 { margin: 0; font-weight: 700; font-stretch: 125%; font-size: clamp(30px, 3.1vw, 44px); line-height: 1.04; letter-spacing: -0.008em; }
+.mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.mask > span { display: inline-block; }
 .block-head .aside { font-stretch: 85%; font-size: 15.5px; color: var(--ink-2); white-space: nowrap; }
 h3 { margin: 0; font-weight: 700; font-stretch: 112%; font-size: clamp(22px, 2vw, 27px); line-height: 1.15; }
 h4 { margin: 0; font-weight: 650; font-size: 20px; line-height: 1.25; }
 
-/* jobs: reference column + body */
 .job { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 0 32px; padding-bottom: clamp(44px, 6vh, 64px); }
 .job-ref { padding-top: 7px; font-stretch: 85%; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
 .job-ref b { display: block; color: var(--ink); font-weight: 600; }
@@ -146,15 +133,14 @@ h4 { margin: 0; font-weight: 650; font-size: 20px; line-height: 1.25; }
 .pts li { margin: 0 0 13px; }
 .pts li b { font-weight: 650; }
 
-/* promotions shown as a path with nodes */
+/* promotions: a path that fills as you read */
 .roles { position: relative; padding-left: 30px; }
-.roles::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 18px; width: 1px; background: var(--ink); }
+.roles::before, .roles::after { content: ""; position: absolute; left: 5px; top: 10px; bottom: 18px; width: 1px; }
+.roles::before { background: var(--rule); }
+.roles::after { background: var(--ink); transform-origin: top; transform: scaleY(var(--prog, 1)); }
 .role { position: relative; padding-bottom: 30px; }
 .role:last-child { padding-bottom: 0; }
-.role::before {
-    content: ""; position: absolute; left: -30px; top: 6px; width: 11px; height: 11px; border-radius: 50%;
-    background: var(--paper); border: 1.5px solid var(--ink);
-}
+.role::before { content: ""; position: absolute; z-index: 1; left: -30px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink); transition: background 0.4s; }
 .role.now::before { background: var(--accent); border-color: var(--accent); }
 .role .when { display: block; font-stretch: 85%; font-size: 15px; color: var(--ink-2); margin-top: 2px; }
 
@@ -163,7 +149,6 @@ h4 { margin: 0; font-weight: 650; font-size: 20px; line-height: 1.25; }
 .award span { text-decoration: underline; text-decoration-color: rgba(11, 26, 46, 0.35); text-underline-offset: 4px; }
 .award:hover span { text-decoration-color: currentColor; }
 
-/* project chart */
 .chart { margin: 24px 0 4px; max-width: 560px; }
 .chart figcaption { font-stretch: 85%; font-size: 14.5px; color: var(--ink-2); margin-bottom: 10px; }
 .bar-row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 44px; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid var(--rule); }
@@ -171,40 +156,29 @@ h4 { margin: 0; font-weight: 650; font-size: 20px; line-height: 1.25; }
 .bar-row .k { font-size: 15px; font-weight: 500; }
 .bar-row .v { font-size: 15px; font-weight: 650; text-align: right; font-variant-numeric: tabular-nums; }
 .track { height: 12px; position: relative; }
-.track i { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) / 1.6 * 100%); background: rgba(11, 26, 46, 0.22); }
+.track i { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) / 1.6 * 100%); background: rgba(11, 26, 46, 0.22); transform-origin: left; }
 .bar-row.us .track i { background: var(--accent); }
 .bar-row.ref .track i { background: transparent; border: 1.5px solid var(--ink); }
 
-/* skills */
 .skills { margin: 0; padding: 0; }
 .skills div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 0 32px; padding: 11px 0; border-top: 1px solid var(--rule); }
 .skills div:last-child { border-bottom: 1px solid var(--rule); }
 .skills dt { font-stretch: 85%; font-size: 15px; color: var(--ink-2); padding-top: 2px; }
 .skills dd { margin: 0; font-size: 17px; }
 
-/* education */
 .edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
 .edu article { border-top: 1px solid var(--rule); padding-top: 14px; }
 .edu h3 { font-size: 21px; }
 .edu .org { margin: 4px 0 12px; font-size: 15.5px; }
 .edu p { font-size: 16.5px; }
 
-/* contact */
-.mail {
-    display: inline-block; margin: 0 0 26px;
-    font-weight: 600; font-stretch: 108%; font-size: clamp(25px, 3.3vw, 46px); line-height: 1.1; letter-spacing: -0.01em;
-    text-decoration-thickness: 2px; text-underline-offset: 8px; overflow-wrap: anywhere;
-}
+.mail { display: inline-block; margin: 0 0 26px; font-weight: 600; font-stretch: 108%; font-size: clamp(25px, 3.3vw, 46px); line-height: 1.1; letter-spacing: -0.01em; text-decoration-thickness: 2px; text-underline-offset: 8px; overflow-wrap: anywhere; }
 .links { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; flex-wrap: wrap; font-size: 17px; font-weight: 500; }
 
-footer {
-    margin-top: clamp(72px, 11vh, 120px); padding: 18px 0 40px; border-top: 1px solid var(--rule);
-    display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 40px;
-    font-stretch: 88%; font-size: 14px; color: var(--ink-2);
-}
+footer { margin-top: clamp(72px, 11vh, 120px); padding: 18px 0 40px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 40px; font-stretch: 88%; font-size: 14px; color: var(--ink-2); }
 footer p { margin: 0; max-width: 40em; }
 
-/* ---------- the plate: an engineering sheet ---------- */
+/* ---------- the plate ---------- */
 .plate { position: sticky; top: 0; height: 100vh; height: 100svh; align-self: start; background: var(--sheet); border-left: 1px solid var(--rule); }
 .zones { position: absolute; inset: 14px; width: calc(100% - 28px); height: calc(100% - 28px); overflow: visible; }
 .zones rect { fill: none; stroke: var(--ink); }
@@ -214,68 +188,87 @@ footer p { margin: 0; max-width: 40em; }
 .zones text { font-family: var(--font); font-stretch: 80%; font-weight: 600; font-size: 10px; fill: var(--ink-2); text-anchor: middle; }
 .sheet {
     position: absolute; inset: 32px; display: flex; flex-direction: column;
-    background-image:
-        linear-gradient(rgba(11, 26, 46, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(11, 26, 46, 0.055) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(11, 26, 46, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(11, 26, 46, 0.05) 1px, transparent 1px);
     background-size: 24px 24px; background-position: -1px -1px;
 }
-#v { flex: 1 1 auto; min-height: 0; width: 100%; overflow: visible; display: block; padding: 18px 0 6px; }
-.tb { display: grid; grid-template-columns: 1.45fr 0.9fr 0.9fr 1.35fr; border-top: 1.5px solid var(--ink); background: var(--paper-hi); }
+.view { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; }
+.view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.tags { position: absolute; inset: 0; pointer-events: none; }
+.tag {
+    position: absolute; left: 0; top: 0; width: var(--tw); padding-right: 12px; text-align: right; white-space: nowrap;
+    font-stretch: 82%; font-weight: 500; font-size: 12.5px; line-height: 16px; color: var(--ink);
+    opacity: 0; transition: opacity 0.5s ease; will-change: transform, opacity;
+}
+.tag.on { opacity: 1; }
+.sta { position: absolute; right: 62px; top: 0; text-align: right; padding: 2px 5px 3px; background: rgba(228, 232, 231, 0.92); font-stretch: 82%; font-size: 11px; line-height: 1.15; color: var(--ink-2); opacity: 0; transition: opacity 0.35s ease; will-change: transform, opacity; }
+.sta b { display: block; font-size: 15px; font-weight: 650; color: var(--accent); font-variant-numeric: tabular-nums; }
+.sta.on { opacity: 1; }
+.tb { height: 56px; overflow: hidden; display: grid; grid-template-columns: 1.15fr 1.05fr 0.75fr 1.6fr; border-top: 1.5px solid var(--ink); background: var(--paper-hi); margin: 0; }
 .tb div { padding: 7px 10px 9px; border-left: 1px solid var(--ink); min-width: 0; }
 .tb div:first-child { border-left: 0; }
 .tb dt { font-stretch: 80%; font-size: 11px; line-height: 1.2; color: var(--ink-2); }
-.tb dd { margin: 2px 0 0; font-stretch: 85%; font-size: 13.5px; line-height: 1.25; font-weight: 600; }
-#status { color: var(--accent-deep); }
+.tb dd { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 2px 0 0; font-stretch: 85%; font-size: 13.5px; line-height: 1.25; font-weight: 600; font-variant-numeric: tabular-nums; }
+#tbStatus { color: #9A4214; }
 
-/* drawing strokes and fills */
-#v .line path { fill: none; stroke: var(--ink); stroke-width: 1.45; stroke-linejoin: round; stroke-linecap: round; }
-#v .ghost path { fill: none; stroke: var(--ink); stroke-opacity: 0.2; stroke-width: 1; stroke-dasharray: 3 4; }
-#v .fill, #v .hatch { opacity: 0; transition: opacity 0.6s ease; }
-#v .stage.on .fill, #v .stage.on .hatch { opacity: 1; }
-#v .w { fill: var(--paper-hi); }
-#v .o { fill: var(--accent); }
-#v .m { fill: var(--metal); }
-#v .hatch line { stroke-width: 0.8; }
-#v .hw { stroke: var(--ink); stroke-opacity: 0.26; }
-#v .ho { stroke: var(--accent-deep); stroke-opacity: 0.42; }
-#v .ground line { stroke: var(--ink); stroke-width: 1.2; }
-#v .gh line { stroke-width: 0.8; stroke-opacity: 0.55; }
-#v .lbl, #v .dim { opacity: 0; transition: opacity 0.45s ease; }
-#v .lbl.on, #v .dim.on { opacity: 1; }
-#v .lbl text, #v .dim text, #v .scale text { font-family: var(--font); font-stretch: 82%; font-weight: 500; font-size: 19px; fill: var(--ink); }
-#v .dim text { font-weight: 600; }
-#v .lbl line, #v .dim line, #v .dim path { stroke: var(--ink); stroke-width: 0.9; fill: none; }
-#v .lbl circle, #v .arrow { fill: var(--ink); }
-#v #dimAll { stroke: var(--ink); stroke-width: 0.9; fill: none; }
-#v .scale rect { stroke: var(--ink); stroke-width: 0.9; }
-#v .scale text { font-size: 15px; fill: var(--ink-2); }
+/* ---------- motion: only when the visitor allows it ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    .js .ln > span { transform: translateY(108%); transition: transform 1.2s var(--out); }
+    .js .ln:nth-child(2) > span { transition-delay: 0.08s; }
+    .js .hero .lead, .js .hero .facts dt, .js .hero .facts dd, .js .hero .actions, .js .path li { opacity: 0; transform: translateY(14px); transition: opacity 0.9s ease, transform 1s var(--out); }
+    .js .hero .lead { transition-delay: 0.35s; }
+    .js .facts div:nth-child(1) dt, .js .facts div:nth-child(1) dd { transition-delay: 0.62s; }
+    .js .facts div:nth-child(2) dt, .js .facts div:nth-child(2) dd { transition-delay: 0.7s; }
+    .js .facts div:nth-child(3) dt, .js .facts div:nth-child(3) dd { transition-delay: 0.78s; }
+    .js .facts div::before { transform: scaleX(0); transition: transform 1.1s var(--inout); }
+    .js .facts div:nth-child(1)::before { transition-delay: 0.5s; }
+    .js .facts div:nth-child(2)::before { transition-delay: 0.58s; }
+    .js .facts div:nth-child(3)::before { transition-delay: 0.66s; }
+    .js .hero .actions { transition-delay: 0.9s; }
+    .js .path::before { transform: scaleX(0); transition: transform 1.6s var(--inout) 0.95s; }
+    .js .path li::before { transform: scale(0); transition: transform 0.6s var(--out); }
+    .js .path li { transition-delay: calc(1.05s + var(--i) * 0.11s); }
+    .js .path li::before { transition-delay: calc(1.05s + var(--i) * 0.11s); }
+    .js .plate .sheet { opacity: 0; transition: opacity 1.4s ease 0.5s; }
+    .js .tb { transform: translateY(12px); opacity: 0; transition: transform 1.1s var(--out) 1.1s, opacity 1.1s ease 1.1s; }
 
-/* liftoff */
-#v #stack { transition: transform 2.6s cubic-bezier(0.6, 0, 0.88, 0.35); }
-#v.launch #stack { transform: translateY(-92px); }
-#v.launch .lbl, #v.launch .dim { opacity: 0; }
-#v #dimAll { transition: opacity 0.45s ease; }
-#v.launch #dimAll { opacity: 0; }
-#v .plume { opacity: 0; transition: opacity 0.25s ease; }
-#v.launch .plume { opacity: 1; }
-#v .plume path { fill: url(#pg); transform-box: fill-box; transform-origin: 50% 0; }
-#v.launch .plume path { animation: flick 0.09s ease-in-out infinite alternate; }
-@keyframes flick { from { transform: scale(0.98, 0.92); } to { transform: scale(1.01, 1.04); } }
-#v .smoke circle { transform: scale(0); transform-box: fill-box; transform-origin: 50% 85%; transition: transform 1.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
-#v.launch .smoke circle { transform: scale(1); }
-#v .smoke-o circle { fill: var(--sheet); stroke: var(--ink); stroke-width: 2.4; }
-#v .smoke-f circle { fill: var(--sheet); }
+    .ready .ln > span, .ready .hero .lead, .ready .hero .facts dt, .ready .hero .facts dd, .ready .hero .actions, .ready .path li { opacity: 1; transform: none; }
+    .ready .facts div::before, .ready .path::before { transform: scaleX(1); }
+    .ready .path li::before { transform: scale(1); }
+    .ready .plate .sheet { opacity: 1; }
+    .ready .tb { transform: none; opacity: 1; }
+    .ready .zones .zo, .ready .zones .zi { animation: drawframe 1.8s var(--inout) both; }
+    @keyframes drawframe { from { stroke-dasharray: 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1; stroke-dashoffset: 0; } }
 
-@media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    #v .fill, #v .hatch, #v .lbl, #v .dim { transition: none; }
+    .js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 1s ease, transform 1.1s var(--out); transition-delay: var(--d, 0s); }
+    .js [data-reveal].in { opacity: 1; transform: none; }
+    .js .block-head::before, .js .fig::before { transform: scaleX(0); transition: transform 1.2s var(--inout); }
+    .js .block-head.in::before, .js .figs.in .fig::before { transform: scaleX(1); }
+    .js .block-head .mask > span { transform: translateY(110%); transition: transform 1.1s var(--out) 0.15s; }
+    .js .block-head.in .mask > span { transform: none; }
+    .js .block-head .aside { opacity: 0; transition: opacity 1s ease 0.5s; }
+    .js .block-head.in .aside { opacity: 1; }
+    .js .fig:nth-child(2)::before { transition-delay: 0.1s; }
+    .js .fig:nth-child(3)::before { transition-delay: 0.2s; }
+    .js .fig:nth-child(4)::before { transition-delay: 0.3s; }
+    .js .chart .track i { transform: scaleX(0); transition: transform 1.4s var(--out); }
+    .js .chart .bar-row:nth-child(3) .track i { transition-delay: 0.15s; }
+    .js .chart .bar-row:nth-child(4) .track i { transition-delay: 0.3s; }
+    .js .chart.in .track i { transform: scaleX(1); }
 }
 
-/* ---------- smaller screens: the report stands alone ---------- */
+/* ---------- smaller screens: the drawing moves into the hero ---------- */
 @media (max-width: 1080px) {
     .page { grid-template-columns: minmax(0, 1fr); }
     .plate { display: none; }
     main, footer, .bar { max-width: 760px; margin-left: auto; margin-right: auto; }
+    .mview {
+        display: block; position: relative; height: clamp(440px, 118vw, 660px); margin: 36px 0 0;
+        background-color: var(--sheet); border: 1px solid var(--ink);
+        background-image: linear-gradient(rgba(11, 26, 46, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(11, 26, 46, 0.05) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+    .mview canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .mview figcaption { position: absolute; left: 12px; bottom: 10px; font-stretch: 82%; font-size: 12.5px; color: var(--ink-2); }
 }
 @media (max-width: 680px) {
     body { font-size: 17px; }
@@ -285,7 +278,7 @@ footer p { margin: 0; max-width: 40em; }
     .bar nav a { font-size: 15px; }
     .facts { grid-template-columns: minmax(0, 1fr); gap: 14px; }
     .path { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
-    .path::before { left: 5px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+    .path::before { left: 5px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; transform-origin: top; }
     .path li { padding: 0 0 0 26px; }
     .path .yr { display: inline; margin-right: 8px; }
     .path .what { display: inline; }
@@ -299,7 +292,7 @@ footer p { margin: 0; max-width: 40em; }
     footer { grid-template-columns: minmax(0, 1fr); }
 }
 @media print {
-    .plate, .bar { display: none; }
+    .plate, .bar, .mview { display: none; }
     .page { display: block; }
     .hero { min-height: 0; }
 }
@@ -317,6 +310,7 @@ footer p { margin: 0; max-width: 40em; }
         <a href="#skills">Skills</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
+        <span class="ind" aria-hidden="true"></span>
     </nav>
 </header>
 
@@ -324,7 +318,7 @@ footer p { margin: 0; max-width: 40em; }
 
     <section class="hero" aria-label="Introduction">
         <div>
-            <h1>Justin<br>Tomlinson</h1>
+            <h1><span class="ln"><span>Justin</span></span><span class="ln"><span>Tomlinson</span></span></h1>
             <p class="lead">I build the backend systems that route, schedule and pay property insurance claims at Liberty Mutual. Before that, I tested launch control software for NASA's Space Launch System.</p>
             <dl class="facts">
                 <div><dt>Now</dt><dd>Principal Software Engineer, Liberty Mutual</dd></div>
@@ -332,35 +326,39 @@ footer p { margin: 0; max-width: 40em; }
                 <div><dt>Based</dt><dd>Melbourne, Florida, down the coast from Kennedy</dd></div>
             </dl>
             <div class="actions">
-                <a class="btn" href="mailto:justintomlinsonn@gmail.com">Email me</a>
+                <a class="btn" href="mailto:justintomlinsonn@gmail.com"><span>Email me</span></a>
                 <a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/tomljr2" target="_blank" rel="noopener">GitHub</a>
             </div>
+            <figure class="mview" aria-hidden="true">
+                <canvas id="cvm"></canvas>
+                <figcaption>Space Launch System, Block 1, Artemis II</figcaption>
+            </figure>
         </div>
         <ol class="path" aria-label="Career so far">
-            <li><span class="yr">2018</span><span class="what">Compiler research, Chalmers</span></li>
-            <li><span class="yr">2020</span><span class="what">M.S., University of Florida</span></li>
-            <li><span class="yr">2020</span><span class="what">NASA launch control</span></li>
-            <li><span class="yr">2021</span><span class="what">Cellular security research</span></li>
-            <li><span class="yr">2022</span><span class="what">Liberty Mutual</span></li>
-            <li class="now"><span class="yr">2025</span><span class="what">Principal engineer</span></li>
+            <li style="--i:0"><span class="yr">2018</span><span class="what">Compiler research, Chalmers</span></li>
+            <li style="--i:1"><span class="yr">2020</span><span class="what">M.S., University of Florida</span></li>
+            <li style="--i:2"><span class="yr">2020</span><span class="what">NASA launch control</span></li>
+            <li style="--i:3"><span class="yr">2021</span><span class="what">Cellular security research</span></li>
+            <li style="--i:4"><span class="yr">2022</span><span class="what">Liberty Mutual</span></li>
+            <li style="--i:5" class="now"><span class="yr">2025</span><span class="what">Principal engineer</span></li>
         </ol>
     </section>
 
-    <section class="results" aria-labelledby="results-h">
+    <section class="results" aria-labelledby="results-h" data-reveal>
         <h2 id="results-h">Selected results</h2>
         <dl class="figs">
-            <div class="fig"><dt>$90M</dt><dd>in invoices a year that the invoicing service I co-lead is on pace to process, across about 24,000 invoices. 45% of them are eligible for auto-pay.</dd></div>
-            <div class="fig"><dt>$9M</dt><dd>saved per year, by estimate, by the customer self-scheduling platform I designed, over its roughly two years in service.</dd></div>
-            <div class="fig"><dt>30x</dt><dd>faster requests on that platform: from 3 to 4 seconds down to about 100 ms.</dd></div>
-            <div class="fig"><dt>41</dt><dd>rule sets now running on the rules engine I designed, built from 90 rules and used by three teams.</dd></div>
+            <div class="fig"><dt data-count="90" data-pre="$" data-post="M">$90M</dt><dd>in invoices a year that the invoicing service I co-lead is on pace to process, across about 24,000 invoices. 45% of them are eligible for auto-pay.</dd></div>
+            <div class="fig"><dt data-count="9" data-pre="$" data-post="M">$9M</dt><dd>saved per year, by estimate, by the customer self-scheduling platform I designed, over its roughly two years in service.</dd></div>
+            <div class="fig"><dt data-count="30" data-post="x">30x</dt><dd>faster requests on that platform: from 3 to 4 seconds down to about 100 ms.</dd></div>
+            <div class="fig"><dt data-count="41">41</dt><dd>rule sets now running on the rules engine I designed, built from 90 rules and used by three teams.</dd></div>
         </dl>
     </section>
 
     <section class="block" id="experience" aria-labelledby="exp-h">
-        <div class="block-head"><h2 id="exp-h">Experience</h2><span class="aside">2018 to present</span></div>
+        <div class="block-head"><h2 id="exp-h"><span class="mask"><span>Experience</span></span></h2><span class="aside">2018 to present</span></div>
 
-        <article class="job">
+        <article class="job" data-reveal>
             <div class="job-ref"><b>May 2022 to present</b>Remote</div>
             <div>
                 <h3>Liberty Mutual Insurance</h3>
@@ -371,12 +369,12 @@ footer p { margin: 0; max-width: 40em; }
                         <span class="when">Oct 2025 to present</span>
                         <p class="gist">Paying claims with fewer people in the loop.</p>
                         <ul class="pts">
-                            <li><b>Invoicing and payments.</b> Co-lead a team of five engineers that launched straight-through invoicing for property claims. Vendor estimates are validated by the rules engine, invoiced and sent for payment with reduced manual review. On pace to process <strong>nearly $90M a year</strong> across 24,000 invoices, 45% of them eligible for auto-pay.</li>
-                            <li><b>Event-driven on Kafka.</b> The service runs in the auto-scaling property platform. It consumes payment confirmations, downstream errors and coverage-status updates, and rechecks pending coverage after 72 hours.</li>
-                            <li><b>On-call and auth.</b> On the rotation for all live services. Built the invoicing observability in Splunk and Datadog, and configured authentication and authorization for every service the team has set up: OAuth 2.0 across microservices, JWT where roles are needed.</li>
-                            <li><b>Claim linking.</b> Technical lead for a human-in-the-loop workflow that links first- and third-party claims filed separately for the same incident. Reviewers confirm or reject candidate links from the data science team, and the results feed reporting.</li>
-                            <li><b>AI prototype.</b> Built a RAG pipeline and a LangGraph multi-agent workflow for estimate review as an innovation effort.</li>
-                            <li><b>Mentoring.</b> Mentor engineers in design and code reviews, and work with architects and business stakeholders on technical strategy and cost tradeoffs.</li>
+                            <li data-reveal><b>Invoicing and payments.</b> Co-lead a team of five engineers that launched straight-through invoicing for property claims. Vendor estimates are validated by the rules engine, invoiced and sent for payment with reduced manual review. On pace to process <strong>nearly $90M a year</strong> across 24,000 invoices, 45% of them eligible for auto-pay.</li>
+                            <li data-reveal><b>Event-driven on Kafka.</b> The service runs in the auto-scaling property platform. It consumes payment confirmations, downstream errors and coverage-status updates, and rechecks pending coverage after 72 hours.</li>
+                            <li data-reveal><b>On-call and auth.</b> On the rotation for all live services. Built the invoicing observability in Splunk and Datadog, and configured authentication and authorization for every service the team has set up: OAuth 2.0 across microservices, JWT where roles are needed.</li>
+                            <li data-reveal><b>Claim linking.</b> Technical lead for a human-in-the-loop workflow that links first- and third-party claims filed separately for the same incident. Reviewers confirm or reject candidate links from the data science team, and the results feed reporting.</li>
+                            <li data-reveal><b>AI prototype.</b> Built a RAG pipeline and a LangGraph multi-agent workflow for estimate review as an innovation effort.</li>
+                            <li data-reveal><b>Mentoring.</b> Mentor engineers in design and code reviews, and work with architects and business stakeholders on technical strategy and cost tradeoffs.</li>
                         </ul>
                     </div>
                     <div class="role">
@@ -384,9 +382,9 @@ footer p { margin: 0; max-width: 40em; }
                         <span class="when">Jul 2023 to Oct 2025</span>
                         <p class="gist">Turning fuzzy business policy into rules a machine can run.</p>
                         <ul class="pts">
-                            <li><b>Rules engine.</b> Designed a configurable engine that turns loosely defined policy into decision logic for adjuster skill routing. It has since scaled to <strong>three teams, 41 rule sets and 90 rules</strong>, at about 600,000 requests a year. In catastrophes such as hurricanes, floods and wildfires, its skill rules are reconfigured so adjusters are not overloaded.</li>
-                            <li><b>Security fix.</b> Removed an expression-injection risk by replacing config-defined SpEL rules with annotated Java functions registered at startup.</li>
-                            <li><b>Vendor retirement.</b> Led the retirement of a deeply embedded third-party scheduling platform across three engineering teams, finishing <strong>before the shutdown date with no downtime</strong>.</li>
+                            <li data-reveal><b>Rules engine.</b> Designed a configurable engine that turns loosely defined policy into decision logic for adjuster skill routing. It has since scaled to <strong>three teams, 41 rule sets and 90 rules</strong>, at about 600,000 requests a year. In catastrophes such as hurricanes, floods and wildfires, its skill rules are reconfigured so adjusters are not overloaded.</li>
+                            <li data-reveal><b>Security fix.</b> Removed an expression-injection risk by replacing config-defined SpEL rules with annotated Java functions registered at startup.</li>
+                            <li data-reveal><b>Vendor retirement.</b> Led the retirement of a deeply embedded third-party scheduling platform across three engineering teams, finishing <strong>before the shutdown date with no downtime</strong>.</li>
                         </ul>
                     </div>
                     <div class="role">
@@ -394,16 +392,16 @@ footer p { margin: 0; max-width: 40em; }
                         <span class="when">May 2022 to Jul 2023</span>
                         <p class="gist">Letting customers book their own inspections.</p>
                         <ul class="pts">
-                            <li><b>Self-scheduling platform.</b> Designed and led development of the core backend (Spring REST API, DynamoDB) and observability for a high-availability platform where customers scheduled property inspections, across three teams. Over about two years it replaced a manual workflow on hundreds of thousands of claims, saving <strong>an estimated $9M a year</strong>.</li>
-                            <li><b>Latency.</b> Cut requests from <strong>3 to 4 seconds down to about 100 ms</strong> by parallelizing downstream calls and deferring the Microsoft Graph calendar update until after the response.</li>
-                            <li><b>Cybersecurity Guardians.</b> Selected for a cross-team group that finds security gaps and routes them to the teams building company-wide security foundations.</li>
+                            <li data-reveal><b>Self-scheduling platform.</b> Designed and led development of the core backend (Spring REST API, DynamoDB) and observability for a high-availability platform where customers scheduled property inspections, across three teams. Over about two years it replaced a manual workflow on hundreds of thousands of claims, saving <strong>an estimated $9M a year</strong>.</li>
+                            <li data-reveal><b>Latency.</b> Cut requests from <strong>3 to 4 seconds down to about 100 ms</strong> by parallelizing downstream calls and deferring the Microsoft Graph calendar update until after the response.</li>
+                            <li data-reveal><b>Cybersecurity Guardians.</b> Selected for a cross-team group that finds security gaps and routes them to the teams building company-wide security foundations.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </article>
 
-        <article class="job">
+        <article class="job" data-reveal>
             <div class="job-ref"><b>Aug 2021 to May 2022</b>Gainesville, Florida</div>
             <div>
                 <h3>Graduate Research Assistant</h3>
@@ -417,7 +415,7 @@ footer p { margin: 0; max-width: 40em; }
             </div>
         </article>
 
-        <article class="job">
+        <article class="job" data-reveal>
             <div class="job-ref"><b>Aug 2020 to Apr 2021</b>Kennedy Space Center, remote</div>
             <div>
                 <h3>Command and Control System Software Development Intern</h3>
@@ -433,7 +431,7 @@ footer p { margin: 0; max-width: 40em; }
             </div>
         </article>
 
-        <article class="job">
+        <article class="job" data-reveal>
             <div class="job-ref"><b>May 2018 to Jul 2018</b>Gothenburg, Sweden</div>
             <div>
                 <h3>Undergraduate Research Assistant</h3>
@@ -448,8 +446,8 @@ footer p { margin: 0; max-width: 40em; }
     </section>
 
     <section class="block" id="projects" aria-labelledby="proj-h">
-        <div class="block-head"><h2 id="proj-h">Projects</h2><span class="aside">2026 to present</span></div>
-        <article class="job">
+        <div class="block-head"><h2 id="proj-h"><span class="mask"><span>Projects</span></span></h2><span class="aside">2026 to present</span></div>
+        <article class="job" data-reveal>
             <div class="job-ref"><b>Personal</b>Python, PyTorch</div>
             <div>
                 <h3><a href="https://github.com/tomljr2/artemis-mcc" target="_blank" rel="noopener">Artemis</a></h3>
@@ -459,7 +457,7 @@ footer p { margin: 0; max-width: 40em; }
                     <li><b>Method.</b> I direct an AI coding agent through a from-scratch build of a GPT-style model, one stage at a time, and measure every change in a public experiment log.</li>
                     <li><b>Result so far.</b> The first release scores <strong>1.37 bits per byte</strong> on held-out web text, down from 1.52, against 1.20 for the nanochat reference.</li>
                 </ul>
-                <figure class="chart" aria-label="Bits per byte: baseline 1.52, first release 1.37, nanochat reference 1.20. Lower is better.">
+                <figure class="chart" aria-label="Bits per byte: first run 1.52, first release 1.37, nanochat reference 1.20. Lower is better.">
                     <figcaption>Bits per byte on held-out web text. Lower is better.</figcaption>
                     <div class="bar-row"><span class="k">First run</span><span class="track"><i style="--v:1.52"></i></span><span class="v">1.52</span></div>
                     <div class="bar-row us"><span class="k">First release</span><span class="track"><i style="--v:1.37"></i></span><span class="v">1.37</span></div>
@@ -470,26 +468,26 @@ footer p { margin: 0; max-width: 40em; }
     </section>
 
     <section class="block" id="skills" aria-labelledby="skills-h">
-        <div class="block-head"><h2 id="skills-h">Skills</h2></div>
+        <div class="block-head"><h2 id="skills-h"><span class="mask"><span>Skills</span></span></h2></div>
         <dl class="skills">
-            <div><dt>Languages</dt><dd>Java, Python, TypeScript, JavaScript</dd></div>
-            <div><dt>Backend</dt><dd>Spring Boot, Node.js, Kafka, OAuth 2.0, JWT</dd></div>
-            <div><dt>Data</dt><dd>MongoDB, DynamoDB, Amazon S3</dd></div>
-            <div><dt>Infrastructure</dt><dd>AWS, Azure, Kubernetes, CloudFormation, CI/CD with GitHub Actions and Jenkins</dd></div>
-            <div><dt>Observability</dt><dd>Splunk, Datadog, CloudWatch</dd></div>
-            <div><dt>Frontend</dt><dd>React, Angular</dd></div>
+            <div data-reveal><dt>Languages</dt><dd>Java, Python, TypeScript, JavaScript</dd></div>
+            <div data-reveal style="--d:0.05s"><dt>Backend</dt><dd>Spring Boot, Node.js, Kafka, OAuth 2.0, JWT</dd></div>
+            <div data-reveal style="--d:0.1s"><dt>Data</dt><dd>MongoDB, DynamoDB, Amazon S3</dd></div>
+            <div data-reveal style="--d:0.15s"><dt>Infrastructure</dt><dd>AWS, Azure, Kubernetes, CloudFormation, CI/CD with GitHub Actions and Jenkins</dd></div>
+            <div data-reveal style="--d:0.2s"><dt>Observability</dt><dd>Splunk, Datadog, CloudWatch</dd></div>
+            <div data-reveal style="--d:0.25s"><dt>Frontend</dt><dd>React, Angular</dd></div>
         </dl>
     </section>
 
     <section class="block" id="education" aria-labelledby="edu-h">
-        <div class="block-head"><h2 id="edu-h">Education</h2><span class="aside">2016 to 2020</span></div>
+        <div class="block-head"><h2 id="edu-h"><span class="mask"><span>Education</span></span></h2><span class="aside">2016 to 2020</span></div>
         <div class="edu">
-            <article>
+            <article data-reveal>
                 <h3>M.S. Computer Science</h3>
                 <p class="org">University of Florida, 2018 to 2020. GPA 3.64</p>
                 <p>Coursework in machine learning, computer networks and network security. <a href="https://github.com/tomljr2/How-To-Bypass-Android-Biometrics" target="_blank" rel="noopener">Independent research on the security of Android facial-recognition biometrics</a>.</p>
             </article>
-            <article>
+            <article data-reveal style="--d:0.12s">
                 <h3>B.S. Computer Science</h3>
                 <p class="org">Florida State University, 2016 to 2018. GPA 3.76</p>
                 <p>Graduated Magna Cum Laude, on the President's List once and the Dean's List three times. Built an app that lets first responders identify people by scanning a QR code.</p>
@@ -498,10 +496,10 @@ footer p { margin: 0; max-width: 40em; }
     </section>
 
     <section class="block" id="contact" aria-labelledby="contact-h">
-        <div class="block-head"><h2 id="contact-h">Contact</h2></div>
-        <p class="gist">Email is the fastest way to reach me.</p>
-        <a class="mail" href="mailto:justintomlinsonn@gmail.com">justintomlinsonn@gmail.com</a>
-        <ul class="links">
+        <div class="block-head"><h2 id="contact-h"><span class="mask"><span>Contact</span></span></h2></div>
+        <p class="gist" data-reveal>Email is the fastest way to reach me.</p>
+        <a class="mail" href="mailto:justintomlinsonn@gmail.com" data-reveal style="--d:0.08s">justintomlinsonn@gmail.com</a>
+        <ul class="links" data-reveal style="--d:0.16s">
             <li><a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">LinkedIn</a></li>
             <li><a href="https://github.com/tomljr2" target="_blank" rel="noopener">GitHub</a></li>
         </ul>
@@ -511,158 +509,24 @@ footer p { margin: 0; max-width: 40em; }
 
 <footer>
     <span>Justin Tomlinson, 2026</span>
-    <p>The drawing is a simplified illustration of the Space Launch System in its Artemis II configuration, stacked in the order it is assembled at Kennedy Space Center: boosters, core stage, upper stage, then Orion.</p>
+    <p>The drawing is a simplified 3D line illustration of the Space Launch System in its Artemis II configuration, built from published dimensions and stacked in the order the vehicle is assembled at Kennedy Space Center.</p>
 </footer>
 
 </div>
 
-<!-- The plate: an engineering sheet. The SLS stacks as the reader scrolls and lifts off at the end. Decorative. -->
+<!-- The plate: an engineering sheet with a live 3D line drawing of the SLS. Decorative. -->
 <aside class="plate" aria-hidden="true">
     <svg class="zones"></svg>
     <div class="sheet">
-        <svg id="v" viewBox="-290 -74 540 1194" preserveAspectRatio="xMidYMid meet">
-            <defs>
-                <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#FFF7E3"/>
-                    <stop offset="0.2" stop-color="#FFC56A"/>
-                    <stop offset="0.55" stop-color="#E0601D" stop-opacity="0.9"/>
-                    <stop offset="1" stop-color="#E0601D" stop-opacity="0"/>
-                </linearGradient>
-            </defs>
-
-            <g class="ground">
-                <line x1="-215" y1="1000" x2="215" y2="1000"/>
-                <g class="gh"></g>
-            </g>
-
-            <g id="stack">
-                <g class="plume">
-                    <path d="M37 1000 C30 1060 42 1120 62 1185 C82 1120 94 1060 87 1000 Z"/>
-                    <path d="M-37 1000 C-30 1060 -42 1120 -62 1185 C-82 1120 -94 1060 -87 1000 Z"/>
-                    <path d="M7 1000 C4 1036 10 1070 18 1100 C26 1070 32 1036 29 1000 Z"/>
-                    <path d="M-7 1000 C-4 1036 -10 1070 -18 1100 C-26 1070 -32 1036 -29 1000 Z"/>
-                </g>
-
-                <!-- 0  solid rocket boosters: aft skirts, five motor segments, forward assemblies -->
-                <g class="stage" data-name="Solid rocket boosters">
-                    <g class="fill">
-                        <path class="w" d="M35 1000 C39 988 43 976 44 967 L44 529 L51.5 490 C53 478 58 470 62 469 C66 470 71 478 72.5 490 L80 529 L80 967 C81 976 85 988 89 1000 Z"/>
-                        <path class="w" d="M-35 1000 C-39 988 -43 976 -44 967 L-44 529 L-51.5 490 C-53 478 -58 470 -62 469 C-66 470 -71 478 -72.5 490 L-80 529 L-80 967 C-81 976 -85 988 -89 1000 Z"/>
-                    </g>
-                    <g class="hatch"></g>
-                    <g class="line">
-                        <path d="M35 1000 C39 988 43 976 44 967 L44 529 L51.5 490 C53 478 58 470 62 469 C66 470 71 478 72.5 490 L80 529 L80 967 C81 976 85 988 89 1000 Z M44 967 L80 967 M44 886.6 L80 886.6 M44 889.1 L80 889.1 M44 806.2 L80 806.2 M44 808.7 L80 808.7 M44 725.8 L80 725.8 M44 728.3 L80 728.3 M44 645.4 L80 645.4 M44 647.9 L80 647.9 M44 565 L80 565 M44 529 L80 529 M51.5 490 L72.5 490 M75.5 500 L79 500 L79 512 L76.6 512 M75 568 L75 964"/>
-                        <path d="M-35 1000 C-39 988 -43 976 -44 967 L-44 529 L-51.5 490 C-53 478 -58 470 -62 469 C-66 470 -71 478 -72.5 490 L-80 529 L-80 967 C-81 976 -85 988 -89 1000 Z M-44 967 L-80 967 M-44 886.6 L-80 886.6 M-44 889.1 L-80 889.1 M-44 806.2 L-80 806.2 M-44 808.7 L-80 808.7 M-44 725.8 L-80 725.8 M-44 728.3 L-80 728.3 M-44 645.4 L-80 645.4 M-44 647.9 L-80 647.9 M-44 565 L-80 565 M-44 529 L-80 529 M-51.5 490 L-72.5 490 M-75.5 500 L-79 500 L-79 512 L-76.6 512 M-75 568 L-75 964"/>
-                    </g>
-                </g>
-
-                <!-- 1  core stage, lower: RS-25 engines, engine section, hydrogen tank, booster attach struts -->
-                <g class="stage" data-name="Core stage and RS-25 engines">
-                    <g class="fill">
-                        <path class="o" d="M-37 976 L37 976 L41 958 L41 550 L-41 550 L-41 958 Z"/>
-                        <path class="m" d="M-23 976 C-24 986 -27 994 -29 1000 L-7 1000 C-9 994 -12 986 -13 976 Z"/>
-                        <path class="m" d="M13 976 C12 986 9 994 7 1000 L29 1000 C27 994 24 986 23 976 Z"/>
-                    </g>
-                    <g class="hatch"></g>
-                    <g class="line">
-                        <path d="M-23 976 C-24 986 -27 994 -29 1000 L-7 1000 C-9 994 -12 986 -13 976 M13 976 C12 986 9 994 7 1000 L29 1000 C27 994 24 986 23 976 M-24.6 987 L-11.4 987 M-26.8 994 L-9.2 994 M11.4 987 L24.6 987 M9.2 994 L26.8 994"/>
-                        <path d="M-41 550 L-41 958 L-37 976 L37 976 L41 958 L41 550 M-41 958 L41 958 M-41 910 L41 910 M31 552 L31 912 M35.5 552 L35.5 912 M29 610 L37.5 610 M29 690 L37.5 690 M29 770 L37.5 770 M29 850 L37.5 850 M41 912 L44 919 L41 926 M-41 912 L-44 919 L-41 926 M41 519 L44 519 M41 523 L44 523 M-41 519 L-44 519 M-41 523 L-44 523"/>
-                    </g>
-                </g>
-
-                <!-- 2  core stage, upper: intertank, oxygen tank, forward skirt -->
-                <g class="stage" data-name="Core stage">
-                    <g class="fill"><path class="o" d="M-41 550 L-41 364 L41 364 L41 550 Z"/></g>
-                    <g class="hatch"></g>
-                    <g class="line"><path d="M-41 550 L-41 364 L41 364 L41 550 M-41 487 L41 487 M-41 391 L41 391"/></g>
-                </g>
-
-                <!-- 3  launch vehicle stage adapter -->
-                <g class="stage" data-name="Launch vehicle stage adapter">
-                    <g class="fill"><path class="w" d="M-41 364 L-24.6 274 L24.6 274 L41 364 Z"/></g>
-                    <g class="hatch"></g>
-                    <g class="line"><path d="M-41 364 L-24.6 274 L24.6 274 L41 364 M-36.6 340 L36.6 340"/></g>
-                </g>
-
-                <!-- 4  interim cryogenic propulsion stage and Orion stage adapter -->
-                <g class="stage" data-name="Interim cryogenic propulsion stage">
-                    <g class="fill"><path class="w" d="M-24.6 274 L-24.6 214 L24.6 214 L24.6 274 Z"/></g>
-                    <g class="hatch"></g>
-                    <g class="line"><path d="M-24.6 274 L-24.6 214 L24.6 214 L24.6 274 M-24.6 236 L24.6 236 M-24.6 229 L24.6 229"/></g>
-                </g>
-
-                <!-- 5  Orion service module and spacecraft adapter fairings -->
-                <g class="stage" data-name="Orion service module">
-                    <g class="fill"><path class="w" d="M-24.6 214 L-24.6 157 L24.6 157 L24.6 214 Z"/></g>
-                    <g class="hatch"></g>
-                    <g class="line"><path d="M-24.6 214 L-24.6 157 L24.6 157 L24.6 214 M-24.6 200 L24.6 200 M-8 157 L-8 200 M8 157 L8 200"/></g>
-                </g>
-
-                <!-- 6  Orion crew module under the boost protective cover -->
-                <g class="stage" data-name="Orion crew module">
-                    <g class="fill"><path class="w" d="M-24.6 157 C-24 138 -14 120 -5.5 112 L5.5 112 C14 120 24 138 24.6 157 Z"/></g>
-                    <g class="hatch"></g>
-                    <g class="line"><path d="M-24.6 157 C-24 138 -14 120 -5.5 112 L5.5 112 C14 120 24 138 24.6 157 L-24.6 157"/></g>
-                </g>
-
-                <!-- 7  launch abort system -->
-                <g class="stage" data-name="Launch abort system">
-                    <g class="fill">
-                        <path class="w" d="M-4.5 112 L-4.5 76 L-6 76 L-6 70 L-4 70 L-4 48 C-4 41 -1.5 36 0 34 C1.5 36 4 41 4 48 L4 70 L6 70 L6 76 L4.5 76 L4.5 112 Z"/>
-                        <path class="m" d="M-4.5 98 L-10.5 106 L-8.5 109 L-4.5 104 Z M4.5 98 L10.5 106 L8.5 109 L4.5 104 Z"/>
-                    </g>
-                    <g class="hatch"></g>
-                    <g class="line"><path d="M-4.5 112 L-4.5 76 L-6 76 L-6 70 L-4 70 L-4 48 C-4 41 -1.5 36 0 34 C1.5 36 4 41 4 48 L4 70 L6 70 L6 76 L4.5 76 L4.5 112 M-4.5 98 L-10.5 106 L-8.5 109 L-4.5 104 M4.5 98 L10.5 106 L8.5 109 L4.5 104 M-4 56 L-8 50.5 L-6.6 48.6 L-4 52 M4 56 L8 50.5 L6.6 48.6 L4 52 M-4.5 88 L4.5 88"/></g>
-                </g>
-            </g>
-
-            <!-- smoke at liftoff: an outlined layer under a filled layer leaves only the outer contour -->
-            <g class="smoke"><g class="smoke-o"></g><g class="smoke-f"></g></g>
-
-            <!-- dimensions -->
-            <g class="dim" data-s="0">
-                <line x1="66" y1="469" x2="118" y2="469"/><line x1="93" y1="1000" x2="118" y2="1000"/>
-                <line x1="112" y1="469" x2="112" y2="1000"/>
-                <path class="arrow" d="M112 469 L108.5 481 L115.5 481 Z"/><path class="arrow" d="M112 1000 L108.5 988 L115.5 988 Z"/>
-                <text transform="translate(128 735) rotate(-90)" text-anchor="middle">177 ft</text>
-            </g>
-            <g class="dim" data-s="2">
-                <line x1="45" y1="364" x2="158" y2="364"/><line x1="118" y1="1000" x2="158" y2="1000"/>
-                <line x1="152" y1="364" x2="152" y2="1000"/>
-                <path class="arrow" d="M152 364 L148.5 376 L155.5 376 Z"/><path class="arrow" d="M152 1000 L148.5 988 L155.5 988 Z"/>
-                <text transform="translate(168 682) rotate(-90)" text-anchor="middle">212 ft</text>
-            </g>
-            <path id="dimAll" d="M192 1000 L192 34"/>
-            <g class="dim" data-s="7">
-                <line x1="8" y1="34" x2="198" y2="34"/><line x1="158" y1="1000" x2="198" y2="1000"/>
-                <path class="arrow" d="M192 34 L188.5 46 L195.5 46 Z"/><path class="arrow" d="M192 1000 L188.5 988 L195.5 988 Z"/>
-                <text transform="translate(208 517) rotate(-90)" text-anchor="middle">322 ft (98 m)</text>
-            </g>
-
-            <!-- part labels -->
-            <g class="lbl" data-s="7"><text x="-100" y="80" text-anchor="end">Launch abort system</text><line x1="-96" y1="74" x2="-6" y2="74"/><circle cx="-6" cy="74" r="2.2"/></g>
-            <g class="lbl" data-s="6"><text x="-100" y="141" text-anchor="end">Orion crew module</text><line x1="-96" y1="135" x2="-21" y2="135"/><circle cx="-21" cy="135" r="2.2"/></g>
-            <g class="lbl" data-s="5"><text x="-100" y="192" text-anchor="end">Orion service module</text><line x1="-96" y1="186" x2="-24.6" y2="186"/><circle cx="-24.6" cy="186" r="2.2"/></g>
-            <g class="lbl" data-s="4"><text x="-100" y="258" text-anchor="end">Upper stage (ICPS)</text><line x1="-96" y1="252" x2="-24.6" y2="252"/><circle cx="-24.6" cy="252" r="2.2"/></g>
-            <g class="lbl" data-s="3"><text x="-100" y="326" text-anchor="end">Stage adapter</text><line x1="-96" y1="320" x2="-33.3" y2="320"/><circle cx="-33.3" cy="320" r="2.2"/></g>
-            <g class="lbl" data-s="2"><text x="-100" y="426" text-anchor="end">Core stage</text><line x1="-96" y1="420" x2="-41" y2="420"/><circle cx="-41" cy="420" r="2.2"/></g>
-            <g class="lbl" data-s="0"><text x="-100" y="706" text-anchor="end">Solid rocket</text><text x="-100" y="728" text-anchor="end">booster</text><line x1="-96" y1="700" x2="-80" y2="700"/><circle cx="-80" cy="700" r="2.2"/></g>
-            <g class="lbl" data-s="1"><text x="-100" y="1052" text-anchor="end">RS-25 engines</text><line x1="-96" y1="1046" x2="-20" y2="998"/><circle cx="-20" cy="998" r="2.2"/></g>
-
-            <!-- scale bar -->
-            <g class="scale">
-                <rect x="-270" y="1086" width="75" height="6" fill="#0B1A2E"/>
-                <rect x="-195" y="1086" width="75" height="6" fill="#F9FAF9"/>
-                <text x="-270" y="1112" text-anchor="middle">0</text>
-                <text x="-195" y="1112" text-anchor="middle">25</text>
-                <text x="-120" y="1112" text-anchor="middle">50 ft</text>
-            </g>
-        </svg>
+        <div class="view">
+            <canvas id="cv"></canvas>
+            <div class="tags" id="tags"></div>
+        </div>
         <dl class="tb">
-            <div><dt>Drawing</dt><dd>Space Launch System, Block 1</dd></div>
-            <div><dt>Mission</dt><dd>Artemis II</dd></div>
-            <div><dt>Height</dt><dd>322 ft</dd></div>
-            <div><dt>Status</dt><dd id="status">On the pad</dd></div>
+            <div><dt>Drawing</dt><dd>SLS, Artemis II</dd></div>
+            <div><dt>View</dt><dd id="tbView">Az 020&deg; El 10&deg;</dd></div>
+            <div><dt>Scale</dt><dd id="tbScale">1:600</dd></div>
+            <div><dt>Status</dt><dd id="tbStatus">On the pad</dd></div>
         </dl>
     </div>
 </aside>
@@ -670,165 +534,657 @@ footer p { margin: 0; max-width: 40em; }
 
 <script>
 (function () {
-    var NS = 'http://www.w3.org/2000/svg';
-    var svg = document.getElementById('v');
-    var zones = document.querySelector('.zones');
-    if (!svg || !zones) return;
+'use strict';
 
-    var wide = window.matchMedia('(min-width: 1081px)');
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var ready = false, stages, segs, marks, dimAll, dimLen, statusEl, lastStatus = '';
-    var S = 0.02, E = 0.9;
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var DEG = Math.PI / 180, TAU = Math.PI * 2;
+var INK = '#0B1A2E', ACC = '#E0601D', FILL = '#FAFBFA';
 
-    function mk(tag, attrs, parent) {
-        var e = document.createElementNS(NS, tag);
-        for (var k in attrs) e.setAttribute(k, attrs[k]);
-        if (parent) parent.appendChild(e);
-        return e;
+function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+function c01(v) { return clamp(v, 0, 1); }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function smooth(a, b, x) { var t = c01((x - a) / (b - a)); return t * t * (3 - 2 * t); }
+function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+function wrap(a) { a = (a + Math.PI) % TAU; if (a < 0) a += TAU; return a - Math.PI; }
+
+/* =====================================================================
+   Vehicle model. Feet, y up, pad deck at y = 0, core axis at the origin.
+   Every part is a solid of revolution: a profile of [height, radius].
+   Proportions follow published figures: 322 ft overall, 212 ft core
+   stage 27.6 ft across, 177 ft five-segment boosters 12 ft across.
+   ===================================================================== */
+var BODIES = [], BY = {};
+function body(o) {
+    o.ax = o.ax || 0; o.az = o.az || 0; o.rings = o.rings || []; o.gens = o.gens || [];
+    o.capTop = o.capTop !== false; o.layer = o.layer || 0;
+    o.y = o.profile.map(function (q) { return q[0]; });
+    o.r = o.profile.map(function (q) { return q[1]; });
+    o.yb = o.y[0]; o.yt = o.y[o.y.length - 1]; o.idx = BODIES.length;
+    BODIES.push(o); if (o.id) BY[o.id] = o; return o;
+}
+function rAt(b, y) {
+    for (var i = 0; i < b.y.length - 1; i++) {
+        if (y <= b.y[i + 1]) return lerp(b.r[i], b.r[i + 1], c01((y - b.y[i]) / ((b.y[i + 1] - b.y[i]) || 1e-3)));
     }
-    function clamp(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
+    return b.r[b.r.length - 1];
+}
+function slope(b, i) { return (b.r[i + 1] - b.r[i]) / ((b.y[i + 1] - b.y[i]) || 1e-3); }
 
-    // Sheet border with drawing zones, redrawn to the plate's size.
-    function drawZones() {
-        var w = zones.clientWidth, h = zones.clientHeight, b = 18, i, x, y;
-        if (!w || !h) return;
-        zones.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-        while (zones.firstChild) zones.removeChild(zones.firstChild);
-        mk('rect', { x: 0.5, y: 0.5, width: w - 1, height: h - 1, 'class': 'zo' }, zones);
-        mk('rect', { x: b, y: b, width: w - 2 * b, height: h - 2 * b, 'class': 'zi' }, zones);
-        var cols = 4, rows = Math.max(4, Math.round((h - 2 * b) / 150));
-        for (i = 0; i < cols; i++) {
-            x = b + (w - 2 * b) * (i + 0.5) / cols;
-            mk('text', { x: x, y: b / 2 + 3.5 }, zones).textContent = cols - i;
-            mk('text', { x: x, y: h - b / 2 + 3.5 }, zones).textContent = cols - i;
-            if (i) {
-                x = b + (w - 2 * b) * i / cols;
-                mk('line', { x1: x, y1: 0, x2: x, y2: b }, zones);
-                mk('line', { x1: x, y1: h - b, x2: x, y2: h }, zones);
-            }
-        }
-        for (i = 0; i < rows; i++) {
-            y = b + (h - 2 * b) * (i + 0.5) / rows;
-            var letter = String.fromCharCode(65 + rows - 1 - i);
-            mk('text', { x: b / 2, y: y + 3.5 }, zones).textContent = letter;
-            mk('text', { x: w - b / 2, y: y + 3.5 }, zones).textContent = letter;
-            if (i) {
-                y = b + (h - 2 * b) * i / rows;
-                mk('line', { x1: 0, y1: y, x2: b, y2: y }, zones);
-                mk('line', { x1: w - b, y1: y, x2: w, y2: y }, zones);
-            }
-        }
+var BOOST = [[0, 9], [1.4, 8.35], [3.2, 7.55], [5.4, 6.9], [7.8, 6.4], [11, 6], [145, 6], [157, 6], [170, 3.5], [171.6, 3.22], [173.3, 2.72], [174.9, 2.02], [176.1, 1.22], [177, 0]];
+[[20.7, 0, 'bR'], [-20.7, Math.PI, 'bL']].forEach(function (d) {
+    var gens = [[d[1] - 1.4 * DEG, 12, 144, 'g'], [d[1] + 1.4 * DEG, 12, 144, 'g']];
+    for (var k = 0; k < 4; k++) { var a = (45 + 90 * k) * DEG; gens.push([a, 158.6, 165, 'g'], [a, 2.4, 7.4, 'g']); }
+    body({ id: d[2], stage: 0, ax: d[0], profile: BOOST, shade: true, gens: gens,
+        rings: [[0, 'M'], [11, 'M'], [37.8, 'm'], [38.8, 'm'], [64.6, 'm'], [65.6, 'm'], [91.4, 'm'], [92.4, 'm'], [118.2, 'm'], [119.2, 'm'], [145, 'M'], [157, 'M'], [170, 'M']] });
+});
+
+var ENG = [[6.2, 6.2], [-6.2, 6.2], [6.2, -6.2], [-6.2, -6.2]];
+ENG.forEach(function (e, i) {
+    body({ id: 'e' + i, stage: 1, ax: e[0], az: e[1], layer: -1, capTop: false,
+        profile: [[0, 3.75], [1.2, 3.45], [2.6, 3.05], [4, 2.6], [5.4, 2.12], [6.7, 1.72], [8, 1.45]],
+        rings: [[0, 'M'], [2.6, 'f'], [5.4, 'f']] });
+});
+body({ id: 'cL', stage: 1, capTop: false, shade: true, profile: [[8, 12.6], [14, 13.8], [150, 13.8]],
+    rings: [[8, 'M'], [14, 'M'], [30, 'M'], [50, 'f'], [70, 'f'], [90, 'f'], [110, 'f'], [130, 'f']],
+    gens: [[24 * DEG, 31, 149.5, 'g'], [27 * DEG, 31, 149.5, 'g']] });
+body({ id: 'feed', stage: 1, ax: 15.05 * Math.cos(118 * DEG), az: 15.05 * Math.sin(118 * DEG), profile: [[31, 0.85], [151, 0.85]],
+    rings: [[31, 'm'], [52, 'm'], [82, 'm'], [112, 'm'], [142, 'm'], [151, 'm']] });
+(function () {
+    var gens = [[24 * DEG, 171.5, 202.5, 'g'], [27 * DEG, 171.5, 202.5, 'g']];
+    for (var k = 0; k < 48; k++) gens.push([k * 7.5 * DEG, 150.7, 170.3, 's']);
+    body({ id: 'cU', stage: 2, capTop: false, shade: true, profile: [[150, 13.8], [212, 13.8]],
+        rings: [[150, 'M'], [171, 'M'], [180, 'f'], [192, 'f'], [203, 'M']], gens: gens });
+})();
+body({ id: 'lvsa', stage: 3, capTop: false, shade: true, profile: [[212, 13.8], [242, 8.2]], rings: [[212, 'M'], [227, 'm']] });
+body({ id: 'icps', stage: 4, capTop: false, shade: true, profile: [[242, 8.2], [262, 8.2]], rings: [[242, 'M'], [247, 'm'], [257, 'M']] });
+body({ id: 'sm', stage: 5, capTop: false, shade: true, profile: [[262, 8.2], [281, 8.2]], rings: [[262, 'M'], [266.7, 'M']],
+    gens: [[30 * DEG, 266.7, 281, 'g'], [150 * DEG, 266.7, 281, 'g'], [270 * DEG, 266.7, 281, 'g']] });
+body({ id: 'bpc', stage: 6, shade: true, profile: [[281, 8.2], [283.5, 7.85], [286, 7.1], [288.5, 6.05], [291, 4.75], [293.5, 3.3], [296, 1.9]], rings: [[281, 'M'], [288.5, 'f']] });
+body({ id: 'las', stage: 7, profile: [[296, 1.5], [306, 1.5], [306.2, 2], [308.6, 2], [308.8, 1.35], [317, 1.35], [318.8, 1.15], [320.2, 0.8], [321.3, 0.42], [322, 0]],
+    rings: [[296, 'M'], [300.5, 'm'], [306, 'M'], [308.7, 'M'], [317, 'm']], extras: lasNozzles });
+
+var STAGES = [
+    { name: 'Solid rocket boosters', short: 'Boosters', yb: 0, yt: 177, lead: 'bR' },
+    { name: 'Engine section and hydrogen tank', short: 'Hydrogen tank', yb: 0, yt: 151, lead: 'cL' },
+    { name: 'Intertank and oxygen tank', short: 'Oxygen tank', yb: 150, yt: 212, lead: 'cU' },
+    { name: 'Launch vehicle stage adapter', short: 'Stage adapter', yb: 212, yt: 242, lead: 'lvsa' },
+    { name: 'Interim cryogenic propulsion stage', short: 'Upper stage', yb: 242, yt: 262, lead: 'icps' },
+    { name: 'Orion service module', short: 'Service module', yb: 262, yt: 281, lead: 'sm' },
+    { name: 'Orion crew module', short: 'Crew module', yb: 281, yt: 296, lead: 'bpc' },
+    { name: 'Launch abort system', short: 'Abort system', yb: 296, yt: 322, lead: 'las' }
+];
+var TAGS = [
+    { s: 0, text: 'Solid rocket booster', b: 'bL', y: 104 },
+    { s: 1, text: 'RS-25 engines', b: 'eng', y: 3 },
+    { s: 1, text: 'Liquid hydrogen tank', b: 'cL', y: 92 },
+    { s: 2, text: 'Intertank', b: 'cU', y: 161 },
+    { s: 2, text: 'Liquid oxygen tank', b: 'cU', y: 188 },
+    { s: 3, text: 'Stage adapter', b: 'lvsa', y: 228 },
+    { s: 4, text: 'Upper stage (ICPS)', b: 'icps', y: 252 },
+    { s: 5, text: 'Orion service module', b: 'sm', y: 273 },
+    { s: 6, text: 'Orion crew module', b: 'bpc', y: 287 },
+    { s: 7, text: 'Launch abort system', b: 'las', y: 312 }
+];
+
+/* ============================ projection ============================ */
+function view(o) {
+    var ct = Math.cos(o.theta), st = Math.sin(o.theta), cp = Math.cos(o.phi), sp = Math.sin(o.phi), D = 900;
+    var V = { k: o.k, lift: o.lift || 0, theta: o.theta, phi: o.phi, cx: o.cx, cy: o.cy };
+    V.P = function (x, y, z) {
+        var x1 = x * ct - z * st, z1 = x * st + z * ct, y1 = y - o.ty;
+        var y2 = y1 * cp - z1 * sp, z2 = y1 * sp + z1 * cp, w = D / (D - z2);
+        return [o.cx + o.k * x1 * w, o.cy - o.k * y2 * w, z2];
+    };
+    V.cam = [D * cp * st, o.ty + D * sp, D * cp * ct];
+    V.beta = Math.atan2(V.cam[2], V.cam[0]);
+    return V;
+}
+
+/* Silhouette geometry for a solid of revolution, clipped at height top. */
+function geom(V, b, top) {
+    var dx = V.cam[0] - b.ax, dz = V.cam[2] - b.az, L = Math.sqrt(dx * dx + dz * dz), beta = Math.atan2(dz, dx);
+    var camY = V.cam[1], lift = V.lift;
+    function A(y, r, s) { return Math.acos(clamp((r + s * (camY - y - lift)) / L, -1, 1)); }
+    function pt(y, r, a) { return V.P(b.ax + r * Math.cos(a), y + lift, b.az + r * Math.sin(a)); }
+    function ringA(y) {
+        var r = rAt(b, y), best = -1;
+        for (var i = 0; i < b.y.length - 1; i++) if (b.y[i] <= y + 1e-6 && b.y[i + 1] >= y - 1e-6) best = Math.max(best, A(y, r, slope(b, i)));
+        return best < 0 ? Math.PI / 2 : best;
+    }
+    function arc(y, a0, a1) {
+        var r = rAt(b, y), n = Math.max(3, Math.ceil(Math.abs(a1 - a0) / TAU * clamp(V.k * r * 0.75, 14, 90))), out = [];
+        for (var i = 0; i <= n; i++) out.push(pt(y, r, lerp(a0, a1, i / n)));
+        return out;
+    }
+    var vA = [], vB = [];
+    for (var i = 0; i < b.y.length - 1; i++) {
+        var y0 = b.y[i], y1 = b.y[i + 1], r0 = b.r[i], r1 = b.r[i + 1];
+        if (y0 >= top) break;
+        var s = (r1 - r0) / ((y1 - y0) || 1e-3);
+        if (y1 > top) { r1 = lerp(r0, r1, (top - y0) / (y1 - y0)); y1 = top; }
+        var a0 = A(y0, r0, s), a1 = A(y1, r1, s);
+        vA.push([y0, r0, beta + a0], [y1, r1, beta + a1]);
+        vB.push([y0, r0, beta - a0], [y1, r1, beta - a1]);
+    }
+    var cA = vA.map(function (q) { return pt(q[0], q[1], q[2]); });
+    var cB = vB.map(function (q) { return pt(q[0], q[1], q[2]); });
+    var m = Math.floor(cA.length / 2), rightA = cA.length ? cA[m][0] >= cB[m][0] : true;
+    return { beta: beta, A: A, pt: pt, arc: arc, ringA: ringA, top: top,
+        cR: rightA ? cA : cB, cL: rightA ? cB : cA, vR: rightA ? vA : vB, vL: rightA ? vB : vA, sg: rightA ? 1 : -1 };
+}
+
+function path(ctx, pts, move) {
+    if (!pts.length) return;
+    if (move !== false) ctx.moveTo(pts[0][0], pts[0][1]); else ctx.lineTo(pts[0][0], pts[0][1]);
+    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+}
+function line(ctx, pts, w, color, alpha, dash) {
+    if (pts.length < 2 || alpha <= 0) return;
+    ctx.beginPath(); path(ctx, pts); ctx.lineWidth = w; ctx.strokeStyle = color; ctx.globalAlpha = alpha;
+    ctx.setLineDash(dash || []); ctx.stroke();
+}
+var RW = { M: [1, 1], m: [0.75, 0.85], f: [0.55, 0.42] };
+
+function drawGhost(ctx, V, b) {
+    var g = geom(V, b, b.yt);
+    ctx.beginPath(); path(ctx, g.cR); path(ctx, g.cL);
+    b.rings.forEach(function (rg) { if (rg[1] !== 'f') path(ctx, g.arc(rg[0], 0, TAU)); });
+    ctx.lineWidth = 0.7; ctx.strokeStyle = INK; ctx.globalAlpha = 0.21; ctx.setLineDash([2, 4]); ctx.stroke(); ctx.setLineDash([]);
+}
+
+function drawBody(ctx, V, b, h, detail, scanning) {
+    var top = Math.min(b.yt, h);
+    if (top <= b.yb + 1e-3) return null;
+    var g = geom(V, b, top), beta = g.beta, sg = g.sg;
+    var cut = top < b.yt - 1e-3, aTop = g.ringA(top), aBot = g.ringA(b.yb);
+
+    // Opaque paper fill, so nearer parts hide what is behind them.
+    ctx.globalAlpha = 1; ctx.fillStyle = FILL; ctx.beginPath();
+    path(ctx, g.cR);
+    path(ctx, g.arc(top, beta + sg * aTop, beta - sg * aTop), false);
+    path(ctx, g.cL.slice().reverse(), false);
+    path(ctx, g.arc(b.yb, beta - sg * aBot, beta + sg * aBot), false);
+    ctx.closePath(); ctx.fill();
+    if ((b.capTop || cut) && rAt(b, top) > 0.05) { ctx.beginPath(); path(ctx, g.arc(top, 0, TAU)); ctx.closePath(); ctx.fill(); }
+
+    // Line shading on the side away from the light, bunching toward the edge.
+    if (b.shade && detail > 0) {
+        ctx.beginPath();
+        [2, 4.4, 7.2, 10.6, 14.6, 19.4, 25.2, 32.4, 41].forEach(function (o) {
+            var pts = g.vR.map(function (q) { return g.pt(q[0], q[1], q[2] - sg * o * DEG); });
+            path(ctx, pts);
+        });
+        ctx.lineWidth = 0.6; ctx.strokeStyle = INK; ctx.globalAlpha = 0.4 * detail; ctx.setLineDash([]); ctx.stroke();
     }
 
-    function build() {
-        stages = [].slice.call(svg.querySelectorAll('.stage'));
-        function hatch(s) { return stages[s].querySelector('.hatch'); }
+    // Hidden lines: the far half of each ring, dashed and faint.
+    ctx.beginPath();
+    b.rings.forEach(function (rg) {
+        if (rg[0] > top + 1e-6 || (rg[1] === 'f' && detail <= 0)) return;
+        var a = g.ringA(rg[0]); if (a >= Math.PI - 1e-3) return;
+        path(ctx, g.arc(rg[0], beta + a, beta + TAU - a));
+    });
+    ctx.lineWidth = 0.6; ctx.strokeStyle = INK; ctx.globalAlpha = 0.2; ctx.setLineDash([2.5, 3]); ctx.stroke(); ctx.setLineDash([]);
+    if (b.extras) b.extras(ctx, V, b, false, detail);
 
-        // Cylinder shading: hatch lines bunching toward the right edge, light from the left.
-        var F = [0.6, 0.7, 0.78, 0.845, 0.895, 0.935, 0.965, 0.986];
-        function shade(s, tone, a, b, yT, c, d, yB) {
-            F.forEach(function (f) {
-                mk('line', { x1: a + (b - a) * f, y1: yT, x2: c + (d - c) * f, y2: yB, 'class': tone }, hatch(s));
-            });
-        }
-        shade(0, 'hw', 44, 80, 529, 44, 80, 967);
-        shade(0, 'hw', -80, -44, 529, -80, -44, 967);
-        shade(1, 'ho', -41, 41, 550, -41, 41, 958);
-        shade(2, 'ho', -41, 41, 364, -41, 41, 550);
-        shade(3, 'hw', -24.6, 24.6, 274, -41, 41, 364);
-        shade(4, 'hw', -24.6, 24.6, 214, -24.6, 24.6, 274);
-        shade(5, 'hw', -24.6, 24.6, 157, -24.6, 24.6, 214);
+    // Visible lines.
+    line(ctx, g.cR, 1.35, INK, 1); line(ctx, g.cL, 1.35, INK, 1);
+    var sweep = Math.max(2, (b.yt - b.yb) * 0.06);
+    b.rings.forEach(function (rg) {
+        var y = rg[0]; if (y > top - 1e-3 && cut) return; if (y > top + 1e-6) return;
+        var wgt = RW[rg[1]], al = rg[1] === 'f' ? wgt[1] * detail : wgt[1];
+        var f = scanning ? c01((top - y) / sweep) : 1, a = g.ringA(y) * f;
+        line(ctx, g.arc(y, beta - a, beta + a), wgt[0], INK, al);
+    });
+    b.gens.forEach(function (gn) {
+        if (gn[1] >= top) return;
+        var y1 = Math.min(gn[2], top), ym = (gn[1] + y1) / 2, r = rAt(b, ym);
+        var vis = Math.abs(wrap(gn[0] - beta)) < g.A(ym, r, 0) - 0.03;
+        if (!vis) return;
+        var ys = [gn[1]]; b.y.forEach(function (yy) { if (yy > gn[1] && yy < y1) ys.push(yy); }); ys.push(y1);
+        var pts = ys.map(function (yy) { return g.pt(yy, rAt(b, yy), gn[0]); });
+        if (gn[3] === 's') line(ctx, pts, 0.5, INK, 0.5 * detail); else line(ctx, pts, 0.7, INK, 0.8);
+    });
+    if (b.extras) b.extras(ctx, V, b, true, detail);
 
-        // Hydrogen tank barrel welds and intertank stringers.
-        [850, 790, 730, 670, 610].forEach(function (y) {
-            mk('line', { x1: -41, y1: y, x2: 41, y2: y, 'class': 'ho' }, hatch(1));
-        });
-        for (var x = -38.5; x <= 38.6; x += 5.5) {
-            mk('line', { x1: x, y1: 489, x2: x, y2: 548, 'class': 'ho' }, hatch(2));
-        }
-
-        // Section hatching under the pad deck.
-        var gh = svg.querySelector('.gh');
-        for (var g = -132; g < 128; g += 8) mk('line', { x1: g, y1: 1014, x2: g + 14, y2: 1000 }, gh);
-
-        // Smoke puffs: center first, spreading outward.
-        var puffs = [[-232, 1040, 20], [-204, 1032, 27], [-172, 1027, 31], [-138, 1023, 35], [-104, 1020, 38], [-70, 1018, 41], [-34, 1020, 42], [0, 1017, 44],
-                     [34, 1020, 42], [70, 1018, 41], [104, 1020, 38], [138, 1023, 35], [172, 1027, 31], [204, 1032, 27], [232, 1040, 20],
-                     [-156, 1046, 30], [-84, 1050, 34], [0, 1052, 36], [84, 1050, 34], [156, 1046, 30]];
-        var so = svg.querySelector('.smoke-o'), sf = svg.querySelector('.smoke-f');
-        puffs.forEach(function (q) {
-            var delay = (Math.abs(q[0]) / 230 * 0.55).toFixed(2) + 's';
-            [so, sf].forEach(function (layer) {
-                mk('circle', { cx: q[0], cy: q[1], r: q[2] }, layer).style.transitionDelay = delay;
-            });
-        });
-
-        // Pencil construction lines: a faint dashed copy of the whole vehicle.
-        var ghost = mk('g', { 'class': 'ghost' });
-        stages.forEach(function (st) {
-            var c = st.querySelector('.line').cloneNode(true);
-            c.removeAttribute('class');
-            ghost.appendChild(c);
-        });
-        document.getElementById('stack').insertBefore(ghost, stages[0]);
-
-        segs = stages.map(function (st) {
-            return [].slice.call(st.querySelectorAll('.line path')).map(function (p) {
-                var L = p.getTotalLength();
-                p.style.strokeDasharray = L + ' ' + L;
-                p.style.strokeDashoffset = L;
-                return { p: p, L: L };
-            });
-        });
-        dimAll = document.getElementById('dimAll');
-        dimLen = dimAll.getTotalLength();
-        dimAll.style.strokeDasharray = dimLen + ' ' + dimLen;
-        marks = [].slice.call(svg.querySelectorAll('[data-s]'));
-        statusEl = document.getElementById('status');
-        ready = true;
+    // The scan head: the cut face, outlined in orange.
+    if (cut && scanning) {
+        line(ctx, g.arc(top, beta + aTop, beta + TAU - aTop), 1, ACC, 0.5, [3, 3]);
+        line(ctx, g.arc(top, beta - aTop, beta + aTop), 1.8, ACC, 1);
     }
+    return g;
+}
 
-    function render(p) {
-        var n = stages.length, slice = (E - S) / n, current = -1, done = [];
+/* Abort and jettison motor nozzles on the launch abort tower. */
+function lasNozzles(ctx, V, b, front, detail) {
+    function nozzle(a, r0, y0, r1, y1, rb, re) {
+        var c0 = [r0 * Math.cos(a), y0, r0 * Math.sin(a)], c1 = [r1 * Math.cos(a), y1, r1 * Math.sin(a)];
+        var ax = [c1[0] - c0[0], c1[1] - c0[1], c1[2] - c0[2]], len = Math.hypot(ax[0], ax[1], ax[2]);
+        ax = [ax[0] / len, ax[1] / len, ax[2] / len];
+        var u = [-Math.sin(a), 0, Math.cos(a)];
+        var w = [ax[1] * u[2] - ax[2] * u[1], ax[2] * u[0] - ax[0] * u[2], ax[0] * u[1] - ax[1] * u[0]];
+        function ringPts(c, r) {
+            var out = []; for (var i = 0; i <= 20; i++) { var t = i / 20 * TAU, cs = Math.cos(t), sn = Math.sin(t);
+                out.push(V.P(c[0] + r * (u[0] * cs + w[0] * sn), c[1] + r * (u[1] * cs + w[1] * sn) + V.lift, c[2] + r * (u[2] * cs + w[2] * sn))); }
+            return out;
+        }
+        var e = ringPts(c1, re), s = ringPts(c0, rb);
+        ctx.beginPath(); path(ctx, e);
+        [0, 5, 10, 15].forEach(function (i) { ctx.moveTo(s[i][0], s[i][1]); ctx.lineTo(e[i][0], e[i][1]); });
+    }
+    [45, 135, 225, 315].forEach(function (d) {
+        var a = d * DEG, facing = Math.cos(a - V.beta) > -0.05;
+        if (facing !== front) return;
+        nozzle(a, 1.5, 300, 3.05, 297.4, 0.42, 0.8);
+        nozzle(a, 1.35, 315.4, 2.25, 316.9, 0.28, 0.42);
+        ctx.lineWidth = front ? 0.8 : 0.55; ctx.strokeStyle = INK; ctx.globalAlpha = front ? 0.9 : 0.2;
+        ctx.setLineDash(front ? [] : [2, 2.5]); ctx.stroke(); ctx.setLineDash([]);
+    });
+}
+
+/* The turntable the vehicle stands on, with a fixed index pointer. */
+function drawGround(ctx, V, alpha, lift) {
+    if (alpha <= 0) return;
+    var P = V.P, i, a;
+    function ring(r, n) { var out = []; for (var j = 0; j <= n; j++) { var t = j / n * TAU; out.push(P(r * Math.cos(t), 0, r * Math.sin(t))); } return out; }
+    var c = P(0, 0, 0), rx = V.k * 44, ry = rx * Math.max(0.08, Math.sin(V.phi));
+    var sh = 0.12 * alpha * (1 - smooth(0, 50, lift));
+    if (sh > 0.002) {
+        ctx.save(); ctx.translate(c[0], c[1]); ctx.scale(1, ry / rx);
+        var gr = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+        gr.addColorStop(0, 'rgba(11,26,46,' + sh + ')'); gr.addColorStop(1, 'rgba(11,26,46,0)');
+        ctx.fillStyle = gr; ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(0, 0, rx, 0, TAU); ctx.fill(); ctx.restore();
+    }
+    line(ctx, ring(46, 120), 1, INK, 0.6 * alpha);
+    line(ctx, ring(48.6, 120), 0.6, INK, 0.3 * alpha);
+    line(ctx, ring(34, 96), 0.6, INK, 0.22 * alpha, [2, 4]);
+    ctx.beginPath();
+    for (i = 0; i < 72; i++) {
+        a = i * 5 * DEG; var r1 = i % 6 === 0 ? 43.2 : 44.8;
+        var p0 = P(46 * Math.cos(a), 0, 46 * Math.sin(a)), p1 = P(r1 * Math.cos(a), 0, r1 * Math.sin(a));
+        ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]);
+    }
+    var x0 = P(-40, 0, 0), x1 = P(40, 0, 0), z0 = P(0, 0, -40), z1 = P(0, 0, 40);
+    ctx.lineWidth = 0.6; ctx.strokeStyle = INK; ctx.globalAlpha = 0.5 * alpha; ctx.stroke();
+    line(ctx, [x0, x1], 0.5, INK, 0.18 * alpha, [5, 4]); line(ctx, [z0, z1], 0.5, INK, 0.18 * alpha, [5, 4]);
+    ctx.fillStyle = INK; ctx.globalAlpha = 0.62 * alpha; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '600 9.5px Archivo, sans-serif';
+    ['0', '90', '180', '270'].forEach(function (t, j) { var aa = j * 90 * DEG, p = P(40.4 * Math.cos(aa), 0, 40.4 * Math.sin(aa)); ctx.fillText(t, p[0], p[1]); });
+    var b = V.beta, tip = P(49.1 * Math.cos(b), 0, 49.1 * Math.sin(b)), l = P(52.4 * Math.cos(b - 0.045), 0, 52.4 * Math.sin(b - 0.045)), r = P(52.4 * Math.cos(b + 0.045), 0, 52.4 * Math.sin(b + 0.045));
+    ctx.beginPath(); ctx.moveTo(tip[0], tip[1]); ctx.lineTo(l[0], l[1]); ctx.lineTo(r[0], r[1]); ctx.closePath();
+    ctx.globalAlpha = 0.85 * alpha; ctx.fill();
+}
+
+/* ============================== exhaust =============================== */
+var particles = [];
+function emit(dt, tau, lift) {
+    function spawn(x, z, y, r, rate, big) {
+        var n = rate * dt; while (n > 0) {
+            if (n < 1 && Math.random() > n) break; n -= 1;
+            var a = Math.random() * TAU, rr = Math.sqrt(Math.random()) * r, sp = big ? 300 : 230;
+            particles.push({ x: x + Math.cos(a) * rr, y: y, z: z + Math.sin(a) * rr,
+                vx: Math.cos(a) * rr * 7, vy: -sp * (0.8 + Math.random() * 0.45), vz: Math.sin(a) * rr * 7,
+                age: 0, life: 0.6 + Math.random() * 0.7, big: big });
+        }
+    }
+    if (tau > 0.15) ENG.forEach(function (e) { spawn(e[0], e[1], lift, 3.1, 110, false); });
+    if (tau > 1.15) { spawn(20.7, 0, lift - 1, 5.6, 480, true); spawn(-20.7, 0, lift - 1, 5.6, 480, true); }
+    if (particles.length > 2800) particles.splice(0, particles.length - 2800);
+}
+function stepParticles(dt) {
+    for (var i = particles.length - 1; i >= 0; i--) {
+        var q = particles[i]; q.age += dt;
+        if (q.age > q.life) { particles.splice(i, 1); continue; }
+        q.x += q.vx * dt; q.y += q.vy * dt; q.z += q.vz * dt;
+        var drag = Math.pow(0.35, dt); q.vx *= drag; q.vz *= drag; q.vy *= Math.pow(0.7, dt);
+        if (q.y < 0) {
+            q.y = 0; var rad = Math.hypot(q.x, q.z) || 1, sp = Math.abs(q.vy) * 0.6 * (0.6 + Math.random() * 0.8);
+            q.vx = q.x / rad * sp + (Math.random() - 0.5) * 40; q.vz = q.z / rad * sp + (Math.random() - 0.5) * 40; q.vy = Math.random() * 26;
+        }
+    }
+}
+function drawExhaust(ctx, V, tau, lift, t) {
+    if (!particles.length && tau <= 0) return;
+    var buckets = [[], [], [], []];
+    particles.forEach(function (q) {
+        var a = V.P(q.x, q.y, q.z), b = V.P(q.x - q.vx * 0.035, q.y - q.vy * 0.035, q.z - q.vz * 0.035);
+        var f = q.age / q.life, k = q.age < 0.09 ? 0 : (f < 0.35 ? 1 : (f < 0.7 ? 2 : 3));
+        buckets[k].push(a, b);
+    });
+    var styles = [[ACC, 0.95, 1.1], [INK, 0.5, 0.8], [INK, 0.28, 0.7], [INK, 0.12, 0.6]];
+    buckets.forEach(function (bk, i) {
+        if (!bk.length) return;
+        ctx.beginPath(); for (var j = 0; j < bk.length; j += 2) { ctx.moveTo(bk[j][0], bk[j][1]); ctx.lineTo(bk[j + 1][0], bk[j + 1][1]); }
+        ctx.strokeStyle = styles[i][0]; ctx.globalAlpha = styles[i][1]; ctx.lineWidth = styles[i][2]; ctx.setLineDash([]); ctx.stroke();
+    });
+    // Flame cores: tapered orange strokes that flicker.
+    function core(x, z, r, len, n) {
+        ctx.beginPath();
         for (var i = 0; i < n; i++) {
-            var t = clamp((p - (S + i * slice)) / (slice * 0.72));
-            segs[i].forEach(function (o) { o.p.style.strokeDashoffset = (o.L * (1 - t)).toFixed(2); });
-            done[i] = t >= 1;
-            stages[i].classList.toggle('on', done[i]);
-            if (t > 0) current = i;
+            var a = i / n * TAU + t * 3, rr = r * (0.35 + 0.5 * ((i * 7) % 5) / 5), L = len * (0.75 + 0.25 * Math.sin(t * 31 + i * 1.7));
+            var p0 = V.P(x + Math.cos(a) * rr, lift - 0.5, z + Math.sin(a) * rr), p1 = V.P(x + Math.cos(a) * rr * 0.25, lift - L, z + Math.sin(a) * rr * 0.25);
+            ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]);
         }
-        marks.forEach(function (m) { m.classList.toggle('on', !!done[+m.getAttribute('data-s')]); });
-        dimAll.style.strokeDashoffset = (dimLen * (1 - clamp((p - S) / (E - S)))).toFixed(2);
+        ctx.strokeStyle = ACC; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.9; ctx.stroke();
+    }
+    var g1 = smooth(0.15, 0.6, tau), g2 = smooth(1.15, 1.6, tau);
+    if (g1 > 0) ENG.forEach(function (e) { core(e[0], e[1], 3.2, 16 * g1, 7); });
+    if (g2 > 0) { core(20.7, 0, 5.6, 40 * g2, 11); core(-20.7, 0, 5.6, 40 * g2, 11); }
+    // Pressure waves running out across the pad.
+    if (tau > 1.15 && tau < 5) {
+        for (var w = 0; w < 3; w++) {
+            var tt = tau - 1.15 - w * 0.38; if (tt <= 0) continue;
+            var R = 34 + tt * 92, al = 0.55 * (1 - tt / 3.4); if (al <= 0) continue;
+            var pts = []; for (var j = 0; j <= 120; j++) { var aa = j / 120 * TAU; pts.push(V.P(R * Math.cos(aa), 0, R * Math.sin(aa))); }
+            line(ctx, pts, 0.8, INK, al);
+        }
+    }
+}
 
-        var launch = !reduce && p >= 0.992;
-        svg.classList.toggle('launch', launch);
-        var s = launch ? 'Liftoff' : (done[n - 1] ? 'Stacked, go for launch' : (current < 0 ? 'On the pad' : 'Stacking: ' + stages[current].getAttribute('data-name')));
-        if (s !== lastStatus) { statusEl.textContent = s; lastStatus = s; }
-    }
+/* ============================== scene =============================== */
+var ORDER = BODIES.slice();
+function stageState(i, prog) {
+    if (prog.done[i]) return { h: Infinity, detail: 1, scanning: false };
+    if (prog.scan === i) { var g = STAGES[i]; return { h: g.yb + (g.yt - g.yb) * prog.u, detail: smooth(0.8, 1, prog.u), scanning: true }; }
+    return { h: -Infinity, detail: 0, scanning: false };
+}
+function drawScene(ctx, V, prog, opts) {
+    ctx.save();
+    drawGround(ctx, V, 1, V.lift);
+    drawExhaust(ctx, V, opts.tau || 0, V.lift, opts.time || 0);
+    BODIES.forEach(function (b) { if (!prog.done[b.stage]) drawGhost(ctx, V, b); });
+    ORDER.forEach(function (b) { b._d = V.P(b.ax, (b.yb + b.yt) / 2 + V.lift, b.az)[2]; });
+    ORDER.sort(function (a, b) { return (a.layer - b.layer) || (a._d - b._d) || (a.idx - b.idx); });
+    var geo = {};
+    ORDER.forEach(function (b) {
+        var st = stageState(b.stage, prog);
+        if (st.h > b.yb) geo[b.id || b.idx] = drawBody(ctx, V, b, st.h, st.detail, st.scanning);
+    });
+    ctx.restore();
+    ctx.globalAlpha = 1;
+    return geo;
+}
 
-    var ticking = false;
-    function update() {
-        ticking = false;
-        if (!ready) return;
-        if (reduce) { render(E); return; }
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        render(max > 0 ? clamp(window.scrollY / max) : 1);
-    }
-    function onScroll() {
-        if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }
-    function start() {
-        if (!wide.matches) return;
-        drawZones();
-        if (!ready) build();
-        update();
-    }
+/* Anchor point on a body's visible face, toward its left silhouette. */
+function anchor(V, b, y) {
+    var g = geom(V, b, b.yt), a = g.ringA(y), r = rAt(b, y);
+    var pL = g.pt(y, r, g.beta - g.sg * a * 0.62);
+    return pL;
+}
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', function () { if (wide.matches) { drawZones(); onScroll(); } });
-    if (wide.addEventListener) wide.addEventListener('change', start); else wide.addListener(start);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
-    start();
+/* =========================== desktop plate =========================== */
+var cv = document.getElementById('cv'), tagsEl = document.getElementById('tags');
+var plate = document.querySelector('.plate'), zones = document.querySelector('.zones');
+var wideMQ = window.matchMedia('(min-width: 1081px)');
+var D = { W: 0, H: 0, dpr: 1, ctx: cv ? cv.getContext('2d') : null };
+var S_ = 0.035, E_ = 0.885, SL = (E_ - S_) / STAGES.length;
+var pD = 0, tau = 0, lastT = 0, running = false, t0 = null;
+var tagEls = [], staEl, tb = { view: document.getElementById('tbView'), scale: document.getElementById('tbScale'), status: document.getElementById('tbStatus') }, tbLast = {};
+
+function makeTags() {
+    TAGS.forEach(function (tg) { var el = document.createElement('div'); el.className = 'tag'; el.textContent = tg.text; tagsEl.appendChild(el); tagEls.push(el); });
+    staEl = document.createElement('div'); staEl.className = 'sta'; staEl.innerHTML = 'Station<b>0 ft</b>'; tagsEl.appendChild(staEl);
+}
+function sizeCanvas(c, st) {
+    var r = c.getBoundingClientRect(); st.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    st.W = r.width; st.H = r.height; c.width = Math.round(st.W * st.dpr); c.height = Math.round(st.H * st.dpr);
+}
+function drawZones(first) {
+    var w = zones.clientWidth, h = zones.clientHeight, b = 18, i, x, y, NS = 'http://www.w3.org/2000/svg';
+    if (!w || !h) return;
+    function mk(tag, at) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); zones.appendChild(e); return e; }
+    zones.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    while (zones.firstChild) zones.removeChild(zones.firstChild);
+    mk('rect', { x: 0.5, y: 0.5, width: w - 1, height: h - 1, 'class': 'zo', pathLength: 1 });
+    mk('rect', { x: b, y: b, width: w - 2 * b, height: h - 2 * b, 'class': 'zi', pathLength: 1 });
+    var cols = 4, rows = Math.max(4, Math.round((h - 2 * b) / 150));
+    for (i = 0; i < cols; i++) {
+        x = b + (w - 2 * b) * (i + 0.5) / cols;
+        mk('text', { x: x, y: b / 2 + 3.5 }).textContent = cols - i;
+        mk('text', { x: x, y: h - b / 2 + 3.5 }).textContent = cols - i;
+        if (i) { x = b + (w - 2 * b) * i / cols; mk('line', { x1: x, y1: 0, x2: x, y2: b }); mk('line', { x1: x, y1: h - b, x2: x, y2: h }); }
+    }
+    for (i = 0; i < rows; i++) {
+        y = b + (h - 2 * b) * (i + 0.5) / rows; var L = String.fromCharCode(65 + rows - 1 - i);
+        mk('text', { x: b / 2, y: y + 3.5 }).textContent = L; mk('text', { x: w - b / 2, y: y + 3.5 }).textContent = L;
+        if (i) { y = b + (h - 2 * b) * i / rows; mk('line', { x1: 0, y1: y, x2: b, y2: y }); mk('line', { x1: w - b, y1: y, x2: w, y2: y }); }
+    }
+}
+
+function scrollP() { var max = document.documentElement.scrollHeight - window.innerHeight; return max > 0 ? c01(window.scrollY / max) : 1; }
+
+/* Scroll choreography: for each stage the camera swings around, closes in
+   on the part, follows the scan line up it, then pulls back out. */
+function choreo(p, t, W, H) {
+    var tw = 150, rw = 64;
+    var cx = tw + (W - tw - rw) / 2, cy = H * 0.5;
+    var k0 = (H - 64) / 350, ty = 159, k = k0, theta = 20 * DEG, phi = 10 * DEG;
+    var prog = { done: [], scan: -1, u: 0, idx: -1, s: 0 };
+    for (var i = 0; i < STAGES.length; i++) prog.done[i] = p >= S_ + (i + 0.75) * SL;
+    if (p >= S_ && p < E_) {
+        var si = Math.min(STAGES.length - 1, Math.floor((p - S_) / SL)), s = (p - S_ - si * SL) / SL, g = STAGES[si];
+        var Hp = g.yt - g.yb, Vv = clamp(Hp * 1.6, 64, 118), kf = (H * 0.8) / Vv;
+        var u = ease(c01((s - 0.2) / 0.55)), scanY = g.yb + Hp * u;
+        var tf = Hp < Vv * 0.7 ? (g.yb + g.yt) / 2 : clamp(scanY, g.yb + Vv * 0.36, g.yt - Vv * 0.36);
+        var fa = smooth(0, 0.2, s) * (1 - smooth(0.76, 1, s));
+        ty = lerp(ty, tf, fa); k = Math.exp(lerp(Math.log(k0), Math.log(kf), fa));
+        theta = 20 * DEG + 30 * DEG * Math.sin(Math.PI * (si + s));
+        phi = (10 + 9 * fa) * DEG;
+        prog.idx = si; prog.s = s;
+        if (s > 0.2 && s < 0.75) { prog.scan = si; prog.u = u; }
+    } else if (p >= E_) {
+        theta = 20 * DEG + TAU * ease(smooth(E_, 0.97, p));
+    }
+    if (!reduce) theta += 2.2 * DEG * Math.sin(t * 0.55);
+    return { cx: cx, cy: cy, k: k, k0: k0, ty: ty, theta: theta, phi: phi, prog: prog };
+}
+
+function setText(key, el, v) { if (tbLast[key] !== v) { el.textContent = v; tbLast[key] = v; } }
+
+function frame(now) {
+    if (!running) return;
+    var t = now / 1000, dt = lastT ? Math.min(0.05, t - lastT) : 0.016; lastT = t; if (t0 === null) t0 = t;
+    var pT = scrollP();
+    pD = reduce ? pT : pD + (pT - pD) * (1 - Math.exp(-dt * 6.5));
+    if (Math.abs(pT - pD) < 1e-5) pD = pT;
+    var W = D.W, H = D.H, ctx = D.ctx;
+    var C = choreo(reduce ? 0.95 : pD, t, W, H), prog = C.prog;
+    var allDone = prog.done[STAGES.length - 1];
+    var launching = !reduce && allDone && pT >= 0.985;
+    tau = launching ? tau + dt : Math.max(0, tau - dt * 2.4);
+    var rise = tau > 1.4 ? 0.5 * 30 * Math.pow(tau - 1.4, 2) : 0, rel = 46 * smooth(1.4, 5.5, tau);
+    var ty = C.ty + Math.max(0, rise - rel);
+    if (launching || particles.length) { if (launching) emit(dt, tau, rise); stepParticles(dt); }
+    var kk = C.k * lerp(1, 0.74, smooth(0.2, 3.2, tau));
+    // Opening shot: the camera starts low and close on the pad and pulls back.
+    var intro = reduce ? 1 : ease(c01((t - t0) / 3.2)), introW = 1 - smooth(0, 0.03, pD);
+    if (introW > 0 && intro < 1) {
+        var m = introW * (1 - intro);
+        kk = Math.exp(lerp(Math.log(kk), Math.log(kk * 2.6), m)); ty = lerp(ty, 62, m); C.theta -= 70 * DEG * m;
+    }
+    var V = view({ theta: C.theta, phi: C.phi + smooth(0, 3, tau) * 4 * DEG, k: kk, cx: C.cx, cy: C.cy, ty: ty, lift: rise });
+
+    ctx.setTransform(D.dpr, 0, 0, D.dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    drawScene(ctx, V, prog, { tau: tau, time: t });
+
+    var flying = tau > 0.05, labelA = 1 - smooth(0, 0.4, tau);
+    drawRuler(ctx, V, W, H);
+    if (allDone && labelA > 0) drawDimension(ctx, V, labelA * smooth(E_, E_ + 0.02, pD));
+    placeTags(ctx, V, prog, W, H, labelA);
+    placeStation(ctx, V, prog, W);
+
+    var az = Math.round(((C.theta / DEG) % 360 + 360) % 360), el = Math.round(V.phi / DEG);
+    setText('v', tb.view, 'Az ' + ('00' + az).slice(-3) + '°  El ' + el + '°');
+    setText('s', tb.scale, '1:' + (Math.round(304.8 / (kk * 0.2646) / 10) * 10).toLocaleString('en-US'));
+    var status;
+    if (flying) status = tau < 1.4 ? 'Ignition' : 'Liftoff, ' + Math.round(rise).toLocaleString('en-US') + ' ft';
+    else if (prog.scan >= 0) status = 'Drawing ' + STAGES[prog.scan].short.toLowerCase();
+    else if (allDone) status = 'Stacked, go for launch';
+    else if (prog.idx >= 0) status = (prog.s < 0.2 ? 'Next: ' : 'Done: ') + STAGES[prog.idx].short;
+    else status = 'On the pad';
+    setText('st', tb.status, status);
+
+    requestAnimationFrame(frame);
+}
+
+function drawRuler(ctx, V, W, H) {
+    var x = W - 20, p0 = V.P(0, 0, 0)[1], p100 = V.P(0, 100, 0)[1], ppf = (p0 - p100) / 100;
+    if (ppf <= 0) return;
+    var steps = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1000], step = steps[steps.length - 1];
+    for (var i = 0; i < steps.length; i++) if (steps[i] * ppf >= 7) { step = steps[i]; break; }
+    var yTop = (p0 - 0) / ppf, yBot = (p0 - H) / ppf, major = step * 5;
+    ctx.beginPath(); ctx.moveTo(x, 6); ctx.lineTo(x, H - 6);
+    ctx.font = '500 9.5px Archivo, sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillStyle = INK;
+    var labels = [];
+    for (var y = Math.ceil(Math.max(0, yBot) / step) * step; y <= yTop; y += step) {
+        var sy = V.P(0, y, 0)[1]; if (sy < 22 || sy > H - 6) continue;
+        var isMaj = Math.abs(y % major) < 1e-6; ctx.moveTo(x, sy); ctx.lineTo(x - (isMaj ? 8 : 4), sy);
+        if (isMaj) labels.push([y, sy]);
+    }
+    ctx.lineWidth = 0.7; ctx.strokeStyle = INK; ctx.globalAlpha = 0.55; ctx.setLineDash([]); ctx.stroke();
+    ctx.globalAlpha = 0.65; labels.forEach(function (l) { ctx.fillText(l[0].toLocaleString('en-US'), x - 11, l[1]); });
+    ctx.globalAlpha = 0.5; ctx.textAlign = 'right'; ctx.fillText('ft', x - 11, 12);
+    ctx.globalAlpha = 1;
+}
+
+function drawDimension(ctx, V, a) {
+    if (a <= 0) return;
+    var b0 = V.P(0, V.lift, 0), b1 = V.P(0, 322 + V.lift, 0), x = V.cx + V.k * 37;
+    ctx.beginPath(); ctx.moveTo(x, b0[1]); ctx.lineTo(x, b1[1]);
+    ctx.moveTo(b0[0] + V.k * 32, b0[1]); ctx.lineTo(x + 6, b0[1]); ctx.moveTo(b1[0] + 5, b1[1]); ctx.lineTo(x + 6, b1[1]);
+    ctx.lineWidth = 0.7; ctx.strokeStyle = INK; ctx.globalAlpha = 0.75 * a; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, b0[1]); ctx.lineTo(x - 3, b0[1] - 9); ctx.lineTo(x + 3, b0[1] - 9); ctx.closePath();
+    ctx.moveTo(x, b1[1]); ctx.lineTo(x - 3, b1[1] + 9); ctx.lineTo(x + 3, b1[1] + 9); ctx.closePath();
+    ctx.fillStyle = INK; ctx.fill();
+    ctx.save(); ctx.translate(x + 12, (b0[1] + b1[1]) / 2); ctx.rotate(-Math.PI / 2);
+    ctx.font = '600 11px Archivo, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.globalAlpha = 0.9 * a;
+    ctx.fillText('322 ft (98 m)', 0, 0); ctx.restore(); ctx.globalAlpha = 1;
+}
+
+function placeTags(ctx, V, prog, W, H, labelA) {
+    var tw = 150, items = [];
+    TAGS.forEach(function (tg, i) {
+        var on = labelA > 0 && prog.done[tg.s], el = tagEls[i];
+        if (!on) { el.classList.remove('on'); return; }
+        var p;
+        if (tg.b === 'eng') {
+            var best = null; ENG.forEach(function (e, j) { var q = V.P(e[0], 4 + V.lift, e[1]); if (!best || q[0] < best[0]) best = [q[0], j]; });
+            p = anchor(V, BY['e' + best[1]], tg.y);
+        } else p = anchor(V, BY[tg.b], tg.y);
+        if (p[1] < 10 || p[1] > H - 10 || p[0] < tw + 4 || p[0] > W - 60) { el.classList.remove('on'); return; }
+        items.push({ el: el, p: p, y: p[1] });
+    });
+    items.sort(function (a, b) { return a.y - b.y; });
+    for (var i = 1; i < items.length; i++) if (items[i].y < items[i - 1].y + 19) items[i].y = items[i - 1].y + 19;
+    for (i = items.length - 1; i >= 0; i--) { var lim = (i === items.length - 1 ? H - 10 : items[i + 1].y - 19); if (items[i].y > lim) items[i].y = lim; }
+    ctx.beginPath();
+    items.forEach(function (it) {
+        it.el.classList.add('on'); it.el.style.transform = 'translate3d(0,' + (it.y - 8).toFixed(1) + 'px,0)';
+        var x0 = tw - 4, xm = Math.min(it.p[0] - 10, x0 + 18);
+        ctx.moveTo(x0, it.y); ctx.lineTo(xm, it.y); ctx.lineTo(it.p[0], it.p[1]);
+    });
+    ctx.lineWidth = 0.7; ctx.strokeStyle = INK; ctx.globalAlpha = 0.8 * labelA; ctx.setLineDash([]); ctx.stroke();
+    ctx.fillStyle = INK; items.forEach(function (it) { ctx.beginPath(); ctx.arc(it.p[0], it.p[1], 2.1, 0, TAU); ctx.fill(); });
+    ctx.globalAlpha = 1;
+}
+
+function placeStation(ctx, V, prog, W) {
+    if (prog.scan < 0) { staEl.classList.remove('on'); return; }
+    var g = STAGES[prog.scan], b = BY[g.lead], h = g.yb + (g.yt - g.yb) * prog.u;
+    var yy = clamp(h, b.yb, b.yt), gm = geom(V, b, b.yt), a = gm.ringA(yy), r = rAt(b, yy);
+    var p = gm.pt(yy, r, gm.beta + gm.sg * a), xe = W - 62 - (staEl.offsetWidth || 44) - 8;
+    if (p[0] > xe - 8) { staEl.classList.remove('on'); return; }
+    ctx.beginPath(); ctx.moveTo(p[0] + 4, p[1]); ctx.lineTo(xe, p[1]);
+    ctx.lineWidth = 0.8; ctx.strokeStyle = ACC; ctx.globalAlpha = 0.9; ctx.setLineDash([]); ctx.stroke();
+    ctx.beginPath(); ctx.arc(p[0], p[1], 2.4, 0, TAU); ctx.fillStyle = ACC; ctx.fill(); ctx.globalAlpha = 1;
+    staEl.classList.add('on'); staEl.style.transform = 'translate3d(0,' + (p[1] - 13).toFixed(1) + 'px,0)';
+    staEl.lastChild.textContent = Math.round(h) + ' ft';
+}
+
+function startDesktop() {
+    if (!cv || !wideMQ.matches) { running = false; return; }
+    sizeCanvas(cv, D); drawZones();
+    if (!tagEls.length) makeTags();
+    if (!running) { running = true; lastT = 0; requestAnimationFrame(frame); }
+}
+
+/* ============================ phone view ============================= */
+var cvm = document.getElementById('cvm'), M = { W: 0, H: 0, dpr: 1, ctx: cvm ? cvm.getContext('2d') : null }, mOn = false, mVisible = true;
+var ALL = { done: STAGES.map(function () { return true; }), scan: -1, u: 0 };
+function mframe(now) {
+    if (!mOn) return;
+    var t = now / 1000, W = M.W, H = M.H, ctx = M.ctx;
+    if (mVisible && W > 0) {
+        var k = (H - 40) / 338, theta = 20 * DEG + (reduce ? 0 : 34 * DEG * Math.sin(t * 0.33) + window.scrollY * 0.12 * DEG);
+        var V = view({ theta: theta, phi: 11 * DEG, k: k, cx: W / 2, cy: H * 0.49, ty: 160, lift: 0 });
+        ctx.setTransform(M.dpr, 0, 0, M.dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+        drawScene(ctx, V, ALL, {});
+    }
+    if (!reduce) requestAnimationFrame(mframe);
+}
+function startMobile() {
+    if (!cvm || wideMQ.matches) { mOn = false; return; }
+    sizeCanvas(cvm, M);
+    if (!mOn) { mOn = true; requestAnimationFrame(mframe); }
+    else if (reduce) requestAnimationFrame(mframe);
+}
+if (cvm && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { mVisible = es[0].isIntersecting; }).observe(cvm);
+
+function startAll() { startDesktop(); startMobile(); }
+if ('ResizeObserver' in window) {
+    if (cv) new ResizeObserver(function () { if (wideMQ.matches) { sizeCanvas(cv, D); drawZones(); } }).observe(cv.parentNode);
+    if (cvm) new ResizeObserver(function () { if (!wideMQ.matches) sizeCanvas(cvm, M); }).observe(cvm.parentNode);
+}
+window.addEventListener('resize', function () { if (wideMQ.matches) { sizeCanvas(cv, D); drawZones(); } else if (cvm) sizeCanvas(cvm, M); startAll(); });
+if (wideMQ.addEventListener) wideMQ.addEventListener('change', startAll); else wideMQ.addListener(startAll);
+
+/* ============================ text motion ============================ */
+function ready() { document.body.classList.add('ready'); }
+var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+fontsReady.then(function () { startAll(); requestAnimationFrame(function () { requestAnimationFrame(ready); }); });
+setTimeout(ready, 1200);
+startAll();
+
+function countUp(el) {
+    var to = +el.getAttribute('data-count'), pre = el.getAttribute('data-pre') || '', post = el.getAttribute('data-post') || '', t0 = null;
+    if (reduce) return;
+    function step(now) { if (!t0) t0 = now; var f = c01((now - t0) / 1600), v = Math.round(to * (1 - Math.pow(1 - f, 4)));
+        el.textContent = pre + v + post; if (f < 1) requestAnimationFrame(step); }
+    el.textContent = pre + '0' + post; requestAnimationFrame(step);
+}
+if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var el = e.target; el.classList.add('in'); io.unobserve(el);
+            if (el.classList.contains('figs')) el.querySelectorAll('[data-count]').forEach(function (d, i) { setTimeout(function () { countUp(d); }, i * 120); });
+        });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    document.querySelectorAll('[data-reveal], .block-head, .chart, .figs').forEach(function (el) { io.observe(el); });
+
+    var links = [].slice.call(document.querySelectorAll('.bar nav a')), ind = document.querySelector('.bar .ind');
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    var navIO = new IntersectionObserver(function () {
+        var mid = window.innerHeight * 0.35, active = -1;
+        secs.forEach(function (s, i) { var r = s.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) active = i; });
+        links.forEach(function (a, i) { a.classList.toggle('active', i === active); });
+        if (active >= 0) { var a = links[active]; ind.style.opacity = 1; ind.style.width = a.offsetWidth + 'px'; ind.style.transform = 'translateX(' + a.offsetLeft + 'px)'; }
+        else ind.style.opacity = 0;
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: '-30% 0px -60% 0px' });
+    secs.forEach(function (s) { navIO.observe(s); });
+} else {
+    document.querySelectorAll('[data-reveal], .block-head, .chart, .figs').forEach(function (el) { el.classList.add('in'); });
+}
+
+var roles = document.querySelector('.roles');
+function rolesProg() {
+    if (!roles || reduce) return;
+    var r = roles.getBoundingClientRect(), mid = window.innerHeight * 0.55;
+    roles.style.setProperty('--prog', c01((mid - r.top) / r.height).toFixed(4));
+    roles.querySelectorAll('.role').forEach(function (el) { var rr = el.getBoundingClientRect(); el.classList.toggle('passed', rr.top < mid); });
+}
+window.addEventListener('scroll', rolesProg, { passive: true }); rolesProg();
 })();
 </script>
 </body>
