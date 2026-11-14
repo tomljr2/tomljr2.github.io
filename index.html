@@ -54,7 +54,7 @@ u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .red { color: var(--red); }
 
 /* The background sketch. */
-#bg { position: fixed; top: 0; right: 0; width: 54vw; height: 100vh; height: 100svh; z-index: 0; pointer-events: none; opacity: 0.4; mix-blend-mode: multiply; }
+#bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100svh; z-index: 0; pointer-events: none; opacity: 0.22; mix-blend-mode: multiply; }
 
 /* Running head */
 .head {
@@ -157,7 +157,7 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
 }
 
 @media (max-width: 900px) {
-    #bg { width: 100vw; opacity: 0.15; }
+    #bg { opacity: 0.17; }
     .pageno { display: none; }
 }
 @media (max-width: 760px) {
@@ -204,7 +204,7 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
         <p class="role">Backend Software Engineer, Melbourne, Florida</p>
         <div class="abstract">
             <h2>Abstract</h2>
-            <p>I build the backend systems that route, schedule and pay property insurance claims at Liberty Mutual. Before that, I tested launch control software for NASA's Space Launch System, the rocket sketched in the margin of this document, and researched cellular security at the University of Florida.</p>
+            <p>I build the backend systems that route, schedule and pay property insurance claims at Liberty Mutual. Before that, I tested launch control software for NASA's Space Launch System, the rocket sketched faintly behind this page, and researched cellular security at the University of Florida.</p>
         </div>
         <dl class="meta">
             <dt>Prepared by</dt><dd>Justin Tomlinson, Principal Software Engineer, Liberty Mutual</dd>
@@ -235,7 +235,7 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
         <table class="chron" data-reveal>
             <caption>Table 2. Chronology</caption>
             <tbody>
-                <tr><td>2018</td><td>Compiler research, Chalmers University of Technology</td></tr>
+                <tr><td>2018</td><td>Compiler research for Florida State University, at Chalmers in Sweden</td></tr>
                 <tr><td>2020</td><td>M.S. Computer Science, University of Florida</td></tr>
                 <tr><td>2020</td><td>Launch control software intern, NASA</td></tr>
                 <tr><td>2021</td><td>Cellular security research, University of Florida</td></tr>
@@ -300,12 +300,12 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
             <li data-reveal><u>Documentation.</u> Documented sparsely documented legacy systems and mentored incoming interns.</li>
         </ol>
 
-        <h3><span class="no">2.4</span>Chalmers University of Technology</h3>
-        <span class="when">Undergraduate Research Assistant, Gothenburg, Sweden. May 2018 to July 2018.</span>
+        <h3><span class="no">2.4</span>Florida State University</h3>
+        <span class="when">Undergraduate Research Assistant, working at Chalmers University of Technology in Gothenburg, Sweden. May 2018 to July 2018.</span>
         <p class="gist">A summer inside a compiler.</p>
         <ol class="items">
             <li data-reveal><u>Optimization.</u> Implemented loop unrolling in the Very Portable Optimizer (VPO) compiler, in C and MIPS assembly.</li>
-            <li data-reveal><u>Analysis.</u> Worked with researchers to identify global variable dependencies and the optimizations they allow.</li>
+            <li data-reveal><u>Analysis.</u> Worked with Chalmers researchers to identify global variable dependencies and the optimizations they allow.</li>
         </ol>
     </section>
 
@@ -357,7 +357,7 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
         <a class="contact-mail" href="mailto:justintomlinsonn@gmail.com" data-reveal>justintomlinsonn@gmail.com</a>
         <p data-reveal><a href="https://www.linkedin.com/in/justin-tomlinson/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;&nbsp; <a href="https://github.com/tomljr2" target="_blank" rel="noopener">GitHub</a></p>
         <p class="end">End of document</p>
-        <p class="colophon">Figure 1, in the margin, is a simplified 3D line drawing of the Space Launch System in its Artemis II configuration. It is built from published dimensions and drawn in the order the vehicle is stacked at Kennedy Space Center. Scroll to the end and it launches.</p>
+        <p class="colophon">Figure 1, behind the text, is a simplified 3D line drawing of the Space Launch System in its Artemis II configuration. It is built from published dimensions and drawn in the order the vehicle is stacked at Kennedy Space Center. Scroll to the end and it launches.</p>
     </section>
 </main>
 
@@ -685,7 +685,7 @@ function emit(dt, tau, lift) {
     }
     if (tau > 0.15) ENG.forEach(function (e) { spawn(e[0], e[1], lift, 3.1, 110, false); });
     if (tau > 1.15) { spawn(20.7, 0, lift - 1, 5.6, 480, true); spawn(-20.7, 0, lift - 1, 5.6, 480, true); }
-    if (particles.length > 2800) particles.splice(0, particles.length - 2800);
+    var cap = window.innerWidth <= 900 ? 1200 : 2800; if (particles.length > cap) particles.splice(0, particles.length - cap);
 }
 function stepParticles(dt) {
     for (var i = particles.length - 1; i >= 0; i--) {
@@ -789,17 +789,23 @@ var TIMELINE = (function () {
 })();
 
 function sizeCanvas() {
-    var r = cv.getBoundingClientRect(); D.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var r = cv.getBoundingClientRect(); D.dpr = Math.min(window.devicePixelRatio || 1, r.width <= 900 ? 1.5 : 2);
     D.W = r.width; D.H = r.height; cv.width = Math.round(D.W * D.dpr); cv.height = Math.round(D.H * D.dpr);
 }
 function scrollP() { var max = document.documentElement.scrollHeight - window.innerHeight; return max > 0 ? c01(window.scrollY / max) : 1; }
 
+var docEl = document.querySelector('.doc');
 function choreo(p, t, W, H) {
-    var narrow = window.innerWidth <= 900;
-    var cx = narrow ? W * 0.82 : W * 0.56, cy = H * 0.5;
-    var k0 = (H - 110) / 350 * (narrow ? 0.92 : 1), ty = 158, k = k0, theta = 20 * DEG, phi = 10 * DEG;
+    var narrow = W <= 900, dr = docEl.getBoundingClientRect();
+    var cx = narrow ? W * 0.72 : Math.min(dr.right - 40, W - 160), cy = H * 0.5;
     var prog = { done: [], scan: -1, u: 0 };
     TIMELINE.forEach(function (ch) { ch.stages.forEach(function (st) { prog.done[st.i] = p >= st.s1; }); });
+    var kFit = (H - 70) / 345;
+    // Phones: a closer view that rests just below the top of whatever has been drawn so far.
+    var lastTop = 0; STAGES.forEach(function (g, i) { if (prog.done[i]) lastTop = Math.max(lastTop, g.yt); });
+    var k0 = narrow ? H / 190 : kFit, ty = narrow ? clamp(lastTop - 40, 95, 262) : 158;
+    var views = narrow ? [120, 110, 92] : [190, 170, 140];
+    var k = k0, theta = 20 * DEG, phi = 10 * DEG;
     var ch = null;
     TIMELINE.forEach(function (c) { if (p >= c.p0 && p < c.p1) ch = c; });
     if (ch) {
@@ -809,16 +815,18 @@ function choreo(p, t, W, H) {
             if (p >= st.s1) scanY = g.yt;
             else if (p > st.s0) { var u = ease(c01((p - st.s0) / (st.s1 - st.s0))); scanY = g.yb + (g.yt - g.yb) * u; prog.scan = st.i; prog.u = u; }
         });
-        var Vv = ch.view, kf = Math.max(k0, (H * 0.82) / Vv), Hc = ch.yt - ch.yb;
+        var Vv = views[ch.c], kf = Math.max(k0, (H * 0.82) / Vv), Hc = ch.yt - ch.yb;
         var tf = Hc < Vv * 0.7 ? (ch.yb + ch.yt) / 2 : clamp(scanY, ch.yb + Vv * 0.36, ch.yt - Vv * 0.36);
         var fa = smooth(ch.p0, ch.d0, p) * (1 - smooth(ch.d1, ch.p1, p));
         ty = lerp(ty, tf, fa); k = Math.exp(lerp(Math.log(k0), Math.log(kf), fa));
         theta = 20 * DEG + 18 * DEG * Math.sin(Math.PI * (ch.c + (p - ch.p0) / (ch.p1 - ch.p0)));
         phi = (10 + 5 * fa) * DEG;
     } else if (p >= E_) {
+        var fit = smooth(E_, E_ + 0.03, p);
+        k = Math.exp(lerp(Math.log(k0), Math.log(kFit), fit)); ty = lerp(ty, 158, fit);
         theta = 20 * DEG + TAU * ease(smooth(E_, 0.97, p));
     }
-    if (!reduce) theta += 2 * DEG * Math.sin(t * 0.5);
+    if (!reduce) theta += (narrow ? 4 : 2) * DEG * Math.sin(t * 0.5);
     return { cx: cx, cy: cy, k: k, ty: ty, theta: theta, phi: phi, prog: prog };
 }
 
@@ -842,19 +850,6 @@ function frame(now) {
     ctx.setTransform(D.dpr, 0, 0, D.dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
     drawScene(ctx, V, prog, { tau: tau, time: t, gH: reduce ? Infinity : (since > 4 ? Infinity : 340 * ease(c01((since - 0.6) / 3))), groundF: reduce ? 1 : ease(c01((since - 0.3) / 1.8)) });
-    // A typed figure caption under the drawing.
-    var capA = (reduce ? 1 : smooth(1.6, 2.6, since)) * (1 - smooth(0, 0.6, tau));
-    if (capA > 0 && window.innerWidth > 900) {
-        // Clear a strip behind the caption so it reads cleanly over the drawing.
-        ctx.globalCompositeOperation = 'destination-out'; ctx.globalAlpha = capA; ctx.fillStyle = '#000';
-        ctx.fillRect(C.cx - 190, H - 50, 380, 46); ctx.globalCompositeOperation = 'source-over';
-        ctx.globalAlpha = 0.85 * capA; ctx.fillStyle = INK; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-        ctx.font = '700 12px "Courier Prime", monospace';
-        ctx.fillText('FIGURE 1. SPACE LAUNCH SYSTEM, ARTEMIS II', C.cx, H - 30);
-        ctx.font = '400 11.5px "Courier Prime", monospace'; ctx.globalAlpha = 0.7 * capA;
-        ctx.fillText(prog.scan >= 0 ? 'Drawing: ' + STAGES[prog.scan].name.toLowerCase() : (allDone ? 'Stacked. Height 322 ft' : 'Stacking in assembly order'), C.cx, H - 13);
-        ctx.globalAlpha = 1;
-    }
     if (!reduce) requestAnimationFrame(frame);
 }
 function start() { sizeCanvas(); requestAnimationFrame(frame); }
