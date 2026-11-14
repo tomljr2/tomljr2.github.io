@@ -990,25 +990,51 @@ function drawZones(first) {
 
 function scrollP() { var max = document.documentElement.scrollHeight - window.innerHeight; return max > 0 ? c01(window.scrollY / max) : 1; }
 
-/* Scroll choreography: for each stage the camera swings around, closes in
-   on the part, follows the scan line up it, then pulls back out. */
+/* Scroll choreography in three chapters: boosters, core stage, then the
+   upper stack and Orion. The camera closes in once per chapter, glides up
+   with the scan line through each part in turn, and pulls back only when
+   the chapter is complete. */
+var CHAPTERS = [
+    { stages: [0], view: 112 },
+    { stages: [1, 2], view: 104 },
+    { stages: [3, 4, 5, 6, 7], view: 86 }
+];
+var TIMELINE = (function () {
+    var p = S_, out = [];
+    CHAPTERS.forEach(function (ch, c) {
+        var len = ch.stages.length * SL, d0 = p + 0.22 * SL, d1 = p + len - 0.28 * SL, per = (d1 - d0) / ch.stages.length;
+        out.push({ c: c, view: ch.view, p0: p, p1: p + len, d0: d0, d1: d1,
+            yb: STAGES[ch.stages[0]].yb, yt: STAGES[ch.stages[ch.stages.length - 1]].yt,
+            stages: ch.stages.map(function (i, k) { return { i: i, s0: d0 + k * per, s1: d0 + (k + 0.86) * per }; }) });
+        p += len;
+    });
+    return out;
+})();
+
 function choreo(p, t, W, H) {
     var tw = 150, rw = 64;
     var cx = tw + (W - tw - rw) / 2, cy = H * 0.5;
     var k0 = (H - 64) / 350, ty = 159, k = k0, theta = 20 * DEG, phi = 10 * DEG;
-    var prog = { done: [], scan: -1, u: 0, idx: -1, s: 0 };
-    for (var i = 0; i < STAGES.length; i++) prog.done[i] = p >= S_ + (i + 0.75) * SL;
-    if (p >= S_ && p < E_) {
-        var si = Math.min(STAGES.length - 1, Math.floor((p - S_) / SL)), s = (p - S_ - si * SL) / SL, g = STAGES[si];
-        var Hp = g.yt - g.yb, Vv = clamp(Hp * 1.6, 64, 118), kf = (H * 0.8) / Vv;
-        var u = ease(c01((s - 0.2) / 0.55)), scanY = g.yb + Hp * u;
-        var tf = Hp < Vv * 0.7 ? (g.yb + g.yt) / 2 : clamp(scanY, g.yb + Vv * 0.36, g.yt - Vv * 0.36);
-        var fa = smooth(0, 0.2, s) * (1 - smooth(0.76, 1, s));
+    var prog = { done: [], scan: -1, u: 0, last: -1 };
+    TIMELINE.forEach(function (ch) {
+        ch.stages.forEach(function (st) { prog.done[st.i] = p >= st.s1; if (prog.done[st.i]) prog.last = st.i; });
+    });
+    var ch = null;
+    TIMELINE.forEach(function (c) { if (p >= c.p0 && p < c.p1) ch = c; });
+    if (ch) {
+        // Height the scan has reached within this chapter.
+        var scanY = ch.yb;
+        ch.stages.forEach(function (st) {
+            var g = STAGES[st.i];
+            if (p >= st.s1) scanY = g.yt;
+            else if (p > st.s0) { var u = ease(c01((p - st.s0) / (st.s1 - st.s0))); scanY = g.yb + (g.yt - g.yb) * u; prog.scan = st.i; prog.u = u; }
+        });
+        var Vv = ch.view, kf = (H * 0.8) / Vv, Hc = ch.yt - ch.yb;
+        var tf = Hc < Vv * 0.72 ? (ch.yb + ch.yt) / 2 : clamp(scanY, ch.yb + Vv * 0.36, ch.yt - Vv * 0.36);
+        var fa = smooth(ch.p0, ch.d0, p) * (1 - smooth(ch.d1, ch.p1, p));
         ty = lerp(ty, tf, fa); k = Math.exp(lerp(Math.log(k0), Math.log(kf), fa));
-        theta = 20 * DEG + 30 * DEG * Math.sin(Math.PI * (si + s));
-        phi = (10 + 9 * fa) * DEG;
-        prog.idx = si; prog.s = s;
-        if (s > 0.2 && s < 0.75) { prog.scan = si; prog.u = u; }
+        theta = 20 * DEG + 24 * DEG * Math.sin(Math.PI * (ch.c + (p - ch.p0) / (ch.p1 - ch.p0)));
+        phi = (10 + 8 * fa) * DEG;
     } else if (p >= E_) {
         theta = 20 * DEG + TAU * ease(smooth(E_, 0.97, p));
     }
@@ -1059,7 +1085,7 @@ function frame(now) {
     if (flying) status = tau < 1.4 ? 'Ignition' : 'Liftoff, ' + Math.round(rise).toLocaleString('en-US') + ' ft';
     else if (prog.scan >= 0) status = 'Drawing ' + STAGES[prog.scan].short.toLowerCase();
     else if (allDone) status = 'Stacked, go for launch';
-    else if (prog.idx >= 0) status = (prog.s < 0.2 ? 'Next: ' : 'Done: ') + STAGES[prog.idx].short;
+    else if (prog.last >= 0) status = 'Done: ' + STAGES[prog.last].short;
     else status = 'On the pad';
     setText('st', tb.status, status);
 
