@@ -221,7 +221,6 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
     <section id="summary" data-page="2" aria-labelledby="h-sum">
         <h2 class="sec" id="h-sum"><span class="no">1.0</span><span class="tt">Summary</span></h2>
         <p data-reveal>Most of my work at Liberty Mutual has been backend services in Java and Spring. I designed the rules engine that matches claims to adjusters with the right skills, built the backend for a platform where customers booked their own inspections, and now co-lead the team behind an invoicing service that pays contractors with less manual review.</p>
-        <p data-reveal>I'm on call for what my team runs, so a lot of my attention goes to monitoring, security and keeping things up when claim volume spikes after a hurricane.</p>
         <table class="results" data-reveal>
             <caption>Table 1. Selected results</caption>
             <thead><tr><th scope="col">Figure</th><th scope="col">What it measures</th></tr></thead>
@@ -257,7 +256,7 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
         <ol class="items">
             <li data-reveal>Co-lead a five-person team that built and launched an invoicing service for property claims. A vendor's estimate gets checked by the rules engine, turned into an invoice and sent for payment, with less manual review than before. It's on pace to handle close to <b>$90M a year</b> across about 24,000 invoices, and 45% of them qualify for automatic payment.</li>
             <li data-reveal>The service runs on Kafka inside our auto-scaling property platform. It listens for payment confirmations, errors from downstream services and coverage-status changes, and if coverage is still pending after 72 hours, it checks again.</li>
-            <li data-reveal>On call for all of the team's live services. Set up the invoicing service's monitoring in Splunk and Datadog, and configured authentication for every service the team has stood up: OAuth 2.0 between services, JWTs where we need roles.</li>
+            <li data-reveal>Set up the invoicing service's monitoring in Splunk and Datadog, and configured authentication for every service the team has stood up: OAuth 2.0 between services, JWTs where we need roles.</li>
             <li data-reveal>Technical lead on linking claims that the policyholder and a third party filed separately for the same incident. Our data science team flags likely matches, a reviewer confirms or rejects each one, and the confirmed links go to the data team for reporting.</li>
             <li data-reveal>As an innovation project, prototyped a RAG pipeline for reviewing vendor estimates, then reworked it into a multi-agent workflow in LangGraph.</li>
             <li data-reveal>Mentor engineers through design and code reviews, and work with architects and the business on technical direction and cost.</li>
