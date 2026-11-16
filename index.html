@@ -9,11 +9,13 @@
 <meta property="og:title" content="Justin Tomlinson | Backend Software Engineer">
 <meta property="og:description" content="Backend engineer at Liberty Mutual who builds the systems behind property insurance claims. Before that: NASA launch control software and cellular security research.">
 <meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/courier-prime-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/courier-prime-bold.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.classList.add('js');</script>
 <style>
+@font-face { font-family: 'Courier Prime'; font-style: normal; font-weight: 400; font-display: swap; src: url(fonts/courier-prime-regular.woff2) format('woff2'); }
+@font-face { font-family: 'Courier Prime'; font-style: normal; font-weight: 700; font-display: swap; src: url(fonts/courier-prime-bold.woff2) format('woff2'); }
+@font-face { font-family: 'Courier Prime'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/courier-prime-italic.woff2) format('woff2'); }
 /* ------------------------------------------------------------------
    A typed technical memorandum: aged report stock, a two-color
    typewriter ribbon (black and red), section numbering in the margin.
@@ -40,7 +42,7 @@ body {
 }
 /* Paper: fine grain and a slightly aged edge. */
 body::before {
-    content: ""; position: fixed; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: multiply; opacity: 0.55;
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.55;
     background:
         radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(120, 96, 52, 0.16) 100%),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -55,7 +57,7 @@ u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .red { color: var(--red); }
 
 /* The background sketch. */
-#bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100svh; z-index: 0; pointer-events: none; opacity: 0.22; mix-blend-mode: multiply; }
+#bg { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100svh; z-index: 0; pointer-events: none; opacity: 0.22; }
 
 /* Running head */
 .head {
@@ -141,15 +143,15 @@ figure.chart figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-2)
     @keyframes blink { 50% { opacity: 0; } }
     .js [data-reveal] { opacity: 0; transform: translateY(10px); transition: opacity 0.9s ease, transform 1s var(--out); transition-delay: var(--d, 0s); }
     .js [data-reveal].in { opacity: 1; transform: none; }
-    .js .cover-top { clip-path: inset(0 100% 0 0); transition: clip-path 1.3s cubic-bezier(0.7, 0, 0.2, 1) 0.1s; }
+    .js .cover-top { clip-path: inset(0 100% 0 0); transition: clip-path 0.9s cubic-bezier(0.7, 0, 0.2, 1); }
     .js .series, .js .role, .js .abstract, .js .meta, .js .actions, .js .cover-foot { opacity: 0; transform: translateY(8px); transition: opacity 0.9s ease, transform 1s var(--out); }
     .ready .cover-top { clip-path: inset(0 0 0 0); }
-    .ready .series { opacity: 1; transform: none; transition-delay: 0.3s; }
-    .ready .role { opacity: 1; transform: none; transition-delay: 1.5s; }
-    .ready .abstract { opacity: 1; transform: none; transition-delay: 1.7s; }
-    .ready .meta { opacity: 1; transform: none; transition-delay: 1.9s; }
-    .ready .actions { opacity: 1; transform: none; transition-delay: 2.05s; }
-    .ready .cover-foot { opacity: 1; transform: none; transition-delay: 2.2s; }
+    .ready .series { opacity: 1; transform: none; transition-delay: 0.05s; }
+    .ready .role { opacity: 1; transform: none; transition-delay: 0.15s; }
+    .ready .abstract { opacity: 1; transform: none; transition-delay: 0.25s; }
+    .ready .meta { opacity: 1; transform: none; transition-delay: 0.35s; }
+    .ready .actions { opacity: 1; transform: none; transition-delay: 0.42s; }
+    .ready .cover-foot { opacity: 1; transform: none; transition-delay: 0.5s; }
     .js .chart .track i { transform: scaleX(0); transition: transform 1.4s var(--out); }
     .js .chart .bar-row:nth-child(2) .track i { transition-delay: 0.15s; }
     .js .chart .bar-row:nth-child(3) .track i { transition-delay: 0.3s; }
@@ -765,7 +767,7 @@ function drawScene(ctx, V, prog, opts) {
 
 
 /* ======================= background sketch ======================= */
-var cv = document.getElementById('bg'), ctx = cv.getContext('2d'), D = { W: 0, H: 0, dpr: 1 };
+var cv = document.getElementById('bg'), ctx = cv.getContext('2d'), D = { W: 0, H: 0, dpr: 1 }, docEl = document.querySelector('.doc');
 var S_ = 0.07, E_ = 0.88, SL = (E_ - S_) / STAGES.length;
 var CHAPTERS = [{ stages: [0], view: 230 }, { stages: [1, 2], view: 210 }, { stages: [3, 4, 5, 6, 7], view: 170 }];
 var TIMELINE = (function () {
@@ -780,16 +782,23 @@ var TIMELINE = (function () {
     return out;
 })();
 
+// The canvas covers only the strip the drawing uses, and its resolution drops to one
+// pixel per CSS pixel if frames start arriving slowly.
+var dprCap = 1.5, slowFrames = 0, docRight = 0;
 function sizeCanvas() {
-    var r = cv.getBoundingClientRect(); D.dpr = Math.min(window.devicePixelRatio || 1, r.width <= 900 ? 1.5 : 2);
-    D.W = r.width; D.H = r.height; cv.width = Math.round(D.W * D.dpr); cv.height = Math.round(D.H * D.dpr);
+    var vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    docRight = docEl.getBoundingClientRect().right;
+    D.ox = vw > 900 ? Math.max(0, Math.round(Math.min(docRight + 36, vw - 110) - 640)) : 0;
+    D.W = vw - D.ox; D.H = vh; D.vw = vw;
+    cv.style.left = D.ox + 'px'; cv.style.width = D.W + 'px';
+    D.dpr = Math.min(window.devicePixelRatio || 1, dprCap);
+    cv.width = Math.round(D.W * D.dpr); cv.height = Math.round(D.H * D.dpr);
 }
 function scrollP() { var max = document.documentElement.scrollHeight - window.innerHeight; return max > 0 ? c01(window.scrollY / max) : 1; }
 
-var docEl = document.querySelector('.doc');
 function choreo(p, t, W, H) {
-    var narrow = W <= 900, dr = docEl.getBoundingClientRect();
-    var cx = narrow ? W * 0.88 : Math.min(dr.right + 36, W - 110), cy = H * 0.5;
+    var narrow = W <= 900;
+    var cx = narrow ? W * 0.88 : Math.min(docRight + 36, W - 110), cy = H * 0.5;
     var prog = { done: [], scan: -1, u: 0 }, ch = null, scanY = 0;
     TIMELINE.forEach(function (c) {
         c.stages.forEach(function (st) {
@@ -826,35 +835,41 @@ function choreo(p, t, W, H) {
         k = Math.exp(lerp(Math.log(k0), Math.log(kWide), fit)); ty = lerp(ty, tyWide, fit);
         theta = 20 * DEG + TAU * ease(smooth(E_, 0.97, p));
     }
-    theta += (narrow ? 4 : 2) * DEG * Math.sin(t * 0.5);
     return { cx: cx, cy: cy, k: k, ty: ty, theta: theta, phi: phi, prog: prog };
 }
 
-var pD = 0, tau = 0, lastT = 0, t0 = null;
+var pD = 0, tau = 0, lastT = 0, t0 = null, raf = 0, INTRO = 2.2, LAUNCH_END = 11;
+function kick() { if (!raf) raf = requestAnimationFrame(frame); }
 function frame(now) {
+    raf = 0;
     var t = now / 1000, dt = lastT ? Math.min(0.05, t - lastT) : 0.016; lastT = t; if (t0 === null) t0 = t;
-    var pT = scrollP();
+    var pT = scrollP(), since = t - t0;
     pD = reduce ? pT : pD + (pT - pD) * (1 - Math.exp(-dt * 5.5));
-    if (Math.abs(pT - pD) < 1e-5) pD = pT;
+    if (Math.abs(pT - pD) < 5e-4) pD = pT;
     var W = D.W, H = D.H;
-    var C = choreo(pD, t, W, H), prog = C.prog;
+    var C = choreo(pD, t, D.vw, H), prog = C.prog;
+    C.cx -= D.ox;
     var allDone = prog.done[STAGES.length - 1];
     var launching = !reduce && allDone && pT >= 0.985;
-    tau = launching ? tau + dt : Math.max(0, tau - dt * 2.4);
+    if (launching) tau = Math.min(LAUNCH_END, tau + dt); else tau = Math.max(0, tau - dt * 2.4);
     var rise = tau > 1.4 ? 0.5 * 30 * Math.pow(tau - 1.4, 2) : 0, rel = 46 * smooth(1.4, 5.5, tau);
-    var ty = C.ty + Math.max(0, rise - rel);
-    if (launching || particles.length) { if (launching) emit(dt, tau, rise); stepParticles(dt); }
+    // The camera follows the climb for a few seconds, then lets the rocket leave the page.
+    var ty = C.ty + Math.max(0, Math.min(rise, 300) - rel);
+    if (launching || particles.length) { if (launching && tau < LAUNCH_END - 1.5) emit(dt, tau, rise); stepParticles(dt); }
     var kk = C.k * lerp(1, 0.74, smooth(0.2, 3.2, tau));
     var V = view({ theta: C.theta, phi: C.phi + smooth(0, 3, tau) * 4 * DEG, k: kk, cx: C.cx, cy: C.cy, ty: ty, lift: rise });
-    var since = t - t0;
     ctx.setTransform(D.dpr, 0, 0, D.dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    drawScene(ctx, V, prog, { tau: tau, time: t, gH: reduce ? Infinity : (since > 4 ? Infinity : 340 * ease(c01((since - 0.6) / 3))), groundF: reduce ? 1 : ease(c01((since - 0.3) / 1.8)) });
-    if (!reduce) requestAnimationFrame(frame);
+    drawScene(ctx, V, prog, { tau: tau, time: t, gH: reduce || since > INTRO ? Infinity : 340 * ease(c01((since - 0.15) / (INTRO - 0.15))), groundF: reduce ? 1 : ease(c01(since / 1.2)) });
+    // On a slow machine, drop to one canvas pixel per CSS pixel.
+    if (D.dpr > 1 && lastT && dt > 0.024) { if (++slowFrames > 8) { dprCap = 1; sizeCanvas(); } } else if (dt < 0.02) slowFrames = 0;
+    var moving = !reduce && (pD !== pT || since < INTRO || (launching && tau < LAUNCH_END) || (!launching && tau > 0) || particles.length > 0);
+    if (moving) kick(); else lastT = 0;
 }
-function start() { sizeCanvas(); requestAnimationFrame(frame); }
-window.addEventListener('resize', function () { sizeCanvas(); if (reduce) requestAnimationFrame(frame); });
-if (reduce) window.addEventListener('scroll', function () { requestAnimationFrame(frame); }, { passive: true });
+function start() { sizeCanvas(); kick(); }
+window.addEventListener('scroll', kick, { passive: true });
+window.addEventListener('resize', function () { sizeCanvas(); kick(); });
+document.addEventListener('visibilitychange', function () { if (!document.hidden) { lastT = 0; kick(); } });
 
 /* ========================== the document ========================== */
 var typedEls = [].slice.call(document.querySelectorAll('h2.sec .tt'));
@@ -874,11 +889,11 @@ prepType(title); typedEls.forEach(prepType);
 function ready() {
     if (document.body.classList.contains('ready')) return;
     document.body.classList.add('ready');
-    setTimeout(function () { typeIt(title, 62); }, 450);
+    setTimeout(function () { typeIt(title, 34); }, 60);
 }
+// Show the page as soon as fonts are in, but never wait long for them.
 var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-fontsReady.then(function () { start(); requestAnimationFrame(function () { requestAnimationFrame(ready); }); });
-setTimeout(ready, 1400);
+Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 300); })]).then(function () { requestAnimationFrame(ready); });
 
 function countUp(el) {
     var to = +el.getAttribute('data-count'), pre = el.getAttribute('data-pre') || '', post = el.getAttribute('data-post') || '', t0c = null;
@@ -914,6 +929,7 @@ if ('IntersectionObserver' in window) {
     typedEls.forEach(function (el) { el.textContent = el.getAttribute('data-full'); });
 }
 start();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { sizeCanvas(); kick(); });
 })();
 </script>
 </body>
